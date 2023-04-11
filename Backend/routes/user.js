@@ -3,8 +3,8 @@ const User = require("../model/User")
 
 // Create Student 
 router.post("/",async(req,res) =>{
-    const newUser = new User(req.body);
-    console.log(req.body);
+    // const newUser = new User(req.body);
+    console.log(req.query);
     // try {
     //     // const savedUser = await newUser.save();
     //     if(newUser.userId){
