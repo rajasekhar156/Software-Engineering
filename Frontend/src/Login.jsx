@@ -13,7 +13,7 @@ export const Login = (props) =>{
 	    // setDataInput([info]);
         // run();
         let url;
-        url = `http://localhost:5001/?userid=${email}&userpwd=${password}`;
+        url = `http://localhost:5001/api/user?userid=${email}&userpwd=${password}`;
         
         const tp = await axios.post(url);
         console.log(email);

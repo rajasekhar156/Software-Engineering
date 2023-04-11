@@ -22,7 +22,7 @@ router.post("/",async(req,res) =>{
 });
 // Get Student list or Search Student by rfid or studentid query parameters
 router.get("/",async(req,res) =>{
-    res.sendFile(__dirname + "../../Frontend");
+    console.log("BBB");
 });
 
 module.exports = router;
