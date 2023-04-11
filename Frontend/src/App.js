@@ -13,18 +13,18 @@ function App() {
   }
 
   return (
-    // <div className="App">
-    //   {
-    //     currentform === 'login' ? <Login onFormSwitch={toggleForm}/> : <ForgotPassword onFormSwitch={toggleForm}/>
-    //   }
-    // </div>
-    <main className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element = {<Homepage />} />
-        </Routes>
-      </BrowserRouter>
-    </main>
+    <div className="App">
+      {
+        currentform === 'login' ? <Login onFormSwitch={toggleForm}/> : <ForgotPassword onFormSwitch={toggleForm}/>
+      }
+    </div>
+    // <main className="App">
+    //   <BrowserRouter>
+    //     <Routes>
+    //       <Route path="/" element = {<Homepage />} />
+    //     </Routes>
+    //   </BrowserRouter>
+    // </main>
   );
 }
 

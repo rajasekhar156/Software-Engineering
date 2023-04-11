@@ -1,7 +1,7 @@
 const { Timestamp } = require("mongodb");
 const mongoose = require("mongoose");
 
-const InfoSchema = new mongoose.MongooseSchema({
+const InfoSchema = new mongoose.Schema({
     infoId: {
         type: Number,
         required: true,
@@ -11,8 +11,8 @@ const InfoSchema = new mongoose.MongooseSchema({
     phoneNumber: String,
     emailId: String,
     vehicleNumber: String,
-    entryTime: Timestamp,
-    exitTime: Timestamp
+    entryTime: String,
+    exitTime: String
 })
 
 module.exports = mongoose.model("Info",InfoSchema);

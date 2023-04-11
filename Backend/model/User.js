@@ -1,15 +1,15 @@
 const { Timestamp } = require("mongodb");
 const mongoose = require("mongoose");
 
-const UserSchema = new mongoose.MongooseSchema({
+const UserSchema = new mongoose.Schema({
     userId: {
-        type: Number,
+        type: String,
         required: true,
         unique: true
     },
     personName: String,
     personNumber: String,
-    emailId: String
+    userPwd: String
 })
 
 module.exports = mongoose.model("User",UserSchema);
