@@ -1,16 +1,21 @@
 import React, {useState} from "react"
 // import { run } from "./connect";
+import axios from "axios";
 
 export const Login = (props) =>{
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
     const [dataInput, setDataInput]=useState('');
 
-    const handleSubmit = (e) =>{
+    const handleSubmit = async(e) =>{
         e.preventDefault();
         // const info={email:email,password:password};
 	    // setDataInput([info]);
         // run();
+        let url;
+        url = `http://localhost:5001/api/user?userid=${email}&userpwd=${password}`;
+        
+        const tp = await axios.post(url);
         console.log(email);
         console.log(password);
     }

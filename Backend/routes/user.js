@@ -3,8 +3,8 @@ const User = require("../model/User")
 
 // Create Student 
 router.post("/",async(req,res) =>{
-    const newUser = new User(req.body);
-    console.log(req.body);
+    // const newUser = new User(req.body);
+    console.log(req.query);
     // try {
     //     // const savedUser = await newUser.save();
     //     if(newUser.userId){
@@ -22,7 +22,7 @@ router.post("/",async(req,res) =>{
 });
 // Get Student list or Search Student by rfid or studentid query parameters
 router.get("/",async(req,res) =>{
-    res.sendFile(__dirname + "../../Frontend");
+    console.log("BBB");
 });
 
 module.exports = router;

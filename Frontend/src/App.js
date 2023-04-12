@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './App.css';
-import {Login} from './Login.jsx';
+import {Login} from './Login';
 import {Homepage} from "../src/Homepage";
 import { ForgotPassword } from './ForgotPass.jsx';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
@@ -13,18 +13,18 @@ function App() {
   }
 
   return (
-    <div className="App">
-      {
-        currentform === 'login' ? <Login onFormSwitch={toggleForm}/> : <ForgotPassword onFormSwitch={toggleForm}/>
-      }
-    </div>
-    // <main className="App">
-    //   <BrowserRouter>
-    //     <Routes>
-    //       <Route path="/" element = {<Homepage />} />
-    //     </Routes>
-    //   </BrowserRouter>
-    // </main>
+    //  <div className="App">
+    //   {
+    //     currentform === 'login' ? <Login onFormSwitch={toggleForm}/> : <ForgotPassword onFormSwitch={toggleForm}/>
+    //   }
+    // </div>
+    <main className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element = {<Login />} />
+        </Routes>
+      </BrowserRouter>
+    </main>
   );
 }
 
