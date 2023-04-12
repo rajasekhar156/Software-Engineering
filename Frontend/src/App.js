@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import './App.css';
-import {Login} from './Login';
-import {Homepage} from "../src/Homepage";
-import { ForgotPassword } from './ForgotPass.jsx';
+import {Login} from './pages/LoginPage/Login';
+import {Homepage} from "./pages/HomePage/Homepage";
+import { ForgotPassword } from './pages/ForgotPassPage/ForgotPass.jsx';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
 function App() {
