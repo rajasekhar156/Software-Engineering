@@ -2,6 +2,8 @@ import './App.css';
 import {Login} from './Pages/LoginPage/Login';
 import {Homepage} from "./Pages/HomePage/Homepage";
 import {ForgotPassword} from './Pages/ForgotPwdPage/ForgotPwd';
+import { Search } from './Pages/SearchPage/SearchPage';
+import {Add} from './Pages/AddPage/AddPage'
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
 function App() {
@@ -12,6 +14,7 @@ function App() {
           <Route path="/" element = {<Login />} />
           <Route path="/Forgotpwd" element = {<ForgotPassword />} />
           <Route path="/Home" element = {<Homepage />} />
+          <Route path="/Add" element = {<Add />} />
         </Routes>
       </BrowserRouter>
     </main>

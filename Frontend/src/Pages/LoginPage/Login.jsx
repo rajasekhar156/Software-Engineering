@@ -5,7 +5,6 @@ import axios from "axios";
 export const Login = (props) =>{
     const [userId,setuserId] = useState('');
     const [password,setPassword] = useState('');
-    const [dataInput, setDataInput]=useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async(e) =>{
