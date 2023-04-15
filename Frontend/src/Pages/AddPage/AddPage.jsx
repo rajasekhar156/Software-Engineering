@@ -22,7 +22,7 @@ export const Add = (props) =>{
     
     const handleLatestEntry = async(e) =>{
         e.preventDefault();
-        navigate('/LatestEntry');
+        navigate('/Home');
     }
     const handleActive = async (e) => {
         e.preventDefault();

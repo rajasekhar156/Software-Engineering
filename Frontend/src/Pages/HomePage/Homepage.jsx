@@ -1,12 +1,21 @@
-import React from "react"
+import React, {useState} from "react"
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
+import {Box, Grid} from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+import {Typography, TextField, FormControlLabel, Checkbox, CardMedia} from '@mui/material';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
+import CardActionArea from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import { createTheme } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
 
 export const Homepage = (props) =>{
 
@@ -14,6 +23,15 @@ export const Homepage = (props) =>{
     //     super(props);
     //     this.state = 
     // }
+
+    function createData(name, username, email, phone, website) {
+        return { name, username, email, phone, website };
+    }
+
+    const rows = [];
+
+    const [valid,setvalid] = useState('');
+
 
     const username = "Rajasekhar"
 
@@ -28,49 +46,232 @@ export const Homepage = (props) =>{
 
     return(
         <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-            <Toolbar>
-            <Typography variant="h4" component="div" sx={{ flexGrow: 0.8 }}>
-                Latest Entry
-            </Typography>
-            <Button color="inherit" >Active Entries</Button>
-            <Button color="inherit" >Add Entry</Button>
-            <Button color="inherit" >Search Entry</Button>
-            </Toolbar>
-        </AppBar>
-        <Card sx={{ minWidth: 275 }}>
-            <CardContent>
-                <Typography variant="h5" component="div" gutterBottom>
-                    Name : {username}
+            <Box sx={{ flexGrow: 1 }}>
+            <AppBar position="static">
+                <Toolbar>
+                <Typography variant="h4" component="div" sx={{ flexGrow: 0.8 }}>
+                    Latest Entry
                 </Typography>
-                <Typography variant="h5" component="div" gutterBottom>
-                Mobile No : 
-                </Typography>
-                <Typography variant="h5" component="div" gutterBottom>
-                Correspondent <br /> IITH E-mail : 
-                </Typography>
-                <Typography variant="h5" component="div" gutterBottom>
-                Entry Time : 
-                </Typography>
-                <Typography variant="h5" component="div" gutterBottom>
-                Exit Time  : 
-                </Typography>
-                {/* <Typography variant="h5" component="div">
-                be{bull}nev{bull}o{bull}lent
-                </Typography>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                adjective
-                </Typography>
-                <Typography variant="body2">
-                well meaning and kindly.
-                <br />
-                {'"a benevolent smile"'}
-                </Typography> */}
-            </CardContent>
-            <CardActions>
-                <Button size="small">Learn More</Button>
-            </CardActions>
-        </Card>
+                <Button color="inherit" >Active Entries</Button>
+                <Button color="inherit" >Add Entry</Button>
+                <Button color="inherit" >Search Entry</Button>
+                </Toolbar>
+            </AppBar>
+            </Box>
+            
+            <Grid container>
+            <Grid item xs={6} mt = {13}>
+            <Box ml = {45} mt = {15} mr = {10}
+                sx={{ 
+                    background: 'red',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    p: 1,
+                    m: 1,
+                    marginBottom: 5,
+                    bgcolor: 'background.paper',
+                    borderRadius: 1,
+                    }}
+            >
+            <Card sx={{ Width: '15vw', height: '10vw', position: 'absolute', top: '33%', left: '15%'}}>
+                <CardActionArea>
+                    <CardContent>
+                    <Typography gutterBottom variant="h4" component="div">
+                        Vehicle Reg. No.:
+                    </Typography>
+                    <TextField 
+                        margin = "dense"
+                        id="scanned-regNo"
+                        defaultValue="TS 09 AB 1234"
+                        InputProps={{
+                            readOnly: true,
+                            style: {
+                                height: "50px",
+                                fontSize: "25px",
+                                fontWeight: "bold",
+                                color: '#890050',
+                            },
+                        }}
+                    />
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+            <FormControlLabel
+                control={<Checkbox 
+                    onChange={e => setvalid(!valid)}
+                    />}
+                label="Valid Request"/>{
+                    valid? 
+                    <div >
+                        <Card sx={{ Width: '225', height: '225', position: 'absolute', top: '58%', left: '15%'}}>
+                            <CardMedia
+                                style = {{ height: 220, width: 225}}
+                                image={require('./raita.png')} // require image
+                                title="valid entry"
+                            />
+                            <CardContent>
+                                <Typography gutterBottom variant="h3" component="div">
+                                Valid
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </div>
+                 : 
+                    <div >
+                        <Card sx={{ Width: '225', height: '225', position: 'absolute', top: '58%', left: '15%'}}>
+                            <CardMedia
+                                style = {{ height: 220, width: 225}}
+                                image={require('./wrong.png')} // require image
+                                title="invalid entry"
+                            />
+                            <CardContent>
+                                <Typography gutterBottom variant="h3" component="div">
+                                Invalid
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </div>
+                }
+            </Box>
+            </Grid>
+            <Grid item xs={6} mt = {13}>
+                <Box sx={{ 
+                    background: 'red',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    p: 1,
+                    m: 1,
+                    marginBottom: 5,
+                    bgcolor: 'background.paper',
+                    borderRadius: 1,
+                    }}>
+                    <Typography gutterBottom variant="h4" component="div" align="right" ml = {10} mr = {17.3} >
+                        Name           :
+                    </Typography>
+                    <TextField 
+                        margin-left = "dense"
+                        id="name"
+                        backgroundColor = "red"
+                        defaultValue="I. Rajasekhar"
+                        InputProps={{
+                            readOnly: true,
+                            style: {
+                                height: "50px",
+                                fontSize: "25px",
+                            },
+                        }}
+                    />
+                </Box>
+                <Box sx={{ 
+                    background: 'red',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    p: 1,
+                    m: 1,
+                    marginBottom: 5,
+                    bgcolor: 'background.paper',
+                    borderRadius: 1,
+                    }}>
+                    <Typography gutterBottom variant="h4" component="div" align="right" ml = {10} mr = {8} >
+                        Mobile No.      :
+                    </Typography>
+                    <TextField 
+                        margin-left = "dense"
+                        id="phoneNo"
+                        backgroundColor = "red"
+                        defaultValue="9618084648"
+                        InputProps={{
+                            readOnly: true,
+                            style: {
+                                height: "50px",
+                                fontSize: "25px",
+                            },
+                        }}
+                    />
+                </Box>
+                <Box sx={{ 
+                    background: 'red',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    p: 1,
+                    m: 1,
+                    marginBottom: 5,
+                    bgcolor: 'background.paper',
+                    borderRadius: 1,
+                    }}>
+                    <Typography gutterBottom variant="h4" component="div" align="right" ml = {10} mr = {16.2} >
+                        E-mail         :
+                    </Typography>
+                    <TextField 
+                        margin-left = "dense"
+                        id="email"
+                        backgroundColor = "red"
+                        defaultValue="cs20btech11020@iith.ac.in"
+                        InputProps={{
+                            readOnly: true,
+                            style: {
+                                height: "50px",
+                                fontSize: "25px",
+                            },
+                        }}
+                    />
+                </Box>
+                <Box sx={{ 
+                    background: 'red',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    p: 1,
+                    m: 1,
+                    marginBottom: 5,
+                    bgcolor: 'background.paper',
+                    borderRadius: 1,
+                    }}>
+                    <Typography gutterBottom variant="h4" component="div" align="right" ml = {10} mr = {7.85} >
+                        Entry Time     :
+                    </Typography>
+                    <TextField 
+                        margin-left = "dense"
+                        id="entTime"
+                        backgroundColor = "red"
+                        defaultValue="15:24"
+                        InputProps={{
+                            readOnly: true,
+                            style: {
+                                height: "50px",
+                                fontSize: "25px",
+                            },
+                        }}
+                    />
+                </Box>
+                <Box sx={{ 
+                    background: 'red',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    p: 1,
+                    m: 1,
+                    marginBottom: 5,
+                    bgcolor: 'background.paper',
+                    borderRadius: 1,
+                    }}>
+                    <Typography gutterBottom variant="h4" component="div" align="right" ml = {10} mr = {10.5} >
+                        Exit Time      :
+                    </Typography>
+                    <TextField 
+                        margin-left = "dense"
+                        id="exitT"
+                        backgroundColor = "red"
+                        defaultValue="N/A"
+                        InputProps={{
+                            readOnly: true,
+                            style: {
+                                height: "50px",
+                                fontSize: "25px",
+                            },
+                        }}
+                    />
+                </Box>
+            </Grid>
+        </Grid>
         </Box>
     );
 }
