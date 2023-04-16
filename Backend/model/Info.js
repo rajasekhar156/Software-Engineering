@@ -52,4 +52,16 @@ async function Addentry2(regNo,name,phNo,email,expDate,expentryT,expexitT){
     return true;
 }
 
-module.exports = {Addentry1,Addentry2};
+async function displayActiveEntries(){
+    try {
+    const inVehicles = await Infodb.find({exitTime:""});
+    return inVehicles;
+    }
+    catch(err)
+    {
+        console.error('Error fetching in vehicles: ', err);
+        throw err;
+    }
+}
+//module.exports = mongoose.model("Info",InfoSchema);
+module.exports = {Addentry1,Addentry2,displayActiveEntries};

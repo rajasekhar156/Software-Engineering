@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const {Addentry1,Addentry2} = require("../model/Info")
+const displayActiveEntries = require("../model/Info")
 
 // Create Info 
 router.post("/Addentry",async(req,res)=>{
@@ -48,5 +49,17 @@ router.get("/Addentry", async (req, res) => {
 // Update Info
 
 // Delete Info
-
+router.get('/in-vehicles', async (req, res) => {
+    try 
+    {
+      const inVehicles = await displayActiveEntries();
+      console.log(inVehicles);
+      res.status(200).send(inVehicles);
+    } 
+    catch (err) 
+    {
+      console.error('Error fetching in vehicles: ', err);
+      res.status(500).send({ error: 'Internal Server Error' });
+    }
+  });
 module.exports = router;
