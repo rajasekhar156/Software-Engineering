@@ -5,10 +5,11 @@ const {Addentry1,Addentry2,displayActiveEntries} = require("../model/Info")
 router.post("/Addentry",async(req,res)=>{
     const regNo = req.query.regNo;
     const pername = req.query.name;
+    
     const phNo = req.query.phNo;
     const email = req.query.email;
     let isvalid;
-    
+
     try{
     if(req.query.online==='1'){
         // console.log("byeee");
