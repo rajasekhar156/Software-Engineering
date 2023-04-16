@@ -7,16 +7,17 @@ router.post("/Addentry",async(req,res)=>{
     const pername = req.query.name;
     const phNo = req.query.phNo;
     const email = req.query.email;
+    let isvalid;
     try{
     if(req.query.online==='1'){
-        console.log("byeee");
+        // console.log("byeee");
         const expDate = req.query.expDate;
         const expentryT = req.query.expentryT;
-        const expexitT = req.query.exitT;
-        isvalid = Addentry2(regNo,pername,phNo,email,expDate,expentryT,expexitT);
+        const expexitT = req.query.expexitT;
+        isvalid = await Addentry2(regNo,pername,phNo,email,expDate,expentryT,expexitT);
     }
     else{
-        console.log("tatat");
+        // console.log("tatat");
         const date = req.query.date;
         const time =  req.query.time;
         isvalid = await Addentry1(regNo,pername,phNo,email,date,time);
@@ -37,10 +38,9 @@ router.post("/Addentry",async(req,res)=>{
     //     res.status(200).json("0");
     // }
 });
-// Get Info list or Search Info by rfid or Infoid query parameters
+// Get Info list or Search Info by rfid  query parameters
 router.get("/Addentry", async (req, res) => {
-    const infoId = req.query.infoId;
-    const vehicleNumber = req.query.vehicleNumber;
+    // const vehicleNumber = req.query.vehicleNumber;
 
 })
 // Get Info by ID

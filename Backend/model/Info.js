@@ -22,24 +22,33 @@ const Infodb = mongoose.model("info", InfoSchema);
 
 async function Addentry1(regNo,pername,phNo,email,entryDt,entryT){
 
-    console.log("hi,entered 1");
-    // const query = { vehicleNumber : regNo,personName: pername,phoneNumber: phNo,emailId: email,entryDate: entryDt,entryTime: entryT };
-    // // const result = await Infodb.findOne(query);
-    // console.log(query);
-    // try{
-    //     await Infodb.insertMany(query);
-    // }
-    // catch(err){
-    //     console.log("failed to insert the document");
-    // }
+    // console.log("hi,entered 1");
+    const query = { vehicleNumber : regNo,personName: pername,phoneNumber: phNo,emailId: email,entryDate: entryDt,entryTime: entryT };
+    // const result = await Infodb.findOne(query);
+    console.log(query);
+    try{
+        // temp = await Infodb.insertMany(query);
+        await Infodb.create(query);
+    }
+    catch(err){
+        console.log("failed to insert the document1");
+        console.log(err);
+    }
     return true;
 };
 
 async function Addentry2(regNo,name,phNo,email,expDate,expentryT,expexitT){
     console.log("hi,entered 2");
-    // const query = {vehicleNumber : regNo,personName: name,phoneNumber: phNo,emailId: email,ExpectedDate: expDate,ExpectedentryTime: expentryT,ExpectedentryTime: expexitT};
-    // // const result = await Infodb.findOne(query);
-    // Infodb.insertOne(query);
+    const query = {vehicleNumber : regNo,personName: name,phoneNumber: phNo,emailId: email,ExpectedDate: expDate,ExpectedentryTime: expentryT,ExpectedexitTime: expexitT};
+    console.log(query);
+    try{
+        // temp = await Infodb.insertMany(query);
+        await Infodb.create(query);
+    }
+    catch(err){
+        console.log("failed to insert the document2");
+        console.log(err);
+    }
     return true;
 }
 
