@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const {Addentry1,Addentry2} = require("../model/Info")
+const {Addentry1,Addentry2,displayActiveEntries} = require("../model/Info")
 
 // Create Info 
 router.post("/Addentry",async(req,res)=>{
@@ -7,25 +7,26 @@ router.post("/Addentry",async(req,res)=>{
     const pername = req.query.name;
     const phNo = req.query.phNo;
     const email = req.query.email;
+    let isvalid;
     try{
     if(req.query.online==='1'){
-        console.log("byeee");
+        // console.log("byeee");
         const expDate = req.query.expDate;
         const expentryT = req.query.expentryT;
-        const expexitT = req.query.exitT;
-        isvalid = Addentry2(regNo,pername,phNo,email,expDate,expentryT,expexitT);
+        const expexitT = req.query.expexitT;
+        isvalid = await Addentry2(regNo,pername,phNo,email,expDate,expentryT,expexitT);
     }
     else{
-        console.log("tatat");
+        // console.log("tatat");
         const date = req.query.date;
         const time =  req.query.time;
-        await Addentry1(regNo,pername,phNo,email,date,time);
+        isvalid = await Addentry1(regNo,pername,phNo,email,date,time);
     }
-    res.sendStatus(201);
+    res.status(200).json("1");
     }
     catch(error){
         console.error(error);
-        res.sendStatus(500);
+        res.status(200).json("0");
     }
     // const isvalid  =  await isValidLogin(username,userpwd);
     // if(isvalid){
@@ -37,10 +38,9 @@ router.post("/Addentry",async(req,res)=>{
     //     res.status(200).json("0");
     // }
 });
-// Get Info list or Search Info by rfid or Infoid query parameters
+// Get Info list or Search Info by rfid  query parameters
 router.get("/Addentry", async (req, res) => {
-    const infoId = req.query.infoId;
-    const vehicleNumber = req.query.vehicleNumber;
+    // const vehicleNumber = req.query.vehicleNumber;
 
 })
 // Get Info by ID
@@ -48,5 +48,17 @@ router.get("/Addentry", async (req, res) => {
 // Update Info
 
 // Delete Info
-
+router.get('/in-vehicles', async (req, res) => {
+    try 
+    {
+      const inVehicles = await displayActiveEntries();
+      console.log(inVehicles);
+      res.status(200).send(inVehicles);
+    } 
+    catch (err) 
+    {
+      console.error('Error fetching in vehicles: ', err);
+      res.status(500).send({ error: 'Internal Server Error' });
+    }
+  });
 module.exports = router;

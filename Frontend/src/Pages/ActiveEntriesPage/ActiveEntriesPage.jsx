@@ -17,7 +17,6 @@ export const ActiveEntries = (props) => {
     // const displayactiveentries = async(e) =>{
     //     e.preventDefault();
     //     let url;
-    //     url = `http://localhost:5001/api/info?infoid=${userId}&userpwd=${password}`;
     // }
     // const rows = [
     //     { vehiclenumber: 'ABC123', personname: 'John Doe', phonenumber: '555-555-5555', entrytime: '2023-04-13 09:00:00',  emailid: 'johndoe@example.com' },
@@ -43,11 +42,11 @@ export const ActiveEntries = (props) => {
     }
     const handleLatestEntry = async(e) =>{
         e.preventDefault();
-        navigate('/LatestEntry');
+        navigate('/Home');
     }
     const handleSearch = async (e) => {
         e.preventDefault();
-        navigate('/SearchPage');
+        navigate('/Search');
     }
     fetchData();
     return (
