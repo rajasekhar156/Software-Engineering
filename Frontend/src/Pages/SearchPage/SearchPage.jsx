@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import axios from "axios";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,6 +10,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import IconButton from '@mui/material/IconButton';
 import { styled, alpha } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 
 const SearchIt = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -47,19 +49,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         [theme.breakpoints.up('md')]: {
             width: '20ch',
         },
-        
+
     },
 }));
 
 
 export const Search = (props) => {
     const [vehicleNumberSc, setVehicleNumber] = useState('');
-
     const navigate = useNavigate();
+    const [inVehicles, setInVehicles] = useState([]);
 
     const handleLatestEntry = async (e) => {
         e.preventDefault();
-        navigate('/Home');
+        navigate('/LatestEntry');
     }
     const handleActive = async (e) => {
         e.preventDefault();
@@ -74,62 +76,93 @@ export const Search = (props) => {
         navigate('/Edit');
     }
 
-    const handleSearch = async (e) => {
-        e.preventDefault();
-        // const info={email:email,password:password};
-        // setDataInput([info]);
-        // run();
-        searchVehicle();
-    }
+    // const handleSearch = async (e) => {
+    //     e.preventDefault();
+    //     // const info={email:email,password:password};
+    //     // setDataInput([info]);
+    //     // run();
+    //     searchVehicle();
+    // }
 
-    const searchVehicle = async (vehicleNumberSc) => {
-        // let url;
-        // url = `http://localhost:5001/api/info?vehicleNumber=${vehicleNumberSc}`;
-        // const res = await axios.get(url);
-        //setStudents(res.data);
-    };
+    const fetchData = async (e) => {
+        e.preventDefault();
+        let url;
+        url = `http://localhost:5001/api/info?vehicleNumber=${vehicleNumberSc}`;
+        try {
+            const response = await axios.get(url);
+            setInVehicles(response.data);
+        } catch (err) {
+            console.error('Error fetching in vehicle\'s data: ', err);
+        }
+    }
 
     return (
         <div>
-        <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="top" positionMode="fixed">
-            <Toolbar>
-            <Typography variant="h4" component="div" sx={{ flexGrow: 0.8 }}>
-                Search
-            </Typography>
+            <Box sx={{ flexGrow: 1 }}>
+                <AppBar position="top" positionMode="fixed">
+                    <Toolbar>
+                        <Typography variant="h4" component="div" sx={{ flexGrow: 0.8 }}>
+                            Search
+                        </Typography>
                         <Button color="inherit" onClick={handleActive}>Active Entries</Button>
                         <Button color="inherit" onClick={handleLatestEntry}>Latest Entry</Button>
                         <Button color="inherit" onClick={handleAddEntry}>Add Entry</Button>
-            </Toolbar>
-        </AppBar>
-        </Box>
+                    </Toolbar>
+                </AppBar>
+            </Box>
 
-        <form className="Search-form" onSubmit={handleSearch}>
+            <form className="Search-form" onSubmit={fetchData}>
                 <Toolbar>
-                <SearchIt>
+                    <SearchIt>
                         <Typography display="inline" variant="h5" component="div" sx={{ flexGrow: 0.8 }}>
-                        Vehicle Reg. No. :
-                    </Typography>
-                    <StyledInputBase 
-                        value={vehicleNumberSc} onChange={(e) => setVehicleNumber(e.target.value)}
-                        type='search' id='vehicleNumberSc'
-                        placeholder="Search…"
-                        inputProps={{ 'aria-label': 'search' }}
-                        
-                    />
-                    <Button type="submit">
-                        <IconButton>
-                            <SearchIconWrapper>
-                                <SearchIcon />
-                            </SearchIconWrapper>
-                        </IconButton>
-                    </Button>
+                            Vehicle Reg. No. :
+                        </Typography>
+                        <StyledInputBase
+                            value={vehicleNumberSc} onChange={(e) => setVehicleNumber(e.target.value)}
+                            type='search' id='vehicleNumberSc'
+                            placeholder="Search…"
+                            inputProps={{ 'aria-label': 'search' }}
+
+                        />
+                        <Button type="submit">
+                            <IconButton>
+                                <SearchIconWrapper>
+                                    <SearchIcon />
+                                </SearchIconWrapper>
+                            </IconButton>
+                        </Button>
 
                         <Button color="inherit" onClick={handleEditEntry}>Edit Details</Button>
-                </SearchIt>
+                    </SearchIt>
                 </Toolbar>
-        </form>
+            </form>
+
+            <TableContainer component={Paper} sx={{ overflow: "scroll", height: "500px" }}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Vehicle Number</TableCell>
+                            <TableCell>Person Name</TableCell>
+                            <TableCell>Phone Number</TableCell>
+                            <TableCell>Email ID</TableCell>
+                            <TableCell>Entry Time</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {inVehicles.map((vehicle) => (
+                            <TableRow key={vehicle._id}>
+                                <TableCell>{vehicle.vehicleNumber}</TableCell>
+                                <TableCell>{vehicle.personName}</TableCell>
+                                <TableCell>{vehicle.phoneNumber}</TableCell>
+                                <TableCell>{vehicle.emailId}</TableCell>
+                                <TableCell>{vehicle.entryTime}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
 
         </div>
     );
 }
+
