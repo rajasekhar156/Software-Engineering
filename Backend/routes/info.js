@@ -1,6 +1,5 @@
 const router = require("express").Router();
-const {Addentry1,Addentry2} = require("../model/Info")
-const displayActiveEntries = require("../model/Info")
+const {Addentry1,Addentry2,displayActiveEntries} = require("../model/Info")
 
 // Create Info 
 router.post("/Addentry",async(req,res)=>{
