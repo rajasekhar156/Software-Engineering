@@ -23,7 +23,8 @@ const Infodb = mongoose.model("info", InfoSchema);
 async function Addentry1(regNo,pername,phNo,email,entryDt,entryT){
 
     // console.log("hi,entered 1");
-    const query = { vehicleNumber : regNo,personName: pername,phoneNumber: phNo,emailId: email,entryDate: entryDt,entryTime: entryT };
+    let temp = "NA";
+    const query = { vehicleNumber : regNo,personName: pername,phoneNumber: phNo,emailId: email,entryDate: entryDt,entryTime: entryT,exitTime: temp,ExpectedDate: temp,ExpectedentryTime: temp,ExpectedexitTime: temp};
     // const result = await Infodb.findOne(query);
     console.log(query);
     try{
@@ -38,8 +39,9 @@ async function Addentry1(regNo,pername,phNo,email,entryDt,entryT){
 };
 
 async function Addentry2(regNo,name,phNo,email,expDate,expentryT,expexitT){
-    console.log("hi,entered 2");
-    const query = {vehicleNumber : regNo,personName: name,phoneNumber: phNo,emailId: email,ExpectedDate: expDate,ExpectedentryTime: expentryT,ExpectedexitTime: expexitT};
+    // console.log("hi,entered 2");
+    let temp = "NA";
+    const query = {vehicleNumber : regNo,personName: name,phoneNumber: phNo,emailId: email,entryDate: temp,entryTime: temp,exitTime: temp,ExpectedDate: expDate,ExpectedentryTime: expentryT,ExpectedexitTime: expexitT};
     console.log(query);
     try{
         // temp = await Infodb.insertMany(query);
