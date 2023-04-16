@@ -27,16 +27,3 @@ async function isValidLogin (username,userpwd){
 }
 
 module.exports = isValidLogin;
-
-// const Userdb = mongoose.model("user",UserSchema);
-
-// Userdb.find(function(err,docs){
-//     if(err){
-//         console.log("error : ",err);
-//     }
-//     else{
-//         console.log("success : ",docs);
-//     }
-// });
-// console.log("2");
-

@@ -14,14 +14,6 @@ router.post("/",async(req,res) =>{
     else{
         res.status(200).json("0");
     }
-    // const newUser = new Userdb({
-    //     userName : req.query.userid,
-    //     personName : "Raja",
-    //     personNumber : "9618084648",
-    //     userPwd : req.query.userpwd
-    // });
-    // Userdb.insertMany([newUser]);
-    // 
 });
 
 // Get Student list or Search Student by rfid or studentid query parameters

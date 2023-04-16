@@ -1,45 +1,66 @@
 const router = require("express").Router();
-const Info = require("../model/Info")
-const path = require("path");
+const {Addentry1,Addentry2,displayActiveEntries} = require("../model/Info")
 
 // Create Info 
-router.post("/",async(req,res)=>{
-    const newInfo = new Info(req.body);
-    try {
-        const savedInfo = await newInfo.save();
-        res.status(200).json(savedInfo);
+router.post("/Addentry",async(req,res)=>{
+    const regNo = req.query.regNo;
+    const pername = req.query.name;
+    
+    const phNo = req.query.phNo;
+    const email = req.query.email;
+    let isvalid;
+
+    try{
+    if(req.query.online==='1'){
+        // console.log("byeee");
+        const expDate = req.query.expDate;
+        const expentryT = req.query.expentryT;
+        const expexitT = req.query.expexitT;
+        isvalid = await Addentry2(regNo,pername,phNo,email,expDate,expentryT,expexitT);
     }
-    catch (error){
-        res.status(500).json({ error: error});
+    else{
+        // console.log("tatat");
+        const date = req.query.date;
+        const time =  req.query.time;
+        isvalid = await Addentry1(regNo,pername,phNo,email,date,time);
     }
-});
-// Get Info list or Search Info by rfid or Infoid query parameters
-router.get("/", async (req, res) => {
-    const infoId = req.query.infoId;
-    const vehicleNumber = req.query.vehicleNumber;
-
-
-    /*fucntion to search a particular vehicle number */
-
-
-    // if(infoId || vehicleNumber){
-    //     try{
-    //         let Info;
-    //         if (infoId && vehicleNumber){
-    //             Info= await Info.find({
-    //                 infoId: infoId,
-    //                 vehicleNumber: vehicleNumber
-    //             });
-    //         } else if(infoId){
-
-    //         }
-    //     }
+    res.status(200).json("1");
+    }
+    catch(error){
+        console.error(error);
+        res.status(200).json("0");
+    }
+    // const isvalid  =  await isValidLogin(username,userpwd);
+    // if(isvalid){
+    //     console.log("1");
+    //     res.status(200).json("1");
     // }
+    // else{
+    //     console.log("0");
+    //     res.status(200).json("0");
+    // }
+});
+// Get Info list or Search Info by rfid  query parameters
+router.get("/Addentry", async (req, res) => {
+    // const vehicleNumber = req.query.vehicleNumber;
+
 })
 // Get Info by ID
 
 // Update Info
 
 // Delete Info
-
+router.get('/in-vehicles', async (req, res) => {
+    try 
+    {
+      const inVehicles = await displayActiveEntries();
+      console.log(inVehicles);
+      res.status(200).send(inVehicles);
+    } 
+    catch (err) 
+    {
+      console.error('Error fetching in vehicles: ', err);
+      res.status(500).send({ error: 'Internal Server Error' });
+    }
+  });
 module.exports = router;
