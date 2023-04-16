@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import axios from "axios";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -60,7 +59,7 @@ export const Search = (props) => {
 
     const handleLatestEntry = async (e) => {
         e.preventDefault();
-        navigate('/LatestEntry');
+        navigate('/Home');
     }
     const handleActive = async (e) => {
         e.preventDefault();
@@ -84,9 +83,9 @@ export const Search = (props) => {
     }
 
     const searchVehicle = async (vehicleNumberSc) => {
-        let url;
-        url = `http://localhost:5001/api/info?vehicleNumber=${vehicleNumberSc}`;
-        const res = await axios.get(url);
+        // let url;
+        // url = `http://localhost:5001/api/info?vehicleNumber=${vehicleNumberSc}`;
+        // const res = await axios.get(url);
         //setStudents(res.data);
     };
 

@@ -17,16 +17,13 @@ export const Homepage = (props) =>{
     //     this.state = 
     // }
 
-    function createData(name, username, email, phone, website) {
-        return { name, username, email, phone, website };
-    }
+    // function createData(name, username, email, phone, website) {
+    //     return { name, username, email, phone, website };
+    // }
 
-    const rows = [];
+    // const rows = [];
 
     const [valid,setvalid] = useState('');
-
-
-    const username = "Rajasekhar"
 
     const navigate = useNavigate();
     
@@ -43,14 +40,14 @@ export const Homepage = (props) =>{
         navigate('/Search');
     }
 
-    const bull = (
-        <Box
-          component="span"
-          sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-        >
-          •
-        </Box>
-      );
+    // const bull = (
+    //     <Box
+    //       component="span"
+    //       sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
+    //     >
+    //       •
+    //     </Box>
+    //   );
 
     return(
         <Box sx={{ flexGrow: 1 }}>

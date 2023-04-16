@@ -19,13 +19,13 @@ router.post("/Addentry",async(req,res)=>{
         console.log("tatat");
         const date = req.query.date;
         const time =  req.query.time;
-        await Addentry1(regNo,pername,phNo,email,date,time);
+        isvalid = await Addentry1(regNo,pername,phNo,email,date,time);
     }
-    res.sendStatus(201);
+    res.status(200).json("1");
     }
     catch(error){
         console.error(error);
-        res.sendStatus(500);
+        res.status(200).json("0");
     }
     // const isvalid  =  await isValidLogin(username,userpwd);
     // if(isvalid){

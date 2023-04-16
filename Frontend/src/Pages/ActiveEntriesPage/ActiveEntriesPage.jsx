@@ -43,11 +43,11 @@ export const ActiveEntries = (props) => {
     }
     const handleLatestEntry = async(e) =>{
         e.preventDefault();
-        navigate('/LatestEntry');
+        navigate('/Home');
     }
     const handleSearch = async (e) => {
         e.preventDefault();
-        navigate('/SearchPage');
+        navigate('/Search');
     }
     fetchData();
     return (

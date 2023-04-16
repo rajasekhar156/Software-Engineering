@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { FormGroup, FormControlLabel, Checkbox} from "@mui/material";
+import { FormControlLabel, Checkbox} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -32,14 +32,14 @@ export const Add = (props) =>{
     }
     const handleSearch = async (e) => {
         e.preventDefault();
-        navigate('/SearchPage');
+        navigate('/Search');
     }
 
 
     const handleSubmit = async(e) =>{
         e.preventDefault();
         let url;
-        if(online){
+        if(!online){
             const dATE = new Date();
             let date = "";
             date = date.concat(dATE.getFullYear(),"-",dATE.getMonth(),"-",dATE.getDate());
@@ -48,7 +48,7 @@ export const Add = (props) =>{
             url = `http://localhost:5001/api/info/Addentry?regNo=${regNo}&name=${name}&phNo=${phNo}&email=${email}&online=${0}&date=${date}&time=${time}`;
         }
         else{
-            url = `http://localhost:5001/api/info/Addentry?regNo=${regNo}&name=${name}&phNo=${phNo}&email=${email}&online=${0}&expDate=${expDate}&expentryT=${expentryT}&expexitT=${expexitT}`;
+            url = `http://localhost:5001/api/info/Addentry?regNo=${regNo}&name=${name}&phNo=${phNo}&email=${email}&online=${1}&expDate=${expDate}&expentryT=${expentryT}&expexitT=${expexitT}`;
         }
         
         const tp = await axios.post(url);
