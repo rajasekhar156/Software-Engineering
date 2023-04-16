@@ -7,14 +7,7 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import { createTheme } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import { useNavigate } from "react-router-dom";
 
 
 export const Homepage = (props) =>{
@@ -35,6 +28,21 @@ export const Homepage = (props) =>{
 
     const username = "Rajasekhar"
 
+    const navigate = useNavigate();
+    
+    const handleAdd = async(e) =>{
+        e.preventDefault();
+        navigate('/Add');
+    }
+    const handleActive = async (e) => {
+        e.preventDefault();
+        navigate('/ActiveEntries');
+    }
+    const handleSearch = async (e) => {
+        e.preventDefault();
+        navigate('/Search');
+    }
+
     const bull = (
         <Box
           component="span"
@@ -52,9 +60,9 @@ export const Homepage = (props) =>{
                 <Typography variant="h4" component="div" sx={{ flexGrow: 0.8 }}>
                     Latest Entry
                 </Typography>
-                <Button color="inherit" >Active Entries</Button>
-                <Button color="inherit" >Add Entry</Button>
-                <Button color="inherit" >Search Entry</Button>
+                <Button color="inherit" onClick={handleActive}>Active Entries</Button>
+                <Button color="inherit" onClick={handleAdd}>Add Entry</Button>
+                <Button color="inherit" onClick={handleSearch}>Search Entry</Button>
                 </Toolbar>
             </AppBar>
             </Box>
@@ -121,7 +129,7 @@ export const Homepage = (props) =>{
                         <Card sx={{ Width: '225', height: '225', position: 'absolute', top: '58%', left: '15%'}}>
                             <CardMedia
                                 style = {{ height: 220, width: 225}}
-                                image={require('./wrong.png')} // require image
+                                image={require('./wrang.png')} // require image
                                 title="invalid entry"
                             />
                             <CardContent>
