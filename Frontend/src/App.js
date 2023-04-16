@@ -4,7 +4,7 @@ import {Homepage} from "./Pages/HomePage/Homepage";
 import {ForgotPassword} from './Pages/ForgotPwdPage/ForgotPwd';
 import { Search } from './Pages/SearchPage/SearchPage';
 import {Add} from './Pages/AddPage/AddPage'
-import {ActiveEntries} from './Pages/ActiveEntries/ActiveEntriesPage'
+import {ActiveEntries} from './Pages/ActiveEntriesPage/ActiveEntriesPage'
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
 function App() {
