@@ -86,5 +86,18 @@ async function displayActiveEntries() {
     throw err;
   }
 }
+
+async function displaylatestEntry(){
+    try{
+        // console.log("HAHHA");
+        // console.log("1",latest_entry);
+        return latest_entry;
+    }
+    catch(err)
+    {
+        console.error('Error in displaying latest vehicles: ',err);
+        throw err;
+    }
+}
 //module.exports = mongoose.model("Info",InfoSchema);
-module.exports = { Addentry1, Addentry2, displayActiveEntries };
+module.exports = { Addentry1, Addentry2, displayActiveEntries,displaylatestEntry};

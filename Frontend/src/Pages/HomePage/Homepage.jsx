@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useState, useEffect } from "react"
 import AppBar from '@mui/material/AppBar';
 import {Box, Grid} from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
@@ -8,6 +8,7 @@ import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
 export const Homepage = (props) =>{
@@ -144,7 +145,7 @@ export const Homepage = (props) =>{
                                     color: '#890050',
                                 },
                             }}
-                        >${"TS191902020"}</TextField>
+                        />
                         </CardContent>
                     </CardActionArea>
                 </Card>
@@ -216,7 +217,7 @@ export const Homepage = (props) =>{
                                     fontSize: "25px",
                                 },
                             }}
-                        >${personName}</TextField>
+                        />
                     </Box>
                     <Box sx={{ 
                         background: 'red',
