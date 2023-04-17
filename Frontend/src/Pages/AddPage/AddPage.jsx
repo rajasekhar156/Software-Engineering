@@ -67,18 +67,17 @@ export const Add = (props) =>{
         
         // Creating a form to add a new entry to the database
         <div className="add-entry">
-            <Box sx={{ flexGrow: 1 }}>
+            <Box sx={{ width : 1000}}>
             <AppBar position="static">
                 <Toolbar>
                 <Typography variant="h4" component="div" sx={{ flexGrow: 0.8 }}>
                     Add Entry
                 </Typography>
-                <Button color="inherit" onClick={handleActive}>Active Entries</Button>
                 <Button color="inherit" onClick={handleLatestEntry}>Latest Entry</Button>
+                <Button color="inherit" onClick={handleActive}>Active Entries</Button>
                 <Button color="inherit" onClick={handleSearch}>Search Entry</Button>
                 </Toolbar>
             </AppBar>
-            </Box>
             <form className="add-entry-form" onSubmit={handleSubmit}>
             <TextField
                 type="text"
@@ -171,6 +170,7 @@ export const Add = (props) =>{
                  : ''}
             <Button variant="outlined" color="secondary" type="submit">Submit</Button>
             </form>
+            </Box>
         </div>
     );
 }

@@ -98,18 +98,17 @@ export const Search = (props) => {
 
     return (
         <div>
-            <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="top" positionMode="fixed">
+            <Box sx={{ width :1000}}>
+                <AppBar position="static">
                     <Toolbar>
                         <Typography variant="h4" component="div" sx={{ flexGrow: 0.8 }}>
                             Search
                         </Typography>
-                        <Button color="inherit" onClick={handleActive}>Active Entries</Button>
                         <Button color="inherit" onClick={handleLatestEntry}>Latest Entry</Button>
+                        <Button color="inherit" onClick={handleActive}>Active Entries</Button>
                         <Button color="inherit" onClick={handleAddEntry}>Add Entry</Button>
                     </Toolbar>
                 </AppBar>
-            </Box>
 
             <form className="Search-form" onSubmit={fetchData}>
                 <Toolbar>
@@ -161,7 +160,7 @@ export const Search = (props) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-
+            </Box>
         </div>
     );
 }

@@ -76,11 +76,11 @@ export const ActiveEntries = () => {
             <Button color="inherit" onClick={handleLatestEntry}>
               Latest Entry
             </Button>
-            <Button color="inherit" onClick={handleSearch}>
-              Search
-            </Button>
             <Button color="inherit" onClick={handleAdd}>
               Add Entry
+            </Button>
+            <Button color="inherit" onClick={handleSearch}>
+              Search
             </Button>
           </Toolbar>
         </AppBar>
