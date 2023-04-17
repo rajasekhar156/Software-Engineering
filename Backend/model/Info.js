@@ -43,10 +43,10 @@ async function Addentry1(regNo,pername,phNo,email,entryDt,entryT){
     latest_entry = new Info(regNo,pername,phNo,email,entryDt,entryT,temp,temp,temp,temp);
     // const query = { vehicleNumber : regNo,personName: pername,phoneNumber: phNo,emailId: email,entryDate: entryDt,entryTime: entryT,exitTime: temp,ExpectedDate: temp,ExpectedentryTime: temp,ExpectedexitTime: temp};
     //  const result = await Infodb.findOne(query);
-    console.log(query);
+    console.log(latest_entry);
     try{
         // temp = await Infodb.insertMany(query);
-        await Infodb.create(query);
+        await Infodb.create(latest_entry);
     }
     catch(err){
         console.log("failed to insert the document1");
@@ -58,7 +58,7 @@ async function Addentry1(regNo,pername,phNo,email,entryDt,entryT){
 async function Addentry2(regNo,name,phNo,email,expDate,expentryT,expexitT){
     // console.log("hi,entered 2");
     let temp = "NA";
-    latest_entry = new Info(regNo,name,phNo,email,temp,temp,temp,expDate,expentryT,expexitT)
+    const query = new Info(regNo,name,phNo,email,temp,temp,temp,expDate,expentryT,expexitT)
     // const query = {vehicleNumber : regNo,personName: name,phoneNumber: phNo,emailId: email,entryDate: temp,entryTime: temp,exitTime: temp,ExpectedDate: expDate,ExpectedentryTime: expentryT,ExpectedexitTime: expexitT};
     console.log(query);
     try{

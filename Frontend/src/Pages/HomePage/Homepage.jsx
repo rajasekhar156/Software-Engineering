@@ -30,52 +30,69 @@ export const Homepage = (props) =>{
     // componentDidMount() {
     //     this.handleLatestEntry();
     // }
+    const [valid,setvalid] = useState('');
+    // const [inVehicles, setInVehicles] = useState([]);
+    const [vehicleno,setvehicleNumber] = useState('TS15IK1028');
+    const [personName,setpersonName] = useState('Rajasekhar I');
+    const [phoneNumber,setphoneNumber] = useState('96180884649');
+    const [personEmail,setpersonEmail] = useState('rajasekhar@gmail.com');
+    const [entryTime,setentryTime] = useState('16:30');
+    const [exitTime,setexitTime] = useState('22:00');
 
-    let vehicleno  = "TS15IK1029";
-    let personName  = "Rajasekhar I";
-    let phoneNumber = "96180884649";
-    let personEmail = "rajasekhar@gmail.com";
-    let entryTime = "16:30";
-    let exitTime = "22:00";
+    const navigate = useNavigate();
+
+    //let vehicleno  = "TS15IK1029";
+    // let personName  = "Rajasekhar I";
+    // let phoneNumber = "96180884649";
+    // let personEmail = "rajasekhar@gmail.com";
+    // let entryTime = "16:30";
+    // let exitTime = "22:00";
 
     useEffect(()=>{
         async function handleLatestEntry(){
+
         // const handleLatestEntry = async() =>{
+            console.log("hahaha2");
             let url = `http://localhost:5001/api/info/latestentry?`;
             try{
                 const tp = await axios.post(url);
-                console.log(tp.data.vehicleNumber,tp.data.personName,tp.data.phoneNumber);
-                vehicleno = tp.data.vehicleNumber;
-                personName = tp.data.personName;
-                phoneNumber = tp.data.phoneNumber;
-                personEmail = tp.data.personEmail;
-                entryTime = tp.data.entryTime;
-                exitTime = tp.data.exitTime;
+                console.log(tp.data);
+                // setInVehicles(tp.data);
+                // console.log(inVehicles);
+                setvehicleNumber(tp.data.vehicleNumber);
+                setpersonName(tp.data.personName);
+                setphoneNumber(tp.data.phoneNumber);
+                setpersonEmail(tp.data.emailId);
+                setentryTime(tp.data.entryTime);
+                setexitTime(tp.data.exitTime);
+                // console.log(vehicleno,"2");
+                // personName = tp.data.personName;
+                // phoneNumber = tp.data.phoneNumber;
+                // personEmail = tp.data.personEmail;
+                // entryTime = tp.data.entryTime;
+                // exitTime = tp.data.exitTime;
             }
             catch(err){
                 console.error("Error fetching in latest entry: ", err);
             }
         }
-    })
-
-    const [valid,setvalid] = useState('');
-
-    const navigate = useNavigate();
+        handleLatestEntry();
+    },[]);
     
     const handleAdd=async(e)=>{
         e.preventDefault();
         navigate('/Add');
-    }
+    };
 
     const handleActive=async(e)=>{
         e.preventDefault();
         navigate('/ActiveEntries');
-    }
+    };
 
     const handleSearch = async (e) => {
         e.preventDefault();
         navigate('/Search');
-    }
+    };
 
     // handleValid (){
     //     this.setState(state=>{
@@ -96,7 +113,7 @@ export const Homepage = (props) =>{
                     <Typography variant="h4" component="div" sx={{ flexGrow: 0.8 }}>
                         Latest Entry
                     </Typography>
-                    <Button color="inherit" onClick={handleActive}>Active Entries</Button>
+                    <Button color="inherit" onClick={ handleActive} >Active Entries</Button>
                     <Button color="inherit" onClick={handleAdd}>Add Entry</Button>
                     <Button color="inherit" onClick={handleSearch}>Search Entry</Button>
                     </Toolbar>
@@ -126,7 +143,10 @@ export const Homepage = (props) =>{
                         <TextField 
                             margin = "dense"
                             id="scanned-regNo"
-                            defaultValue = {vehicleno}
+                            value={vehicleno}
+                            onChange={(event) => {
+                                setvehicleNumber(event.target.value);
+                            }}
                             InputProps={{
                                 readOnly: true,
                                 style: {
@@ -136,7 +156,7 @@ export const Homepage = (props) =>{
                                     color: '#890050',
                                 },
                             }}
-                        />
+                        >${"TS191902020"}</TextField>
                         </CardContent>
                     </CardActionArea>
                 </Card>
@@ -197,7 +217,10 @@ export const Homepage = (props) =>{
                             margin-left = "dense"
                             id="name"
                             backgroundColor = "red"
-                            defaultValue={personName}
+                            value={personName}
+                            onChange={(event) => {
+                                setpersonName(event.target.value);
+                            }}
                             InputProps={{
                                 readOnly: true,
                                 style: {
@@ -205,7 +228,7 @@ export const Homepage = (props) =>{
                                     fontSize: "25px",
                                 },
                             }}
-                        />
+                        >${personName}</TextField>
                     </Box>
                     <Box sx={{ 
                         background: 'red',
@@ -224,7 +247,11 @@ export const Homepage = (props) =>{
                             margin-left = "dense"
                             id="phoneNo"
                             backgroundColor = "red"
-                            defaultValue={phoneNumber}
+                            value={phoneNumber}
+                            onChange={(event) => {
+                                setphoneNumber(event.target.value);
+                            }}
+                            // defaultValue={phoneNumber}
                             InputProps={{
                                 readOnly: true,
                                 style: {
@@ -251,7 +278,11 @@ export const Homepage = (props) =>{
                             margin-left = "dense"
                             id="email"
                             backgroundColor = "red"
-                            defaultValue= {personEmail}
+                            value={personEmail}
+                            onChange={(event) => {
+                                setpersonEmail(event.target.value);
+                            }}
+                            // defaultValue= {personEmail}
                             InputProps={{
                                 readOnly: true,
                                 style: {
@@ -278,7 +309,11 @@ export const Homepage = (props) =>{
                             margin-left = "dense"
                             id="entTime"
                             backgroundColor = "red"
-                            defaultValue={entryTime}
+                            value={entryTime}
+                            onChange={(event) => {
+                                setentryTime(event.target.value);
+                            }}
+                            // defaultValue={entryTime}
                             InputProps={{
                                 readOnly: true,
                                 style: {
@@ -305,7 +340,11 @@ export const Homepage = (props) =>{
                             margin-left = "dense"
                             id="exitT"
                             backgroundColor = "red"
-                            defaultValue={exitTime}
+                            value={exitTime}
+                            onChange={(event) => {
+                                setexitTime(event.target.value);
+                            }}
+                            // defaultValue={exitTime}
                             InputProps={{
                                 readOnly: true,
                                 style: {
@@ -319,6 +358,6 @@ export const Homepage = (props) =>{
             </Grid>
             </Box>
         );
-}
+};
 
 // export default withRouter(Homepage);
