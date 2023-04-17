@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"
+import React, {useState} from "react"
 import AppBar from '@mui/material/AppBar';
 import {Box, Grid} from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,28 +7,18 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-// import { useHistory } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom'
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 export const Homepage = (props) =>{
 
-// class Homepage extends React.Component {
-    // constructor(props) {
+    // constructor(props){
     //     super(props);
-    //     this.state = {
-    //         valid : 0,
-    //         vehicleno : "TS09AB1245",
-    //         personName : "I. Rajasekhar",
-    //         phoneNumber : "9618084649",
-    //         personEmail : "cs20btech11020@iith.ac.in",
-    //         entryTime : "15:25",
-    //         exitTime : "N/A",
-    //     };
+    //     this.state = 
     // }
 
-    // componentDidMount() {
-    //     this.handleLatestEntry();
+    // function createData(name, username, email, phone, website) {
+    //     return { name, username, email, phone, website };
     // }
     const [valid,setvalid] = useState('');
     // const [inVehicles, setInVehicles] = useState([]);
@@ -79,7 +69,7 @@ export const Homepage = (props) =>{
         handleLatestEntry();
     },[]);
     
-    const handleAdd=async(e)=>{
+    const handleAdd = async(e) =>{
         e.preventDefault();
         navigate('/Add');
     };
@@ -94,16 +84,14 @@ export const Homepage = (props) =>{
         navigate('/Search');
     };
 
-    // handleValid (){
-    //     this.setState(state=>{
-    //         if(state.valid===0){
-    //             return {valid : 1}
-    //         }
-    //         else{
-    //             return {valid : 0}
-    //         }
-    //     });
-    // }
+    // const bull = (
+    //     <Box
+    //       component="span"
+    //       sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
+    //     >
+    //       •
+    //     </Box>
+    //   );
 
         return(
             <Box sx={{ flexGrow: 1 }} >

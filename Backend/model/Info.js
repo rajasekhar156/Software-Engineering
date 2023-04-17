@@ -1,8 +1,9 @@
 const { Timestamp } = require("mongodb");
 const mongoose = require("mongoose");
 
-const InfoSchema = new mongoose.Schema({
-    vehicleNumber: {type:String,required: true},
+const InfoSchema = new mongoose.Schema(
+  {
+    vehicleNumber: { type: String, required: true },
     personName: String,
     phoneNumber: String,
     emailId: String,
@@ -11,11 +12,12 @@ const InfoSchema = new mongoose.Schema({
     exitTime: String,
     ExpectedDate: String,
     ExpectedentryTime: String,
-    ExpectedexitTime: String
-},
-{
-    versionKey:false
-});
+    ExpectedexitTime: String,
+  },
+  {
+    versionKey: false,
+  }
+);
 
 const Infodb = mongoose.model("info", InfoSchema);
 
@@ -72,30 +74,17 @@ async function Addentry2(regNo,name,phNo,email,expDate,expentryT,expexitT){
     return true;
 }
 
-async function displayActiveEntries(){
-    try {
-    const inVehicles = await Infodb.find({exitTime:"NA"});
+async function displayActiveEntries() {
+  try {
+    const inVehicles = await Infodb.find({
+      exitTime: "NA",
+      entryTime: { $ne: "NA" },
+    });
     return inVehicles;
-    }
-    catch(err)
-    {
-        console.error('Error fetching in vehicles: ', err);
-        throw err;
-    }
+  } catch (err) {
+    console.error("Error fetching in vehicles: ", err);
+    throw err;
+  }
 }
-
-async function displaylatestEntry(){
-    try{
-        // console.log("HAHHA");
-        // console.log("1",latest_entry);
-        return latest_entry;
-    }
-    catch(err)
-    {
-        console.error('Error in displaying latest vehicles: ',err);
-        throw err;
-    }
-}
-
 //module.exports = mongoose.model("Info",InfoSchema);
-module.exports = {Addentry1,Addentry2,displayActiveEntries,displaylatestEntry};
+module.exports = { Addentry1, Addentry2, displayActiveEntries };

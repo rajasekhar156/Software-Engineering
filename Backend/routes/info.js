@@ -1,10 +1,11 @@
 const router = require("express").Router();
-const {Addentry1,Addentry2,displayActiveEntries,displaylatestEntry} = require("../model/Info")
+const {Addentry1,Addentry2,displayActiveEntries} = require("../model/Info")
 
 // Create Info 
 router.post("/Addentry",async(req,res)=>{
     const regNo = req.query.regNo;
     const pername = req.query.name;
+    
     const phNo = req.query.phNo;
     const email = req.query.email;
     let isvalid;
@@ -40,19 +41,15 @@ router.post("/Addentry",async(req,res)=>{
     // }
 });
 // Get Info list or Search Info by rfid  query parameters
-router.post("/latestentry", async (req, res) => {
+router.get("/Addentry", async (req, res) => {
     // const vehicleNumber = req.query.vehicleNumber;
-    try{
-        const latest_entry = await displaylatestEntry();
-        console.log(latest_entry);
-        res.status(200).send(latest_entry);
-    }
-    catch (err){
-        console.error('Error fetching in latest entry vehicle: ', err);
-        res.status(500).send({ error: 'Internal Server Error' });
-    }
-});
 
+})
+// Get Info by ID
+
+// Update Info
+
+// Delete Info
 router.get('/in-vehicles', async (req, res) => {
     try 
     {
