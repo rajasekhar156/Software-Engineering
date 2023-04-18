@@ -99,5 +99,25 @@ async function displaylatestEntry(){
         throw err;
     }
 }
+
+async function vehicleDetails(vehicleNumberSc){
+  try {
+      console.log("2",vehicleNumberSc)
+      const vehicle_Details = await Infodb.findOne({vehicleNumber: vehicleNumberSc});
+      console.log("1",vehicle_Details);
+      if(!vehicle_Details){
+        const vehicle_Details_null = new Info("NA","NA","NA","NA","NA","NA","NA","NA","NA","NA");
+        console.log("3",vehicle_Details_null);
+        return vehicle_Details_null;
+      }
+      return vehicle_Details;
+  }
+  catch(err)
+  {
+      console.error('Error fetching in vehicles1: ', err);
+      throw err;
+  }
+}
+
 //module.exports = mongoose.model("Info",InfoSchema);
-module.exports = { Addentry1, Addentry2, displayActiveEntries,displaylatestEntry};
+module.exports = { Addentry1, Addentry2, displayActiveEntries,displaylatestEntry,vehicleDetails};

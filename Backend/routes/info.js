@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const {Addentry1,Addentry2,displayActiveEntries,displaylatestEntry} = require("../model/Info")
+const {Addentry1,Addentry2,displayActiveEntries,displaylatestEntry,vehicleDetails} = require("../model/Info")
 
 // Create Info 
 router.post("/Addentry",async(req,res)=>{
@@ -52,11 +52,32 @@ router.post("/latestentry", async (req, res) => {
         res.status(500).send({ error: 'Internal Server Error' });
     }
 });
-// Get Info by ID
 
-// Update Info
+router.get('/vehicleNumber', async (req, res) => {
 
-// Delete Info
+    const vehicleNumberSc = req.query.vehicleNumber;
+
+    try 
+    {
+      const vehicle_Details = await vehicleDetails(vehicleNumberSc);
+      console.log(vehicle_Details);
+      if(vehicle_Details.vehicleNumber=="NA"){
+        console.log("wrwt");
+        res.status(200).send("1");
+        
+      }
+      else{
+        res.status(200).send(vehicle_Details);
+      }
+    } 
+    catch (err) 
+    {
+      console.error('Error fetching in vehicles2: ', err);
+      res.status(500).send({ error: 'Internal Server Error' });
+    }
+  });
+
+
 router.get('/in-vehicles', async (req, res) => {
     try 
     {
