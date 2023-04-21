@@ -4,8 +4,8 @@ const app = express();
 const cors = require("cors");
 const path = require("path");
 const dotenv = require("dotenv");
-const infoRoute = require("./routes/info");
-const userRoute = require("./routes/user");
+const route = require("./routes/route");
+// const userRoute = require("./routes/user");
 
 //Add cors support so that we could call our REST API from our frontend application.
 app.use(cors());
@@ -22,8 +22,7 @@ mongoose
   .connect(process.env.MONGO_DB_URL)
 
 //load our rest api routes
-app.use("/api/info",infoRoute);
-app.use("/api/user",userRoute);
+app.use("/api",route);
 
 app.listen("5001", () => {
   console.log("RFID backend API server is running.");

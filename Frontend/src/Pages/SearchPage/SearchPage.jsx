@@ -56,7 +56,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export const Search = (props) => {
     const [vehicleNumberSc, setVehicleNumber] = useState('');
-    const [Vehicle_details, setVehicledetails] = useState('');
+    const [Vehicle_details, setVehicledetails] = useState([]);
     const navigate = useNavigate();
 
     const handleLatestEntry = async (e) => {
@@ -87,22 +87,20 @@ export const Search = (props) => {
     const fetchData = async (e) => {
         e.preventDefault();
         let url;
-        url = `http://localhost:5001/api/info/vehicleNumber?vehicleNumber=${vehicleNumberSc}`;
+        url = `http://localhost:5001/api/vehicleNumber?vehicleNumber=${vehicleNumberSc}`;
         try {
-            // console.log("22");
             const response = await axios.get(url);
-            console.log(response.data);
+            console.log("11",response.data);
             if(response.data=='1'){
-                console.log("agha");
-                setVehicledetails({vehicleNumber:"NA",personName:"NA",phoneNumber:"NA",emailId:"NA",entryTime:"NA"});
+                setVehicledetails([{vehicleNumber:"NA",personName:"NA",phoneNumber:"NA",emailId:"NA",entryTime:"NA"}]);
+                console.log("2",Vehicle_details);
                 alert("OOPS! No entry Found");
                 navigate('/Search');
             }
             else{
-                console.log("dhj");
+                console.log("raja");
                 console.log(response.data);
                 setVehicledetails(response.data);
-                console.log(Vehicle_details);
              }
         } catch (err) {
             console.error('Error fetching vehicle detials\'s: ', err);
@@ -161,13 +159,15 @@ export const Search = (props) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        <TableRow key={Vehicle_details._id}>
-                            <TableCell>{Vehicle_details.vehicleNumber}</TableCell>
-                            <TableCell>{Vehicle_details.personName}</TableCell>
-                            <TableCell>{Vehicle_details.phoneNumber}</TableCell>
-                            <TableCell>{Vehicle_details.emailId}</TableCell>
-                            <TableCell>{Vehicle_details.entryTime}</TableCell>
-                        </TableRow>
+                        {Vehicle_details.map((vehicle) => (
+                            <TableRow key={vehicle._id}>
+                                <TableCell>{vehicle.vehicleNumber}</TableCell>
+                                <TableCell>{vehicle.personName}</TableCell>
+                                <TableCell>{vehicle.phoneNumber}</TableCell>
+                                <TableCell>{vehicle.emailId}</TableCell>
+                                <TableCell>{vehicle.entryTime}</TableCell>
+                            </TableRow>
+                        ))}
                     </TableBody>
                 </Table>
             </TableContainer>

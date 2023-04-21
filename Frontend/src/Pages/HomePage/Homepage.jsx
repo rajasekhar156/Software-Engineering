@@ -44,7 +44,7 @@ export const Homepage = (props) =>{
 
         // const handleLatestEntry = async() =>{
             console.log("hahaha2");
-            let url = `http://localhost:5001/api/info/latestentry?`;
+            let url = `http://localhost:5001/api/latestentry?`;
             try{
                 const tp = await axios.post(url);
                 console.log(tp.data);

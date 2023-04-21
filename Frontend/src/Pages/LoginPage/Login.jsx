@@ -21,7 +21,7 @@ const theme = createTheme();
 export const Login = (props) =>{
     const [userId,setuserId] = useState('');
     const [password,setPassword] = useState('');
-    const [gateNo, setGateNo] = useState('');
+    const [gateNo, setGateNo] = useState(0);
 
     const navigate = useNavigate();
 
@@ -31,7 +31,7 @@ export const Login = (props) =>{
 	    // setDataInput([info]);
         // run();
         let url;
-        url = `http://localhost:5001/api/user?userid=${userId}&userpwd=${password}`;
+        url = `http://localhost:5001/api?userid=${userId}&userpwd=${password}&gateno=${gateNo}`;
         
         const tp = await axios.post(url);
         console.log(tp.status);

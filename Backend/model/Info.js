@@ -1,5 +1,7 @@
 const { Timestamp } = require("mongodb");
 const mongoose = require("mongoose");
+const {User,Userdb} = require("./User");
+const { query } = require("express");
 
 const InfoSchema = new mongoose.Schema(
   {
@@ -13,6 +15,7 @@ const InfoSchema = new mongoose.Schema(
     ExpectedDate: String,
     ExpectedentryTime: String,
     ExpectedexitTime: String,
+    SecurityUserId: String
   },
   {
     versionKey: false,
@@ -22,49 +25,89 @@ const InfoSchema = new mongoose.Schema(
 const Infodb = mongoose.model("info", InfoSchema);
 
 class Info {
-    constructor(regNo,pername,phNo,email,entryDt,entryT,exitT,expdt,expentryT,expexitT){
-        this.vehicleNumber = regNo;
-        this.personName = pername;
-        this.phoneNumber = phNo;
-        this.emailId = email;
-        this.entryDate = entryDt;
-        this.entryTime = entryT;
-        this.exitTime = exitT;
-        this.ExpectedDate = expdt;
-        this.ExpectedentryTime = expentryT;
-        this.ExpectedexitTime = expexitT;
-    }
+  vehicleNo;
+  personName;
+  phoneNo;
+  email;
+
+  constructor(regNo,perName,phNo,email=""){
+    this.vehicleNo = regNo;
+    this.personName = perName;
+    this.phoneNo = phNo;
+    this.email = email;
+  }
+
 }
 
-let latest_entry = new Info("NA","NA","NA","NA","NA","NA","NA","NA","NA","NA");
+let temp = "NA";
+let latest_entry = new Info(temp,temp,temp,temp);
 
-async function Addentry1(regNo,pername,phNo,email,entryDt,entryT){
+class Gate {
+  #securityUser;
+  #gateNo;
 
-    // console.log("hi,entered 1");
-    let temp = "NA";
-    latest_entry = new Info(regNo,pername,phNo,email,entryDt,entryT,temp,temp,temp,temp);
-    // const query = { vehicleNumber : regNo,personName: pername,phoneNumber: phNo,emailId: email,entryDate: entryDt,entryTime: entryT,exitTime: temp,ExpectedDate: temp,ExpectedentryTime: temp,ExpectedexitTime: temp};
-    //  const result = await Infodb.findOne(query);
-    console.log(latest_entry);
+  constructor(gateNo){
+    this.#gateNo = gateNo;
+    this.#securityUser = new User();
+  }
+
+  getgateNo(){
+    return this.#gateNo;
+  }
+
+  setgateNo(gateNo){
+    this.#gateNo = gateNo;
+  }
+
+  setsecurityUser(UserId,PersonName,PersonNumber,EmailId,UserPwd){
+    this.#securityUser.setuserId(UserId);
+    this.#securityUser.setpersonName(PersonName);
+    this.#securityUser.setpersonNumber(PersonNumber);
+    this.#securityUser.setemailId(EmailId);
+    this.#securityUser.setuserPwd(UserPwd);
+  }
+
+  async isValidLogin (UserName,UserPwd){
+    const query = {userId: UserName,userPwd : UserPwd};
+    // console.log(UserName,UserPwd);
+    const result = await Userdb.findOne(query);
+    // console.log("ajaja",result);
+    // console.log(result);
+    if(result!== null){
+        this.setsecurityUser(result.userName,result.personName,result.personNumber,result.userPwd);
+        return true;
+    }
+    else{
+        return false;
+    }
+  }
+
+  async Addentry1(regNo,pername,phNo,email,entryDt,entryT){
+
+    latest_entry.vehicleNo = regNo;
+    latest_entry.personName = pername;
+    latest_entry.phoneNo = phNo;
+    latest_entry.email = email;
+
+    const query = { vehicleNumber : regNo,personName: pername,phoneNumber: phNo,emailId: email,entryDate: entryDt,entryTime: entryT,exitTime: temp,ExpectedDate: temp,ExpectedentryTime: temp,ExpectedexitTime: temp};
+    
+    console.log(query);
     try{
-        // temp = await Infodb.insertMany(query);
-        await Infodb.create(latest_entry);
+        await Infodb.create(query);
     }
     catch(err){
         console.log("failed to insert the document1");
         console.log(err);
     }
     return true;
-};
+  };
 
-async function Addentry2(regNo,name,phNo,email,expDate,expentryT,expexitT){
-    // console.log("hi,entered 2");
-    let temp = "NA";
-    const query = new Info(regNo,name,phNo,email,temp,temp,temp,expDate,expentryT,expexitT)
-    // const query = {vehicleNumber : regNo,personName: name,phoneNumber: phNo,emailId: email,entryDate: temp,entryTime: temp,exitTime: temp,ExpectedDate: expDate,ExpectedentryTime: expentryT,ExpectedexitTime: expexitT};
+  async Addentry2(regNo,name,phNo,email,expDate,expentryT,expexitT){
+    
+    const query = { vehicleNumber : regNo,personName: pername,phoneNumber: phNo,emailId: email,entryDate: temp,entryTime: temp,exitTime: temp,ExpectedDate: expDate,ExpectedentryTime: expentryT,ExpectedexitTime: expexitT};
+
     console.log(query);
     try{
-        // temp = await Infodb.insertMany(query);
         await Infodb.create(query);
     }
     catch(err){
@@ -72,52 +115,63 @@ async function Addentry2(regNo,name,phNo,email,expDate,expentryT,expexitT){
         console.log(err);
     }
     return true;
-}
+  };
 
-async function displayActiveEntries() {
-  try {
-    const inVehicles = await Infodb.find({
-      exitTime: "NA",
-      entryTime: { $ne: "NA" },
-    });
-    return inVehicles;
-  } catch (err) {
-    console.error("Error fetching in vehicles: ", err);
-    throw err;
-  }
-}
+  async displayActiveEntries() {
+    try {
+      const inVehicles = await Infodb.find({
+        exitTime: "NA",
+        entryTime: { $ne: "NA" },
+      });
+      return inVehicles;
+    } catch (err) {
+      console.error("Error fetching in vehicles: ", err);
+      throw err;
+    }
+  };
 
-async function displaylatestEntry(){
+  async displaylatestEntry(){
     try{
-        // console.log("HAHHA");
-        // console.log("1",latest_entry);
-        return latest_entry;
+
+        const vehicle_Details = await Infodb.findOne({vehicleNumber: latest_entry.vehicleNo}).sort({_id:-1}).limit(1);
+
+        return vehicle_Details;
     }
     catch(err)
     {
         console.error('Error in displaying latest vehicles: ',err);
         throw err;
     }
+  };
+
+  async vehicleDetails(vehicleNumberSc){
+    try {
+
+        const vehicle_Details = await Infodb.find({vehicleNumber: vehicleNumberSc});
+        if(vehicle_Details.length == 0){
+            const query = { 
+              vehicleNumber : temp,
+              personName: temp,
+              phoneNumber: temp,
+              emailId: temp,
+              entryDate: temp,
+              entryTime: temp,
+              exitTime: temp,
+              ExpectedDate: temp,
+              ExpectedentryTime: temp,
+              ExpectedexitTime: temp
+            };
+          return query;
+        }
+        return vehicle_Details;
+    }
+    catch(err)
+    {
+        console.error('Error fetching in vehicles1: ', err);
+        throw err;
+    }
+  };
+
 }
 
-async function vehicleDetails(vehicleNumberSc){
-  try {
-      console.log("2",vehicleNumberSc)
-      const vehicle_Details = await Infodb.findOne({vehicleNumber: vehicleNumberSc});
-      console.log("1",vehicle_Details);
-      if(!vehicle_Details){
-        const vehicle_Details_null = new Info("NA","NA","NA","NA","NA","NA","NA","NA","NA","NA");
-        console.log("3",vehicle_Details_null);
-        return vehicle_Details_null;
-      }
-      return vehicle_Details;
-  }
-  catch(err)
-  {
-      console.error('Error fetching in vehicles1: ', err);
-      throw err;
-  }
-}
-
-//module.exports = mongoose.model("Info",InfoSchema);
-module.exports = { Addentry1, Addentry2, displayActiveEntries,displaylatestEntry,vehicleDetails};
+module.exports = {Gate}

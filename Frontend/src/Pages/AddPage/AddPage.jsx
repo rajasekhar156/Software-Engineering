@@ -45,10 +45,10 @@ export const Add = (props) =>{
             date = date.concat(dATE.getFullYear(),"-",dATE.getMonth(),"-",dATE.getDate());
             let time = "";
             time = time.concat(dATE.getHours(),":",dATE.getMinutes());
-            url = `http://localhost:5001/api/info/Addentry?regNo=${regNo}&name=${name}&phNo=${phNo}&email=${email}&online=${0}&date=${date}&time=${time}`;
+            url = `http://localhost:5001/api/Addentry?regNo=${regNo}&name=${name}&phNo=${phNo}&email=${email}&online=${0}&date=${date}&time=${time}`;
         }
         else{
-            url = `http://localhost:5001/api/info/Addentry?regNo=${regNo}&name=${name}&phNo=${phNo}&email=${email}&online=${1}&expDate=${expDate}&expentryT=${expentryT}&expexitT=${expexitT}`;
+            url = `http://localhost:5001/api/Addentry?regNo=${regNo}&name=${name}&phNo=${phNo}&email=${email}&online=${1}&expDate=${expDate}&expentryT=${expentryT}&expexitT=${expexitT}`;
         }
         
         const tp = await axios.post(url);
