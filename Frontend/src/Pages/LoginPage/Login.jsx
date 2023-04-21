@@ -13,6 +13,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Select, MenuItem, FormHelperText, FormControl, InputLabel } from '@mui/material';
 
   
 const theme = createTheme();
@@ -20,6 +21,8 @@ const theme = createTheme();
 export const Login = (props) =>{
     const [userId,setuserId] = useState('');
     const [password,setPassword] = useState('');
+    const [gateNo, setGateNo] = useState('');
+
     const navigate = useNavigate();
 
     const handleSubmit = async(e) =>{
@@ -125,6 +128,14 @@ export const Login = (props) =>{
                         placeholder="********"
                         autoComplete="current-password"
                     />
+                    <FormControl style={{ marginTop: 15, marginLeft: 15 }}>
+                        
+                        <Select value={gateNo} onChange={(e) => setGateNo(e.target.value)}>
+                            <MenuItem value={1}>In</MenuItem>
+                            <MenuItem value={2}>Out</MenuItem>
+                        </Select>
+                        <FormHelperText>Select the Gate</FormHelperText>
+                    </FormControl>
                     <Button
                         type="submit"
                         fullWidth
