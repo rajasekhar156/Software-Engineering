@@ -49,23 +49,21 @@ export const ActiveEntries = () => {
   };
   return (
     <div>
-      <Box sx={{ width: 1000 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h4" component="div" sx={{ flexGrow: 0.8 }}>
-              Active Entries
-            </Typography>
-            <Button color="inherit" onClick={handleLatestEntry}>
-              Latest Entry
-            </Button>
-            <Button color="inherit" onClick={handleAdd}>
-              Add Entry
-            </Button>
-            <Button color="inherit" onClick={handleSearch}>
-              Search
-            </Button>
-          </Toolbar>
-        </AppBar>
+
+          <Box position={"absolute"} top={"0%"} left={"0%"} width={1847} >
+            <AppBar position="static">
+                <Toolbar >
+                <Box position={"absolute"} left={"20%"} width={700}>
+                <Button color="inherit" onClick={handleLatestEntry} sx={{fontWeight : '800', fontSize: '15px'}}>Latest Entry</Button>
+                <Button color="inherit" onClick = {handleAdd} sx={{fontWeight : '800', fontSize: '15px'}} >Add Entry</Button>
+                <Button color="inherit" sx={{fontWeight : '1000', fontSize: '18px'}}>Active Entries</Button>
+                <Button color="inherit" onClick={handleSearch} sx={{fontWeight : '800', fontSize: '15px'}}>Search Entry</Button>
+                </Box>
+                <Button color="inherit" sx={{fontWeight : '400', fontSize: '12px', position: 'absolute', left: '79%'}}>logout</Button>
+            </Toolbar>
+            </AppBar>
+            </Box>
+      <Box position={"absolute"} top={"10%"} left={"0%"} width={1847} >
         {/* <Button variant="text" onClick={fetchData}>Fetch In Vehicles</Button> */}
         <TableContainer
           component={Paper}

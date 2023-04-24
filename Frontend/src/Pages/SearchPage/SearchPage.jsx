@@ -71,10 +71,6 @@ export const Search = (props) => {
         e.preventDefault();
         navigate('/Add');
     }
-    const handleEditEntry = async (e) => {
-        e.preventDefault();
-        navigate('/Edit');
-    }
 
     // const handleSearch = async (e) => {
     //     e.preventDefault();
@@ -91,7 +87,7 @@ export const Search = (props) => {
         try {
             const response = await axios.get(url);
             console.log("11",response.data);
-            if(response.data=='1'){
+            if(response.data==='1'){
                 setVehicledetails([{vehicleNumber:"NA",personName:"NA",phoneNumber:"NA",emailId:"NA",entryTime:"NA"}]);
                 console.log("2",Vehicle_details);
                 alert("OOPS! No entry Found");
@@ -110,17 +106,19 @@ export const Search = (props) => {
     return (
         <div>
             <Box sx={{ width :1000}}>
+                <Box position={"absolute"} top={"0%"} left={"0%"} width={1847} >
                 <AppBar position="static">
-                    <Toolbar>
-                        <Typography variant="h4" component="div" sx={{ flexGrow: 0.8 }}>
-                            Search
-                        </Typography>
-                        <Button color="inherit" onClick={handleLatestEntry}>Latest Entry</Button>
-                        <Button color="inherit" onClick={handleActive}>Active Entries</Button>
-                        <Button color="inherit" onClick={handleAddEntry}>Add Entry</Button>
-                    </Toolbar>
+                    <Toolbar >
+                    <Box position={"absolute"} left={"20%"} width={700}>
+                    <Button color="inherit" onClick={handleLatestEntry} sx={{fontWeight : '800', fontSize: '15px'}} >Latest Entry</Button>
+                    <Button color="inherit" onClick={handleAddEntry} sx={{fontWeight : '800', fontSize: '15px'}}  >Add Entry</Button>
+                    <Button color="inherit" onClick={handleActive} sx={{fontWeight : '800', fontSize: '15px'}}>Active Entries</Button>
+                    <Button color="inherit" sx={{fontWeight : '1000', fontSize: '18px'}}>Search Entry</Button>
+                    </Box>
+                <Button color="inherit" sx={{fontWeight : '400', fontSize: '12px', position: 'absolute', left: '79%'}}>logout</Button>
+                </Toolbar>
                 </AppBar>
-
+                </Box>     
             <form className="Search-form" onSubmit={fetchData}>
                 <Toolbar>
                     <SearchIt>
@@ -142,7 +140,7 @@ export const Search = (props) => {
                             </IconButton>
                         </Button>
 
-                        <Button color="inherit" onClick={handleEditEntry}>Edit Details</Button>
+                        {/* <Button color="inherit" onClick={handleEditEntry}>Edit Details</Button> */}
                     </SearchIt>
                 </Toolbar>
             </form>

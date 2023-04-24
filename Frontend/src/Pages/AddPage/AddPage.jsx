@@ -25,17 +25,15 @@ export const Add = (props) =>{
     const handleLatestEntry = async(e) =>{
         e.preventDefault();
         navigate('/Home');
-    }
+    };
     const handleActive = async (e) => {
         e.preventDefault();
         navigate('/ActiveEntries');
-    }
+    };
     const handleSearch = async (e) => {
         e.preventDefault();
         navigate('/Search');
-    }
-
-
+    };
     const handleSubmit = async(e) =>{
         e.preventDefault();
         let url;
@@ -63,21 +61,22 @@ export const Add = (props) =>{
     }
     
     return(
-        // Bar to be given by Raja
-        
         // Creating a form to add a new entry to the database
         <div className="add-entry">
-            <Box sx={{ width : 1000}}>
+            <Box position={"absolute"} top={"0%"} left={"0%"} width={1847} >
             <AppBar position="static">
-                <Toolbar>
-                <Typography variant="h4" component="div" sx={{ flexGrow: 0.8 }}>
-                    Add Entry
-                </Typography>
-                <Button color="inherit" onClick={handleLatestEntry}>Latest Entry</Button>
-                <Button color="inherit" onClick={handleActive}>Active Entries</Button>
-                <Button color="inherit" onClick={handleSearch}>Search Entry</Button>
-                </Toolbar>
+                <Toolbar >
+                <Box position={"absolute"} left={"20%"} width={700}>
+                <Button color="inherit" onClick={handleLatestEntry} sx={{fontWeight : '800', fontSize: '15px'}}>Latest Entry</Button>
+                <Button color="inherit" sx={{fontWeight : '1000', fontSize: '18px'}}>Add Entry</Button>
+                <Button color="inherit" onClick={handleActive} sx={{fontWeight : '800', fontSize: '15px'}}>Active Entries</Button>
+                <Button color="inherit" onClick={handleSearch} sx={{fontWeight : '800', fontSize: '15px'}}>Search Entry</Button>
+                </Box>
+                <Button color="inherit" sx={{fontWeight : '400', fontSize: '12px', position: 'absolute', left: '79%'}}>logout</Button>
+            </Toolbar>
             </AppBar>
+            </Box>
+            <Box sx={{ flexGrow: 1 }}>
             <form className="add-entry-form" onSubmit={handleSubmit}>
             <TextField
                 type="text"
