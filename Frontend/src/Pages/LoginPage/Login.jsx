@@ -14,16 +14,23 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Select, MenuItem, FormHelperText, FormControl, InputLabel } from '@mui/material';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
   
 const theme = createTheme();
 
 let temp = false;
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+
 export const Login = (props) =>{
     const [userId,setuserId] = useState('');
     const [password,setPassword] = useState('');
     const [open, setOpen] = useState(false);
+    const [close, setClose] = useState(false);
     const [gateNo, setGateNo] = useState(0);
 
     const navigate = useNavigate();
@@ -44,6 +51,7 @@ export const Login = (props) =>{
             navigate('/Home');
         }
         else if(tp.data === "0"){
+            // setClose(true);
             alert("OOPS! Invalid Login Details");
         }
     }
@@ -51,6 +59,14 @@ export const Login = (props) =>{
     const handleforgotpwd = () => {
         navigate('/Forgotpwd');
     }
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setClose(false);
+      };
 
     return(
         // <div className="auth-form">
@@ -149,6 +165,11 @@ export const Login = (props) =>{
                     >
                     <span style={{fontWeight: 'bold'}}>Sign In</span>
                     </Button>
+                    <Snackbar open={close} autoHideDuration={6000} onClose={handleClose}>
+                        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                        OOPS! Invalid Login Details
+                        </Alert>
+                    </Snackbar>
                     <Grid container>
                         <Grid item xs>
                             <span onClick={handleforgotpwd} className="link-btn" style={{fontWeight: 'bold',cursor:"pointer"}}>Forgot password...Again?</span>

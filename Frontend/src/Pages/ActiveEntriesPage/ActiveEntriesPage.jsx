@@ -137,7 +137,7 @@ export const ActiveEntries = () => {
             </Box>
       <Box position={"absolute"} top={"10%"} left={"0%"} width={1847} >
         {/* <Button variant="text" onClick={fetchData}>Fetch In Vehicles</Button> */}
-        <TableContainer
+        {/* <TableContainer
           component={Paper}
           sx={{ overflow: "scroll", height: "500px" }}
         >
@@ -163,7 +163,40 @@ export const ActiveEntries = () => {
               ))}
             </TableBody>
           </Table>
-        </TableContainer>
+        </TableContainer> */}
+        <MaterialReactTable
+          columns={columns}
+          data={data}
+          enableRowSelection
+          getRowId={(row) => row.vehicleNumber}
+          initialState={{ showColumnFilters: true }}
+          manualFiltering
+          manualPagination
+          manualSorting
+          muiToolbarAlertBannerProps={
+            isError
+              ? {
+                color: 'error',
+                children: 'Error loading data',
+              }
+              : undefined
+          }
+          onColumnFiltersChange={setColumnFilters}
+          onGlobalFilterChange={setGlobalFilter}
+          onPaginationChange={setPagination}
+          onSortingChange={setSorting}
+          rowCount={rowCount}
+          state={{
+            columnFilters,
+            globalFilter,
+            isLoading,
+            pagination,
+            showAlertBanner: isError,
+            showProgressBars: isRefetching,
+            sorting,
+          }}
+        />
+
       </Box>
     </div>
   );
