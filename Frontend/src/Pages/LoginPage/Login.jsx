@@ -18,9 +18,12 @@ import { Select, MenuItem, FormHelperText, FormControl, InputLabel } from '@mui/
   
 const theme = createTheme();
 
+let temp = false;
+
 export const Login = (props) =>{
     const [userId,setuserId] = useState('');
     const [password,setPassword] = useState('');
+    const [open, setOpen] = useState(false);
     const [gateNo, setGateNo] = useState(0);
 
     const navigate = useNavigate();
@@ -36,6 +39,8 @@ export const Login = (props) =>{
         const tp = await axios.post(url);
         console.log(tp.status);
         if(tp.data === "1"){
+            setOpen(true);
+            temp = true;
             navigate('/Home');
         }
         else if(tp.data === "0"){
@@ -156,3 +161,5 @@ export const Login = (props) =>{
         </ThemeProvider>
     );
 }
+
+export {temp};
