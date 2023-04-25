@@ -121,57 +121,49 @@ export const ActiveEntries = () => {
   };
   return (
     <div>
-      <Box sx={{ width: 1000 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h4" component="div" sx={{ flexGrow: 0.8 }}>
-              Active Entries
-            </Typography>
-            <Button color="inherit" onClick={handleLatestEntry}>
-              Latest Entry
-            </Button>
-            <Button color="inherit" onClick={handleAdd}>
-              Add Entry
-            </Button>
-            <Button color="inherit" onClick={handleSearch}>
-              Search
-            </Button>
-          </Toolbar>
-        </AppBar>
 
-        <MaterialReactTable
-          columns={columns}
-          data={data}
-          enableRowSelection
-          getRowId={(row) => row.vehicleNumber}
-          initialState={{ showColumnFilters: true }}
-          manualFiltering
-          manualPagination
-          manualSorting
-          muiToolbarAlertBannerProps={
-            isError
-              ? {
-                color: 'error',
-                children: 'Error loading data',
-              }
-              : undefined
-          }
-          onColumnFiltersChange={setColumnFilters}
-          onGlobalFilterChange={setGlobalFilter}
-          onPaginationChange={setPagination}
-          onSortingChange={setSorting}
-          rowCount={rowCount}
-          state={{
-            columnFilters,
-            globalFilter,
-            isLoading,
-            pagination,
-            showAlertBanner: isError,
-            showProgressBars: isRefetching,
-            sorting,
-          }}
-        />
-
+          <Box position={"absolute"} top={"0%"} left={"0%"} width={1847} >
+            <AppBar position="static">
+                <Toolbar >
+                <Box position={"absolute"} left={"20%"} width={700}>
+                <Button color="inherit" onClick={handleLatestEntry} sx={{fontWeight : '800', fontSize: '15px'}}>Latest Entry</Button>
+                <Button color="inherit" onClick = {handleAdd} sx={{fontWeight : '800', fontSize: '15px'}} >Add Entry</Button>
+                <Button color="inherit" sx={{fontWeight : '1000', fontSize: '18px'}}>Active Entries</Button>
+                <Button color="inherit" onClick={handleSearch} sx={{fontWeight : '800', fontSize: '15px'}}>Search Entry</Button>
+                </Box>
+                <Button color="inherit" sx={{fontWeight : '400', fontSize: '12px', position: 'absolute', left: '79%'}}>logout</Button>
+            </Toolbar>
+            </AppBar>
+            </Box>
+      <Box position={"absolute"} top={"10%"} left={"0%"} width={1847} >
+        {/* <Button variant="text" onClick={fetchData}>Fetch In Vehicles</Button> */}
+        <TableContainer
+          component={Paper}
+          sx={{ overflow: "scroll", height: "500px" }}
+        >
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Vehicle Number</TableCell>
+                <TableCell>Person Name</TableCell>
+                <TableCell>Phone Number</TableCell>
+                <TableCell>Email ID</TableCell>
+                <TableCell>Entry Time</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {inVehicles.map((vehicle) => (
+                <TableRow key={vehicle._id}>
+                  <TableCell>{vehicle.vehicleNumber}</TableCell>
+                  <TableCell>{vehicle.personName}</TableCell>
+                  <TableCell>{vehicle.phoneNumber}</TableCell>
+                  <TableCell>{vehicle.emailId}</TableCell>
+                  <TableCell>{vehicle.entryTime}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Box>
     </div>
   );

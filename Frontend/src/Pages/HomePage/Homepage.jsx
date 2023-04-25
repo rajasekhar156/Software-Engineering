@@ -102,266 +102,260 @@ export const Homepage = (props) =>{
         setOpen(false);
       };
 
-    return(
-        <Box sx={{ flexGrow: 1 }} >
-            <Collapse in={open}>
-                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                    <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                        This is a success me!
-                    </Alert>
-                </Snackbar>
-            </Collapse>
-            <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
-                <Toolbar>
-                <Typography variant="h4" component="div" sx={{ flexGrow: 0.8 }}>
-                    Latest Entry
-                </Typography>
-                <Button color="inherit" onClick={ handleActive} >Active Entries</Button>
-                <Button color="inherit" onClick={handleAdd}>Add Entry</Button>
-                <Button color="inherit" onClick={handleSearch}>Search Entry</Button>
+        return(
+            <Box sx={{ flexGrow: 1 }} >
+                <Box position={"absolute"} top={"0%"} left={"0%"} width={1847} >
+                <AppBar position="static">
+                    <Toolbar >
+                    <Box position={"absolute"} left={"20%"} width={700}>
+                    <Button color="inherit" sx={{fontWeight : '1000', fontSize: '18px'}}>Latest Entry</Button>
+                    <Button color="inherit" onClick={handleAdd} sx={{fontWeight : '800', fontSize: '15px'}}  >Add Entry</Button>
+                    <Button color="inherit" onClick={handleActive} sx={{fontWeight : '800', fontSize: '15px'}}>Active Entries</Button>
+                    <Button color="inherit" onClick={handleSearch} sx={{fontWeight : '800', fontSize: '15px'}}>Search Entry</Button>
+                    </Box>
+                    <Button color="inherit" sx={{fontWeight : '400', fontSize: '12px', position: 'absolute', left: '79%'}}>logout</Button>
+
                 </Toolbar>
-            </AppBar>
-            </Box>
-            
-            <Grid container>
-            <Grid item xs={6} mt = {13}>
-            <Box ml = {45} mt = {15} mr = {10}
-                sx={{ 
-                    background: 'red',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    p: 1,
-                    m: 1,
-                    marginBottom: 5,
-                    bgcolor: 'background.paper',
-                    borderRadius: 1,
-                    }}
-            >
-            <Card sx={{ Width: '15vw', height: '10vw', position: 'absolute', top: '33%', left: '15%'}}>
-                <CardActionArea>
-                    <CardContent>
-                    <Typography gutterBottom variant="h4" component="div">
-                        Vehicle Reg. No.:
-                    </Typography>
-                    <TextField 
-                        margin = "dense"
-                        id="scanned-regNo"
-                        value={vehicleno}
-                        onChange={(event) => {
-                            setvehicleNumber(event.target.value);
+                </AppBar>
+                </Box>             
+                <Grid container>
+                <Grid item xs={6} mt = {13}>
+                <Box ml = {45} mt = {15} mr = {10}
+                    sx={{ 
+                        background: 'red',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        p: 1,
+                        m: 1,
+                        marginBottom: 5,
+                        bgcolor: 'background.paper',
+                        borderRadius: 1,
                         }}
-                        InputProps={{
-                            readOnly: true,
-                            style: {
-                                height: "50px",
-                                fontSize: "25px",
-                                fontWeight: "bold",
-                                color: '#890050',
-                            },
-                        }}
-                    />
-                    </CardContent>
-                </CardActionArea>
-            </Card>
-            <FormControlLabel
-                control={<Checkbox 
-                    onChange={e => setvalid(!valid)}
-                    />}
-                label="Valid Request"/>{
-                    valid? 
-                    <div >
-                        <Card sx={{ Width: '225', height: '225', position: 'absolute', top: '58%', left: '15%'}}>
-                            <CardMedia
-                                style = {{ height: 220, width: 225}}
-                                image={require('./raita.png')} // require image
-                                title="valid entry"
-                            />
-                            <CardContent>
-                                <Typography gutterBottom variant="h3" component="div">
-                                Valid
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </div>
-                : 
-                    <div >
-                        <Card sx={{ Width: '225', height: '225', position: 'absolute', top: '58%', left: '15%'}}>
-                            <CardMedia
-                                style = {{ height: 220, width: 225}}
-                                image={require('./wrang.png')} // require image
-                                title="invalid entry"
-                            />
-                            <CardContent>
-                                <Typography gutterBottom variant="h3" component="div">
-                                Invalid
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </div>
-                }
-            </Box>
+                >
+                <Card sx={{ Width: '15vw', height: '10vw', position: 'absolute', top: '33%', left: '15%'}}>
+                    <CardActionArea>
+                        <CardContent>
+                        <Typography gutterBottom variant="h4" component="div">
+                            Vehicle Reg. No.:
+                        </Typography>
+                        <TextField 
+                            margin = "dense"
+                            id="scanned-regNo"
+                            value={vehicleno}
+                            onChange={(event) => {
+                                setvehicleNumber(event.target.value);
+                            }}
+                            InputProps={{
+                                readOnly: true,
+                                style: {
+                                    height: "50px",
+                                    fontSize: "25px",
+                                    fontWeight: "bold",
+                                    color: '#890050',
+                                },
+                            }}
+                        />
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+                <FormControlLabel
+                    control={<Checkbox 
+                        onChange={e => setvalid(!valid)}
+                        />}
+                    label="Valid Request"/>{
+                        valid? 
+                        <div >
+                            <Card sx={{ Width: '225', height: '225', position: 'absolute', top: '58%', left: '15%'}}>
+                                <CardMedia
+                                    style = {{ height: 220, width: 225}}
+                                    image={require('./raita.png')} // require image
+                                    title="valid entry"
+                                />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h3" component="div">
+                                    Valid
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </div>
+                    : 
+                        <div >
+                            <Card sx={{ Width: '225', height: '225', position: 'absolute', top: '58%', left: '15%'}}>
+                                <CardMedia
+                                    style = {{ height: 220, width: 225}}
+                                    image={require('./wrang.png')} // require image
+                                    title="invalid entry"
+                                />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h3" component="div">
+                                    Invalid
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </div>
+                    }
+                </Box>
+                </Grid>
+                <Grid item xs={6} mt = {13}>
+                {/* <button onClick={() => this.props.history.push('/Add')}>Go to new route</button> */}
+                    <Box sx={{ 
+                        background: 'red',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        p: 1,
+                        m: 1,
+                        marginBottom: 5,
+                        bgcolor: 'background.paper',
+                        borderRadius: 1,
+                        }}>
+                        <Typography gutterBottom variant="h4" component="div" align="right" ml = {10} mr = {17.3} >
+                            Name           :
+                        </Typography>
+                        <TextField 
+                            margin-left = "dense"
+                            id="name"
+                            backgroundColor = "red"
+                            value={personName}
+                            onChange={(event) => {
+                                setpersonName(event.target.value);
+                            }}
+                            InputProps={{
+                                readOnly: true,
+                                style: {
+                                    height: "50px",
+                                    fontSize: "25px",
+                                },
+                            }}
+                        />
+                    </Box>
+                    <Box sx={{ 
+                        background: 'red',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        p: 1,
+                        m: 1,
+                        marginBottom: 5,
+                        bgcolor: 'background.paper',
+                        borderRadius: 1,
+                        }}>
+                        <Typography gutterBottom variant="h4" component="div" align="right" ml = {10} mr = {8} >
+                            Mobile No.      :
+                        </Typography>
+                        <TextField 
+                            margin-left = "dense"
+                            id="phoneNo"
+                            backgroundColor = "red"
+                            value={phoneNumber}
+                            onChange={(event) => {
+                                setphoneNumber(event.target.value);
+                            }}
+                            // defaultValue={phoneNumber}
+                            InputProps={{
+                                readOnly: true,
+                                style: {
+                                    height: "50px",
+                                    fontSize: "25px",
+                                },
+                            }}
+                        />
+                    </Box>
+                    <Box sx={{ 
+                        background: 'red',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        p: 1,
+                        m: 1,
+                        marginBottom: 5,
+                        bgcolor: 'background.paper',
+                        borderRadius: 1,
+                        }}>
+                        <Typography gutterBottom variant="h4" component="div" align="right" ml = {10} mr = {16.2} >
+                            E-mail         :
+                        </Typography>
+                        <TextField 
+                            margin-left = "dense"
+                            id="email"
+                            backgroundColor = "red"
+                            value={personEmail}
+                            onChange={(event) => {
+                                setpersonEmail(event.target.value);
+                            }}
+                            // defaultValue= {personEmail}
+                            InputProps={{
+                                readOnly: true,
+                                style: {
+                                    height: "50px",
+                                    fontSize: "25px",
+                                },
+                            }}
+                        />
+                    </Box>
+                    <Box sx={{ 
+                        background: 'red',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        p: 1,
+                        m: 1,
+                        marginBottom: 5,
+                        bgcolor: 'background.paper',
+                        borderRadius: 1,
+                        }}>
+                        <Typography gutterBottom variant="h4" component="div" align="right" ml = {10} mr = {7.85} >
+                            Entry Time     :
+                        </Typography>
+                        <TextField 
+                            margin-left = "dense"
+                            id="entTime"
+                            backgroundColor = "red"
+                            value={entryTime}
+                            onChange={(event) => {
+                                setentryTime(event.target.value);
+                            }}
+                            // defaultValue={entryTime}
+                            InputProps={{
+                                readOnly: true,
+                                style: {
+                                    height: "50px",
+                                    fontSize: "25px",
+                                },
+                            }}
+                        />
+                    </Box>
+                    <Box sx={{ 
+                        background: 'red',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        p: 1,
+                        m: 1,
+                        marginBottom: 5,
+                        bgcolor: 'background.paper',
+                        borderRadius: 1,
+                        }}>
+                        <Typography gutterBottom variant="h4" component="div" align="right" ml = {10} mr = {10.5} >
+                            Exit Time      :
+                        </Typography>
+                        <TextField 
+                            margin-left = "dense"
+                            id="exitT"
+                            backgroundColor = "red"
+                            value={exitTime}
+                            onChange={(event) => {
+                                setexitTime(event.target.value);
+                            }}
+                            // defaultValue={exitTime}
+                            InputProps={{
+                                readOnly: true,
+                                style: {
+                                    height: "50px",
+                                    fontSize: "25px",
+                                },
+                            }}
+                        />
+                    </Box>
+                </Grid>
             </Grid>
-            <Grid item xs={6} mt = {13}>
-            {/* <button onClick={() => this.props.history.push('/Add')}>Go to new route</button> */}
-                <Box sx={{ 
-                    background: 'red',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    p: 1,
-                    m: 1,
-                    marginBottom: 5,
-                    bgcolor: 'background.paper',
-                    borderRadius: 1,
-                    }}>
-                    <Typography gutterBottom variant="h4" component="div" align="right" ml = {10} mr = {17.3} >
-                        Name           :
-                    </Typography>
-                    <TextField 
-                        margin-left = "dense"
-                        id="name"
-                        backgroundColor = "red"
-                        value={personName}
-                        onChange={(event) => {
-                            setpersonName(event.target.value);
-                        }}
-                        InputProps={{
-                            readOnly: true,
-                            style: {
-                                height: "50px",
-                                fontSize: "25px",
-                            },
-                        }}
-                    />
-                </Box>
-                <Box sx={{ 
-                    background: 'red',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    p: 1,
-                    m: 1,
-                    marginBottom: 5,
-                    bgcolor: 'background.paper',
-                    borderRadius: 1,
-                    }}>
-                    <Typography gutterBottom variant="h4" component="div" align="right" ml = {10} mr = {8} >
-                        Mobile No.      :
-                    </Typography>
-                    <TextField 
-                        margin-left = "dense"
-                        id="phoneNo"
-                        backgroundColor = "red"
-                        value={phoneNumber}
-                        onChange={(event) => {
-                            setphoneNumber(event.target.value);
-                        }}
-                        // defaultValue={phoneNumber}
-                        InputProps={{
-                            readOnly: true,
-                            style: {
-                                height: "50px",
-                                fontSize: "25px",
-                            },
-                        }}
-                    />
-                </Box>
-                <Box sx={{ 
-                    background: 'red',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    p: 1,
-                    m: 1,
-                    marginBottom: 5,
-                    bgcolor: 'background.paper',
-                    borderRadius: 1,
-                    }}>
-                    <Typography gutterBottom variant="h4" component="div" align="right" ml = {10} mr = {16.2} >
-                        E-mail         :
-                    </Typography>
-                    <TextField 
-                        margin-left = "dense"
-                        id="email"
-                        backgroundColor = "red"
-                        value={personEmail}
-                        onChange={(event) => {
-                            setpersonEmail(event.target.value);
-                        }}
-                        // defaultValue= {personEmail}
-                        InputProps={{
-                            readOnly: true,
-                            style: {
-                                height: "50px",
-                                fontSize: "25px",
-                            },
-                        }}
-                    />
-                </Box>
-                <Box sx={{ 
-                    background: 'red',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    p: 1,
-                    m: 1,
-                    marginBottom: 5,
-                    bgcolor: 'background.paper',
-                    borderRadius: 1,
-                    }}>
-                    <Typography gutterBottom variant="h4" component="div" align="right" ml = {10} mr = {7.85} >
-                        Entry Time     :
-                    </Typography>
-                    <TextField 
-                        margin-left = "dense"
-                        id="entTime"
-                        backgroundColor = "red"
-                        value={entryTime}
-                        onChange={(event) => {
-                            setentryTime(event.target.value);
-                        }}
-                        // defaultValue={entryTime}
-                        InputProps={{
-                            readOnly: true,
-                            style: {
-                                height: "50px",
-                                fontSize: "25px",
-                            },
-                        }}
-                    />
-                </Box>
-                <Box sx={{ 
-                    background: 'red',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    p: 1,
-                    m: 1,
-                    marginBottom: 5,
-                    bgcolor: 'background.paper',
-                    borderRadius: 1,
-                    }}>
-                    <Typography gutterBottom variant="h4" component="div" align="right" ml = {10} mr = {10.5} >
-                        Exit Time      :
-                    </Typography>
-                    <TextField 
-                        margin-left = "dense"
-                        id="exitT"
-                        backgroundColor = "red"
-                        value={exitTime}
-                        onChange={(event) => {
-                            setexitTime(event.target.value);
-                        }}
-                        // defaultValue={exitTime}
-                        InputProps={{
-                            readOnly: true,
-                            style: {
-                                height: "50px",
-                                fontSize: "25px",
-                            },
-                        }}
-                    />
-                </Box>
-            </Grid>
-        </Grid>
-        </Box>
-     );
+            </Box>
+        );
 };
 
 // export default withRouter(Homepage);
