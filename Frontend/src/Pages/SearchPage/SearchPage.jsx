@@ -94,7 +94,7 @@ export const Search = (props) => {
         try {
             const response = await axios.get(url);
             console.log("11",response.data);
-            if(response.data==='1'){
+            if(response.data =='1'){
                 setVehicledetails([{vehicleNumber:"NA",personName:"NA",phoneNumber:"NA",emailId:"NA",entryTime:"NA"}]);
                 console.log("2",Vehicle_details);
                 alert("OOPS! No entry Found");
