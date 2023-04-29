@@ -51,6 +51,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         [theme.breakpoints.up('md')]: {
             width: '20ch',
         },
+    
 
     },
 }));
@@ -111,7 +112,6 @@ export const Search = (props) => {
 
     return (
         <div>
-            <Box sx={{ width :1000}}>
                 <Box position={"absolute"} top={"0%"} left={"0%"} width={1847} >
                 <AppBar position="static">
                     <Toolbar >
@@ -137,18 +137,20 @@ export const Search = (props) => {
                             <Button color="inherit" onClick={handleLogOut} sx={{ fontWeight: '400', fontSize: '12px', position: 'absolute', left: '79%', fontWeight: 'bold' }}>logout</Button>
                 </Toolbar>
                 </AppBar>
-                </Box>     
+                </Box>   
+            <Box position={"absolute"} top={"10%"} left={"0%"} width={1847} > 
             <form className="Search-form" onSubmit={fetchData}>
                 <Toolbar>
                     <SearchIt>
-                        <Typography display="inline" variant="h5" component="div" sx={{ flexGrow: 0.8 }}>
-                            Vehicle Reg. No. :
+                        <Typography display="inline" variant="h5" component="div" sx={{ flexGrow: 0.8,margin: 3 }}>
+                            Vehicle Registration Number :
                         </Typography>
                         <StyledInputBase
                             value={vehicleNumberSc} onChange={(e) => setVehicleNumber(e.target.value)}
                             type='search' id='vehicleNumberSc'
                             placeholder="Search…"
                             inputProps={{ 'aria-label': 'search' }}
+                                sx={{ border: 1, borderRadius: 2 }}
 
                         />
                         <Button type="submit">
@@ -163,7 +165,9 @@ export const Search = (props) => {
                     </SearchIt>
                 </Toolbar>
             </form>
-
+            </Box> 
+            
+            <Box position={"absolute"} top={"20%"} left={"0%"} width={1847} >
             <TableContainer component={Paper} sx={{ overflow: "scroll", height: "500px" }}>
                 <Table>
                     <TableHead>
