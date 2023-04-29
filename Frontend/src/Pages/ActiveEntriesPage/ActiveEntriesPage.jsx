@@ -128,7 +128,7 @@ export const ActiveEntries = () => {
   return (
     <div>
 
-          <Box position={"absolute"} top={"0%"} left={"0%"} width={1847} >
+          <Box position={"absolute"} top={"0%"} left={"0%"} width={"100%"} >
             <AppBar position="static">
                 <Toolbar >
                 <Link href="/">
@@ -145,11 +145,11 @@ export const ActiveEntries = () => {
               <Button color="inherit" sx={{ fontWeight: '1000', fontSize: '15px' }} variant="outlined">Active Entries</Button>
                 <Button color="inherit" onClick={handleSearch} sx={{fontWeight : '800', fontSize: '15px'}}>Search Entry</Button>
                 </Box>
-            <Button color="inherit" onClick={handleLogOut} sx={{ fontWeight: '400', fontSize: '12px', position: 'absolute', left: '79%', fontWeight: 'bold' }}>logout</Button>
+            <Button color="inherit" onClick={handleLogOut} sx={{ fontWeight: '400', fontSize: '12px', position: 'absolute', fontWeight: 'bold', right: '30px' }} >logout</Button>
             </Toolbar>
             </AppBar>
             </Box>
-      <Box position={"absolute"} top={"10%"} left={"0%"} width={1847} >
+      <Box position={"absolute"} top={"10%"} left={"0%"} width={"100%"} >
         {/* <Button variant="text" onClick={fetchData}>Fetch In Vehicles</Button> */}
         {/* <TableContainer
           component={Paper}

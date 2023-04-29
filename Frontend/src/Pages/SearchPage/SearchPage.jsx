@@ -112,7 +112,7 @@ export const Search = (props) => {
 
     return (
         <div>
-                <Box position={"absolute"} top={"0%"} left={"0%"} width={1847} >
+            <Box position={"absolute"} top={"0%"} left={"0%"} width={"100%"} >
                 <AppBar position="static">
                     <Toolbar >
                     <Link href="/">
@@ -134,11 +134,11 @@ export const Search = (props) => {
                                     fontWeight: '1000', fontSize: '15px'
                                 }} variant="outlined">Search Entry</Button>
                     </Box>
-                            <Button color="inherit" onClick={handleLogOut} sx={{ fontWeight: '400', fontSize: '12px', position: 'absolute', left: '79%', fontWeight: 'bold' }}>logout</Button>
+                        <Button color="inherit" onClick={handleLogOut} sx={{ fontWeight: '400', fontSize: '12px', position: 'absolute', fontWeight: 'bold', right: '30px' }} >logout</Button>
                 </Toolbar>
                 </AppBar>
                 </Box>   
-            <Box position={"absolute"} top={"10%"} left={"0%"} width={1847} > 
+            <Box position={"absolute"} top={"10%"} left={"0%"} width={"100%"} > 
             <form className="Search-form" onSubmit={fetchData}>
                 <Toolbar>
                     <SearchIt>
@@ -167,7 +167,7 @@ export const Search = (props) => {
             </form>
             </Box> 
             
-            <Box position={"absolute"} top={"20%"} left={"0%"} width={1847} >
+            <Box position={"absolute"} top={"20%"} left={"0%"} width={"100%"} >
             <TableContainer component={Paper} sx={{ overflow: "scroll", height: "500px" }}>
                 <Table>
                     <TableHead>

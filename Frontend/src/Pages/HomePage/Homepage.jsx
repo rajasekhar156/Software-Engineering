@@ -15,6 +15,7 @@ import Collapse from '@mui/material/Collapse';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import logo from '../../logo.png';
+import Container from '@material-ui/core/Container';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -110,8 +111,9 @@ export const Homepage = (props) =>{
       };
 
         return(
+            // <Container maxWidth="lg">
             <Box sx={{ flexGrow: 1 }} >
-                <Box position={"absolute"} top={"0%"} left={"0%"} width={1847} >
+                <Box position={"absolute"} top={"0%"} left={"0%"} width={"100%"} >
                 <AppBar position="static">
                     <Toolbar >
                     <Link href="/">
@@ -128,7 +130,7 @@ export const Homepage = (props) =>{
                     <Button color="inherit" onClick={handleActive} sx={{fontWeight : '800', fontSize: '15px'}}>Active Entries</Button>
                     <Button color="inherit" onClick={handleSearch} sx={{fontWeight : '800', fontSize: '15px'}}>Search Entry</Button>
                     </Box>
-                            <Button color="inherit" onClick={handleLogOut} sx={{ fontWeight: '400', fontSize: '12px', position: 'absolute', left: '79%', fontWeight: 'bold' }}>logout</Button>
+                    <Button color="inherit" onClick={handleLogOut} sx={{ fontWeight: '400', fontSize: '12px', position: 'absolute', fontWeight: 'bold', right: '30px' }} >logout</Button>
 
                 </Toolbar>
                 </AppBar>
@@ -370,6 +372,7 @@ export const Homepage = (props) =>{
                 </Grid>
             </Grid>
             </Box>
+            // </Container>
         );
 };
 

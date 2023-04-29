@@ -69,7 +69,7 @@ export const Add = (props) =>{
     return(
         // Creating a form to add a new entry to the database
         <div className="add-entry">
-            <Box position={"absolute"} top={"0%"} left={"0%"} width={1847} >
+            <Box position={"absolute"} top={"0%"} left={"0%"} width={"100%"} >
             <AppBar position="static">
                 <Toolbar >
                 <Link href="/">
@@ -86,7 +86,7 @@ export const Add = (props) =>{
                 <Button color="inherit" onClick={handleActive} sx={{fontWeight : '800', fontSize: '15px'}}>Active Entries</Button>
                 <Button color="inherit" onClick={handleSearch} sx={{fontWeight : '800', fontSize: '15px'}}>Search Entry</Button>
                 </Box>
-                        <Button color="inherit" onClick={handleLogOut} sx={{ fontWeight: '400', fontSize: '12px', position: 'absolute', left: '79%', fontWeight: 'bold' }}>logout</Button>
+                        <Button color="inherit" onClick={handleLogOut} sx={{ fontWeight: '400', fontSize: '12px', position: 'absolute', fontWeight: 'bold', right: '30px' }} >logout</Button>
                 
             </Toolbar>
             </AppBar>
