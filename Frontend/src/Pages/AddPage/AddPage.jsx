@@ -4,12 +4,14 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import { FormControlLabel, Checkbox, Grid, Paper} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import logo from '../../logo.png';
 
 
 export const Add = (props) =>{
@@ -36,10 +38,10 @@ export const Add = (props) =>{
         e.preventDefault();
         navigate('/Search');
     };
-    const handlelogout = async (e) => {
+    const handleLogOut = async (e) => {
         e.preventDefault();
         navigate('/');
-    };
+    }
     const handleSubmit = async(e) =>{
         e.preventDefault();
         let url;
@@ -94,14 +96,23 @@ export const Add = (props) =>{
         <Grid width={1847} height={980} component={Paper} elevation={6} square backgroundColor={"#454545"}>
             <Box position={"absolute"} top={"0%"} left={"0%"} width={1847} >
             <AppBar position="static">
-                <Toolbar sx={{backgroundColor: "primary-bar"}}>
+                <Toolbar >
+                <Link href="/">
+                    <Box
+                        component="img"
+                        sx={{ height: 54 }}
+                        alt="Logo"
+                        src={logo}
+                    />
+                </Link>
                 <Box position={"absolute"} left={"20%"} width={700}>
                 <Button color="inherit" onClick={handleLatestEntry} sx={{fontWeight : '800', fontSize: '15px'}}>Latest Entry</Button>
-                <Button color="inherit" sx={{fontWeight : '1000', fontSize: '18px'}}>Add Entry</Button>
+                            <Button color="inherit" sx={{ fontWeight: '1000', fontSize: '15px' }} variant="outlined">Add Entry</Button>
                 <Button color="inherit" onClick={handleActive} sx={{fontWeight : '800', fontSize: '15px'}}>Active Entries</Button>
                 <Button color="inherit" onClick={handleSearch} sx={{fontWeight : '800', fontSize: '15px'}}>Search Entry</Button>
                 </Box>
-                <Button color="inherit" onClick={handlelogout} sx={{fontWeight : '400', fontSize: '12px', position: 'absolute', left: '79%'}}>logout</Button>
+                        <Button color="inherit" onClick={handleLogOut} sx={{ fontWeight: '400', fontSize: '12px', position: 'absolute', fontWeight: 'bold', right: '30px' }} >logout</Button>
+                
             </Toolbar>
             </AppBar>
             </Box>

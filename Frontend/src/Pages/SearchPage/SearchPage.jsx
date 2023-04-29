@@ -11,6 +11,8 @@ import IconButton from '@mui/material/IconButton';
 import { styled, alpha } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import Link from '@mui/material/Link';
+import logo from '../../logo.png';
 
 const SearchIt = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -49,6 +51,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         [theme.breakpoints.up('md')]: {
             width: '20ch',
         },
+    
 
     },
 }));
@@ -71,11 +74,11 @@ export const Search = (props) => {
         e.preventDefault();
         navigate('/Add');
     }
-    const handlelogout = async (e) => {
+    const handleLogOut = async (e) => {
         e.preventDefault();
         navigate('/');
-    };
-    
+    }
+
     // const handleSearch = async (e) => {
     //     e.preventDefault();
     //     // const info={email:email,password:password};
@@ -109,31 +112,45 @@ export const Search = (props) => {
 
     return (
         <div>
-            <Box sx={{ width :1000}}>
-                <Box position={"absolute"} top={"0%"} left={"0%"} width={1847} >
+            <Box position={"absolute"} top={"0%"} left={"0%"} width={"100%"} >
                 <AppBar position="static">
                     <Toolbar >
-                    <Box position={"absolute"} left={"20%"} width={700}>
-                    <Button color="inherit" onClick={handleLatestEntry} sx={{fontWeight : '800', fontSize: '15px'}} >Latest Entry</Button>
-                    <Button color="inherit" onClick={handleAddEntry} sx={{fontWeight : '800', fontSize: '15px'}}  >Add Entry</Button>
-                    <Button color="inherit" onClick={handleActive} sx={{fontWeight : '800', fontSize: '15px'}}>Active Entries</Button>
-                    <Button color="inherit" sx={{fontWeight : '1000', fontSize: '18px'}}>Search Entry</Button>
+                    <Link href="/">
+                        <Box
+                            component="img"
+                            sx={{ height: 54 }}
+                            alt="Logo"
+                            src={logo}
+                        />
+                    </Link>
+                    <Box position={"absolute"} left={"20%"}
+                                sx={{
+                                    width: 700
+                                }}>
+                                <Button color="inherit" onClick={handleLatestEntry} sx={{ fontWeight: '800', fontSize: '15px' }} >Latest Entry</Button>
+                                <Button color="inherit" onClick={handleAddEntry} sx={{ fontWeight: '800', fontSize: '15px' }} >Add Entry</Button>
+                                <Button color="inherit" onClick={handleActive} sx={{ fontWeight: '800', fontSize: '15px' }} >Active Entries</Button>
+                                <Button color="inherit" sx={{
+                                    fontWeight: '1000', fontSize: '15px'
+                                }} variant="outlined">Search Entry</Button>
                     </Box>
-                <Button color="inherit" onClick={handlelogout} sx={{fontWeight : '400', fontSize: '12px', position: 'absolute', left: '79%'}}>logout</Button>
+                        <Button color="inherit" onClick={handleLogOut} sx={{ fontWeight: '400', fontSize: '12px', position: 'absolute', fontWeight: 'bold', right: '30px' }} >logout</Button>
                 </Toolbar>
                 </AppBar>
-                </Box>     
+                </Box>   
+            <Box position={"absolute"} top={"10%"} left={"0%"} width={"100%"} > 
             <form className="Search-form" onSubmit={fetchData}>
                 <Toolbar>
                     <SearchIt>
-                        <Typography display="inline" variant="h5" component="div" sx={{ flexGrow: 0.8 }}>
-                            Vehicle Reg. No. :
+                        <Typography display="inline" variant="h5" component="div" sx={{ flexGrow: 0.8,margin: 3 }}>
+                            Vehicle Registration Number :
                         </Typography>
                         <StyledInputBase
                             value={vehicleNumberSc} onChange={(e) => setVehicleNumber(e.target.value)}
                             type='search' id='vehicleNumberSc'
                             placeholder="Search…"
                             inputProps={{ 'aria-label': 'search' }}
+                                sx={{ border: 1, borderRadius: 2 }}
 
                         />
                         <Button type="submit">
@@ -148,7 +165,9 @@ export const Search = (props) => {
                     </SearchIt>
                 </Toolbar>
             </form>
-
+            </Box> 
+            
+            <Box position={"absolute"} top={"20%"} left={"0%"} width={"100%"} >
             <TableContainer component={Paper} sx={{ overflow: "scroll", height: "500px" }}>
                 <Table>
                     <TableHead>
