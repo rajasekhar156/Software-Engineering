@@ -71,7 +71,11 @@ export const Search = (props) => {
         e.preventDefault();
         navigate('/Add');
     }
-
+    const handlelogout = async (e) => {
+        e.preventDefault();
+        navigate('/');
+    };
+    
     // const handleSearch = async (e) => {
     //     e.preventDefault();
     //     // const info={email:email,password:password};
@@ -115,7 +119,7 @@ export const Search = (props) => {
                     <Button color="inherit" onClick={handleActive} sx={{fontWeight : '800', fontSize: '15px'}}>Active Entries</Button>
                     <Button color="inherit" sx={{fontWeight : '1000', fontSize: '18px'}}>Search Entry</Button>
                     </Box>
-                <Button color="inherit" sx={{fontWeight : '400', fontSize: '12px', position: 'absolute', left: '79%'}}>logout</Button>
+                <Button color="inherit" onClick={handlelogout} sx={{fontWeight : '400', fontSize: '12px', position: 'absolute', left: '79%'}}>logout</Button>
                 </Toolbar>
                 </AppBar>
                 </Box>     

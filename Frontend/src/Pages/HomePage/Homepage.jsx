@@ -94,6 +94,11 @@ export const Homepage = (props) =>{
         navigate('/Search');
     };
 
+    const handlelogout = async (e) => {
+        e.preventDefault();
+        navigate('/');
+    };
+
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
           return;
@@ -113,7 +118,7 @@ export const Homepage = (props) =>{
                     <Button color="inherit" onClick={handleActive} sx={{fontWeight : '800', fontSize: '15px'}}>Active Entries</Button>
                     <Button color="inherit" onClick={handleSearch} sx={{fontWeight : '800', fontSize: '15px'}}>Search Entry</Button>
                     </Box>
-                    <Button color="inherit" sx={{fontWeight : '400', fontSize: '12px', position: 'absolute', left: '79%'}}>logout</Button>
+                    <Button color="inherit" onClick={handlelogout} sx={{fontWeight : '400', fontSize: '12px', position: 'absolute', left: '79%'}}>logout</Button>
 
                 </Toolbar>
                 </AppBar>

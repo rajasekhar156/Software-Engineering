@@ -119,6 +119,10 @@ export const ActiveEntries = () => {
     e.preventDefault();
     navigate("/Search");
   };
+  const handlelogout = async (e) => {
+      e.preventDefault();
+      navigate('/');
+  };
   return (
     <div>
 
@@ -131,7 +135,7 @@ export const ActiveEntries = () => {
                 <Button color="inherit" sx={{fontWeight : '1000', fontSize: '18px'}}>Active Entries</Button>
                 <Button color="inherit" onClick={handleSearch} sx={{fontWeight : '800', fontSize: '15px'}}>Search Entry</Button>
                 </Box>
-                <Button color="inherit" sx={{fontWeight : '400', fontSize: '12px', position: 'absolute', left: '79%'}}>logout</Button>
+                <Button color="inherit" onClick={handlelogout} sx={{fontWeight : '400', fontSize: '12px', position: 'absolute', left: '79%'}}>logout</Button>
             </Toolbar>
             </AppBar>
             </Box>

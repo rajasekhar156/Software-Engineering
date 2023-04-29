@@ -18,7 +18,26 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
   
-const theme = createTheme();
+const theme = createTheme({
+    palette: {
+        primary: {
+          main: '#FFE6C7',
+          dark: '#454545'
+        },
+    },
+    components: {
+      MuiInputBase: {
+        styleOverrides: {
+          input: {
+            backgroundColor: '#7f7c7c',
+            color: '#FFE6C7',
+            fontWeight: 'bold',
+            fontSize: '18.5px',
+          },
+        },
+      },
+    },
+  });
 
 let temp = false;
 
@@ -68,6 +87,11 @@ export const Login = (props) =>{
         setClose(false);
       };
 
+    const placeholderColor = {
+        '&::placeholder': {
+          color: '#FFE6C7',
+    }};
+
     return(
         // <div className="auth-form">
         //     <h2>Login</h2>
@@ -101,11 +125,11 @@ export const Login = (props) =>{
                     backgroundPosition: 'center',
                 }}
                 />
-                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square backgroundColor={"#eae9e9"}>
-                <Avatar sx={{ m: 1, bgcolor: 'secondary.main', 
+                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square backgroundColor={"#454545"}>
+                <Avatar sx={{ m: 1, bgcolor: '#FFE6C7', color: '#454545',
                     position: 'absolute',
                     left: '77.5%',
-                    top: '16%'}}>
+                    top: '21%'}}>
                     <LockOutlinedIcon />
                 </Avatar>
                 <Box
@@ -116,11 +140,11 @@ export const Login = (props) =>{
                     // flexDirection: 'column',
                     alignItems: 'center',
                     position: 'absolute',
-                    top: '17%'
+                    top: '22%'
                     }}
                 >
                     <Typography component="h1" variant="h4">
-                    <span style={{fontWeight: 'bold'}}>Sign in</span>
+                    <span style={{fontWeight: 'bold', color: '#FFE6C7'}}>Sign in</span>
                     </Typography>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                     <TextField
@@ -133,6 +157,7 @@ export const Login = (props) =>{
                         autoComplete="email"
                         value={userId} 
                         onChange={(e)=>setuserId(e.target.value)}
+                        backgroundColor={"primary-main"}
                         placeholder="security3096@iith.ac.in"
                         autoFocus
                     />
@@ -149,21 +174,21 @@ export const Login = (props) =>{
                         placeholder="********"
                         autoComplete="current-password"
                     />
-                    <FormControl style={{ marginTop: 15, marginLeft: 15 }}>
+                    <FormControl style={{ marginTop: 10, marginLeft: 15 }}>
                         
                         <Select value={gateNo} onChange={(e) => setGateNo(e.target.value)}>
                             <MenuItem value={1}>In</MenuItem>
                             <MenuItem value={2}>Out</MenuItem>
                         </Select>
-                        <FormHelperText>Select the Gate</FormHelperText>
+                        <FormHelperText sx={{color: '#FFE6C7', fontSize: '15px'}}>Select the Gate</FormHelperText>
                     </FormControl>
                     <Button
                         type="submit"
                         fullWidth
                         variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
+                        sx={{ mt: 1, mb: 2, color: '#454545', backgroundColor: 'primary-main'}}
                     >
-                    <span style={{fontWeight: 'bold'}}>Sign In</span>
+                    <span style={{fontWeight: 'bold', fontSize: '22px'}}>Sign In</span>
                     </Button>
                     <Snackbar open={close} autoHideDuration={6000} onClose={handleClose}>
                         <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
@@ -172,7 +197,7 @@ export const Login = (props) =>{
                     </Snackbar>
                     <Grid container>
                         <Grid item xs>
-                            <span onClick={handleforgotpwd} className="link-btn" style={{fontWeight: 'bold',cursor:"pointer"}}>Forgot password...Again?</span>
+                            <span onClick={handleforgotpwd} className="link-btn" style={{fontWeight: 'bold',cursor:"pointer", color: '#FFE6C7'}}>Forgot password...Again?</span>
                         </Grid>
                     </Grid>
                     </Box>
