@@ -6,9 +6,11 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
-import { FormControlLabel, Checkbox} from "@mui/material";
+import { FormControlLabel, Checkbox, Grid, Paper} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 import logo from '../../logo.png';
 
 
@@ -65,11 +67,34 @@ export const Add = (props) =>{
             alert("OOPS! Invalid Login Details");
         }
     }
+
+    const theme = createTheme({
+        palette: {
+            primary: {
+              main: '#FFA559',
+              dark: '#454545', 
+            },
+        },
+        components: {
+          MuiInputBase: {
+            styleOverrides: {
+              input: {
+                backgroundColor: '#7f7c7c',
+                color: '#FFE6C7',
+                fontWeight: 'bold',
+                fontSize: '18.5px',
+              },
+            },
+          },
+        },
+      });
     
     return(
         // Creating a form to add a new entry to the database
-        <div className="add-entry">
-            <Box position={"absolute"} top={"0%"} left={"0%"} width={"100%"} >
+        <ThemeProvider theme={theme}>
+        <Grid container component="main" >
+        <Grid width={1847} height={980} component={Paper} elevation={6} square backgroundColor={"#454545"}>
+            <Box position={"absolute"} top={"0%"} left={"0%"} width={1847} >
             <AppBar position="static">
                 <Toolbar >
                 <Link href="/">
@@ -91,12 +116,12 @@ export const Add = (props) =>{
             </Toolbar>
             </AppBar>
             </Box>
-            <Box sx={{ flexGrow: 1 }}>
+            <Box width = {1200} position={"absolute"} left={"18%"} top={"16%"} sx={{ flexGrow: 1 }}>
             <form className="add-entry-form" onSubmit={handleSubmit}>
             <TextField
                 type="text"
                 variant='outlined'
-                color='secondary'
+                color='primary'
                 label="Vehicle Registration Number"
                 value={regNo}
                 onChange={e => setregNo(e.target.value)}
@@ -107,8 +132,8 @@ export const Add = (props) =>{
             />
             <TextField
                 type="text"
-                variant='outlined'
-                color='secondary'
+                variant='outlined'                
+                color='primary'
                 label="Name"
                 value={name}
                 onChange={e => setname(e.target.value)}
@@ -119,7 +144,7 @@ export const Add = (props) =>{
             <TextField
                 type="number"
                 variant='outlined'
-                color='secondary'
+                color='primary'
                 label="Phone Number"
                 value={phNo}
                 onChange={e => setphNo(e.target.value)}
@@ -130,7 +155,7 @@ export const Add = (props) =>{
             <TextField
                 type="email"
                 variant='outlined'
-                color='secondary'
+                color='primary'
                 label="Email"
                 value={email}
                 onChange={e => setemail(e.target.value)}
@@ -142,6 +167,7 @@ export const Add = (props) =>{
             <FormControlLabel
                 control={<Checkbox 
                     onChange={e => setonline(!online)}
+                    sx={{color: '#FFE6C7', fontColor: '#FFE6C7'}}
                     />}
                 label="E-mail Request"/>{
                     online? 
@@ -182,9 +208,18 @@ export const Add = (props) =>{
                     />
                     </div>
                  : ''}
-            <Button variant="outlined" color="secondary" type="submit">Submit</Button>
+            <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 1, mb: 2, color: '#454545', backgroundColor: '#FFE6C7'}}
+            >
+            <span style={{fontWeight: 'bold', fontSize: '22px'}}>Submit</span>
+            </Button>
             </form>
             </Box>
-        </div>
+        </Grid>
+        </Grid>
+        </ThemeProvider>
     );
 }

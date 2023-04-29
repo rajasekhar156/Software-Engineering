@@ -82,6 +82,14 @@ class Gate {
     }
   }
 
+  async AddLatestEntry(regNo, entryDt, entryT){
+    // search using reg NO
+    // const vehicle_Details = await Infodb.findOne({vehicleNumber: latest_entry.vehicleNo}).sort({_id:-1}).limit(1);
+    // we get an object, take the existing fields and add a new entry into the db with updated timings
+  }
+
+  // exit time done similarly, we have to update the entry in the database with no exit time and the same vehicle no.
+
   async Addentry1(regNo,pername,phNo,email,entryDt,entryT){
 
     latest_entry.vehicleNo = regNo;
