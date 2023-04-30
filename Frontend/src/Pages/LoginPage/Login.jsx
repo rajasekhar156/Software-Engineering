@@ -16,7 +16,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Select, MenuItem, FormHelperText, FormControl, InputLabel } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-//import myInitObject from '../../global'
+//import { isLoggedIn, setLoggedIn } from "../global";
 
   
 const theme = createTheme({
@@ -40,7 +40,6 @@ const theme = createTheme({
     },
   });
 
-let temp = false;
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -67,11 +66,14 @@ export const Login = (props) =>{
         console.log(tp.status);
         if(tp.data === "1"){
             setOpen(true);
-            temp = true;
+            //setLoggedIn(true);
+            //console.log("Yes");
+            localStorage.setItem("isLoggedIn", "true");
             navigate('/Home');
         }
         else if(tp.data === "0"){
             // setClose(true);
+            localStorage.setItem("isLoggedIn", "false");
             alert("OOPS! Invalid Login Details");
         }
     }
@@ -161,6 +163,7 @@ export const Login = (props) =>{
                         backgroundColor={"primary-main"}
                         placeholder="security3096@iith.ac.in"
                         autoFocus
+                        data-testid="text-input-element"
                     />
                     <TextField
                         margin="normal"
@@ -174,10 +177,11 @@ export const Login = (props) =>{
                         onChange={(e)=>setPassword(e.target.value)} 
                         placeholder="********"
                         autoComplete="current-password"
+                        data-testid="password-input-element"
                     />
                     <FormControl style={{ marginTop: 10, marginLeft: 15 }}>
                         
-                        <Select value={gateNo} onChange={(e) => setGateNo(e.target.value)}>
+                                <Select value={gateNo} required onChange={(e) => setGateNo(e.target.value)}>
                             <MenuItem value={1}>In</MenuItem>
                             <MenuItem value={2}>Out</MenuItem>
                         </Select>
@@ -188,14 +192,15 @@ export const Login = (props) =>{
                         fullWidth
                         variant="contained"
                         sx={{ mt: 1, mb: 2, color: '#454545', backgroundColor: 'primary-main'}}
+                        data-testid= "login-button-element"
                     >
                     <span style={{fontWeight: 'bold', fontSize: '22px'}}>Sign In</span>
                     </Button>
-                    <Snackbar open={close} autoHideDuration={6000} onClose={handleClose}>
+                    {/* <Snackbar open={close} autoHideDuration={6000} onClose={handleClose}>
                         <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
                         OOPS! Invalid Login Details
                         </Alert>
-                    </Snackbar>
+                    </Snackbar> */}
                     <Grid container>
                         <Grid item xs>
                             <span onClick={handleforgotpwd} className="link-btn" style={{fontWeight: 'bold',cursor:"pointer", color: '#FFE6C7'}}>Forgot password...Again?</span>
@@ -209,4 +214,4 @@ export const Login = (props) =>{
     );
 }
 
-export {temp};
+// export {isLoggedIn};

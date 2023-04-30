@@ -18,6 +18,13 @@ import {
 } from "@mui/material";
 import MaterialReactTable from 'material-react-table';
 import logo from '../../logo.png';
+// import { isLoggedIn, setLoggedIn } from "../global";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export const ActiveEntries = () => {
   const navigate = useNavigate();
@@ -123,15 +130,26 @@ export const ActiveEntries = () => {
   };
   const handleLogOut = async (e) => {
     e.preventDefault();
+    localStorage.removeItem("isLoggedIn");
     navigate('/');
-  }
+  };
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      navigate('/');
+    }};
+
+  const handleURLChange = () => {
+    navigate('/');
+  };
+  
+  if (localStorage.getItem("isLoggedIn") == "true") {
   return (
     <div>
 
           <Box position={"absolute"} top={"0%"} left={"0%"} width={"100%"} >
             <AppBar position="static">
                 <Toolbar >
-                <Link href="/">
+                <Link>
                   <Box
                     component="img"
                     sx={{ height: 54 }}
@@ -214,4 +232,12 @@ export const ActiveEntries = () => {
       </Box>
     </div>
   );
+        }
+  else {
+    return (
+      <div>
+        {handleURLChange()}
+      </div>
+    );}
+  
 };

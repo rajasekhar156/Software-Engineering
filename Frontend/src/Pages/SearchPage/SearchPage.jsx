@@ -13,6 +13,13 @@ import { useNavigate } from "react-router-dom";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import Link from '@mui/material/Link';
 import logo from '../../logo.png';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+//import { isLoggedIn, setLoggedIn } from "../global";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const SearchIt = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -76,8 +83,13 @@ export const Search = (props) => {
     }
     const handleLogOut = async (e) => {
         e.preventDefault();
+        localStorage.removeItem("isLoggedIn");
         navigate('/');
     }
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            navigate('/');
+        }}
 
     // const handleSearch = async (e) => {
     //     e.preventDefault();
@@ -98,7 +110,7 @@ export const Search = (props) => {
                 setVehicledetails([{vehicleNumber:"NA",personName:"NA",phoneNumber:"NA",emailId:"NA",entryTime:"NA"}]);
                 console.log("2",Vehicle_details);
                 alert("OOPS! No entry Found");
-                navigate('/Search');
+                navigate('/Search')
             }
             else{
                 console.log("raja");
@@ -110,12 +122,18 @@ export const Search = (props) => {
         }
     }
 
+    const handleURLChange = () => {
+        console.log('Yes, u are here');
+        navigate('/');
+    };
+
+    if (localStorage.getItem("isLoggedIn") == "true") {
     return (
         <div>
             <Box position={"absolute"} top={"0%"} left={"0%"} width={"100%"} >
                 <AppBar position="static">
                     <Toolbar >
-                    <Link href="/">
+                    <Link>
                         <Box
                             component="img"
                             sx={{ height: 54 }}
@@ -194,6 +212,12 @@ export const Search = (props) => {
             </TableContainer>
             </Box>
         </div>
-    );
+    );}
+    else {
+        return (
+            <div>
+                {handleURLChange()}
+            </div>
+        );}
 }
 

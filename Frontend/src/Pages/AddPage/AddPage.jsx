@@ -10,8 +10,15 @@ import { FormControlLabel, Checkbox, Grid, Paper} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+// import { isLoggedIn, setLoggedIn } from "../global";
 
 import logo from '../../logo.png';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 
 export const Add = (props) =>{
@@ -40,8 +47,14 @@ export const Add = (props) =>{
     };
     const handleLogOut = async (e) => {
         e.preventDefault();
+        localStorage.removeItem("isLoggedIn");
         navigate('/');
     }
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            navigate('/');
+        }}
+
     const handleSubmit = async(e) =>{
         e.preventDefault();
         let url;
@@ -88,7 +101,12 @@ export const Add = (props) =>{
           },
         },
       });
-    
+
+    const handleURLChange = () => {
+        navigate('/');
+    };
+
+    if (localStorage.getItem("isLoggedIn") == "true") {
     return(
         // Creating a form to add a new entry to the database
         <ThemeProvider theme={theme}>
@@ -97,7 +115,7 @@ export const Add = (props) =>{
             <Box position={"absolute"} top={"0%"} left={"0%"} width={1847} >
             <AppBar position="static">
                 <Toolbar >
-                <Link href="/">
+                <Link>
                     <Box
                         component="img"
                         sx={{ height: 54 }}
@@ -221,5 +239,11 @@ export const Add = (props) =>{
         </Grid>
         </Grid>
         </ThemeProvider>
-    );
+    );}
+    else {
+        return (
+            <div>
+                {handleURLChange()}
+            </div>
+        );}
 }
