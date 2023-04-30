@@ -112,7 +112,10 @@ export const ActiveEntries = () => {
         accessorKey: 'entryTime',
         header: 'Entry Time',
       },
-
+      {
+        accessorKey: 'entryDate',
+        header: 'Entry Date',
+      }
     ],
     [],
   );
