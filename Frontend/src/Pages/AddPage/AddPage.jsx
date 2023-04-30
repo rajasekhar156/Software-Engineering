@@ -6,10 +6,11 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
-import { FormControlLabel, Checkbox, Grid, Paper} from "@mui/material";
+import { FormControlLabel, Checkbox, Grid, Paper, Card, CardMedia} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 // import { isLoggedIn, setLoggedIn } from "../global";
 
 import logo from '../../logo.png';
@@ -80,26 +81,7 @@ export const Add = (props) =>{
         }
     }
 
-    const theme = createTheme({
-        palette: {
-            primary: {
-              main: '#FFA559',
-              dark: '#454545', 
-            },
-        },
-        components: {
-          MuiInputBase: {
-            styleOverrides: {
-              input: {
-                backgroundColor: '#7f7c7c',
-                color: '#FFE6C7',
-                fontWeight: 'bold',
-                fontSize: '18.5px',
-              },
-            },
-          },
-        },
-      });
+    const theme = createTheme({});
 
     const handleURLChange = () => {
         navigate('/');
@@ -109,9 +91,18 @@ export const Add = (props) =>{
     return(
         // Creating a form to add a new entry to the database
         <ThemeProvider theme={theme}>
+            <div width = "100%" height = "100%">
+                <Card sx={{ Width: '100%', height: '100%'}}>
+                    <CardMedia
+                        style={{ height: 960, width: 1840, opacity: 0.5 }}
+                        image={require('./gate.jpg')} // require image
+                        title="invalid entry"
+                    />
+                </Card>
+            </div>
         <Grid container component="main" >
-        <Grid width={1847} height={980} component={Paper} elevation={6} square backgroundColor={"#454545"}>
-            <Box position={"absolute"} top={"0%"} left={"0%"} width={1847} >
+        <Grid width={"100%"} height={"100%"} component={Paper} elevation={6} square>
+            <Box position={"absolute"} bgcolor={"#000000"} top={"0%"} left={"0%"} width={1847} >
             <AppBar position="static">
                 <Toolbar >
                 <Link>
@@ -133,7 +124,7 @@ export const Add = (props) =>{
             </Toolbar>
             </AppBar>
             </Box>
-            <Box width = {1200} position={"absolute"} left={"18%"} top={"16%"} sx={{ flexGrow: 1 }}>
+            <Box width = {"58%"} bgcolor = "#fff" position={"absolute"} left={"17%"} paddingLeft={10} paddingRight={10} paddingTop={5} paddingBottom={5} top={"15%"} right = {"18.5%"} sx={{ flexGrow: 1}}>
             <form className="add-entry-form" onSubmit={handleSubmit}>
             <TextField
                 type="text"
@@ -184,7 +175,6 @@ export const Add = (props) =>{
             <FormControlLabel
                 control={<Checkbox 
                     onChange={e => setonline(!online)}
-                    sx={{color: '#FFE6C7', fontColor: '#FFE6C7'}}
                     />}
                 label="E-mail Request"/>{
                     online? 
@@ -218,7 +208,7 @@ export const Add = (props) =>{
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 1, mb: 2, color: '#454545', backgroundColor: '#FFE6C7'}}
+                sx={{ mt: 1, mb: 2, color: '#eae9e9'}}
             >
             <span style={{fontWeight: 'bold', fontSize: '22px'}}>Submit</span>
             </Button>
