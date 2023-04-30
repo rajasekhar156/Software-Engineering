@@ -15,11 +15,16 @@ import Collapse from '@mui/material/Collapse';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import logo from '../../logo.png';
+// import { json } from "stream/consumers";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
+const f_s = require("fs");
+
+// let final = "NA";
+// let oldvalue= "NA";
 
 export const Homepage = (props) =>{
 
@@ -33,6 +38,10 @@ export const Homepage = (props) =>{
     // }
     const [open,setOpen] = useState(temp);
     const [valid,setvalid] = useState('');
+    // const [isFirstLoad, setIsFirstLoad] = useState(true);
+    // const [isVisible, setVisible] = useState(false);
+    const [final,setfinal] = useState('NA');
+    const [oldvalue,setoldvalue] = useState('NA');
     // const [inVehicles, setInVehicles] = useState([]);
     const [vehicleno,setvehicleNumber] = useState('TS15IK1028');
     const [personName,setpersonName] = useState('Rajasekhar I');
@@ -42,7 +51,6 @@ export const Homepage = (props) =>{
     const [exitTime,setexitTime] = useState('22:00');
 
     const navigate = useNavigate();
-
     //let vehicleno  = "TS15IK1029";
     // let personName  = "Rajasekhar I";
     // let phoneNumber = "96180884649";
@@ -50,35 +58,81 @@ export const Homepage = (props) =>{
     // let entryTime = "16:30";
     // let exitTime = "22:00";
 
-    useEffect(()=>{
-        async function handleLatestEntry(){
+    let fetchData = async() =>{
+        let resp = await fetch("http://localhost:3000/highest.txt");
+        let temp = await resp.text();
+        setfinal(temp);
+        console.log("66-",oldvalue,"33-",final);
+    }
 
-        // const handleLatestEntry = async() =>{
-            console.log("hahaha2");
-            let url = `http://localhost:5001/api/latestentry?`;
-            try{
-                const tp = await axios.post(url);
-                console.log(tp.data);
-                // setInVehicles(tp.data);
-                // console.log(inVehicles);
-                setvehicleNumber(tp.data.vehicleNumber);
-                setpersonName(tp.data.personName);
-                setphoneNumber(tp.data.phoneNumber);
-                setpersonEmail(tp.data.emailId);
-                setentryTime(tp.data.entryTime);
-                setexitTime(tp.data.exitTime);
-                // console.log(vehicleno,"2");
-                // personName = tp.data.personName;
-                // phoneNumber = tp.data.phoneNumber;
-                // personEmail = tp.data.personEmail;
-                // entryTime = tp.data.entryTime;
-                // exitTime = tp.data.exitTime;
-            }
-            catch(err){
-                console.error("Error fetching in latest entry: ", err);
-            }
+    const handleLatestEntry = async()=>{
+        // console.log("hahaha2");
+        let url = `http://localhost:5001/api/latestentry?`;
+        try{
+            const tp = await axios.post(url);
+            // console.log(tp.data);
+            // setInVehicles(tp.data);
+            // console.log(inVehicles);
+            setvehicleNumber(tp.data.vehicleNumber);
+            setpersonName(tp.data.personName);
+            setphoneNumber(tp.data.phoneNumber);
+            setpersonEmail(tp.data.emailId);
+            setentryTime(tp.data.entryTime);
+            setexitTime(tp.data.exitTime);
+            // setfinal(vehicleno);
+            // setoldvalue(vehicleno);
+            // window.localStorage.setItem("finaldatastoragevalue",vehicleno);
+            // window.localStorage.setItem("oldvaluedatastoragevalue",vehicleno);
+            // console.log(vehicleno,"2");
+            // personName = tp.data.personName;
+            // phoneNumber = tp.data.phoneNumber;
+            // personEmail = tp.data.personEmail;
+            // entryTime = tp.data.entryTime;
+            // exitTime = tp.data.exitTime;
         }
+        catch(err){
+            console.error("Error fetching in latest entry: ", err);
+        }
+    };
+
+    const addlatestentry = async() =>{
+        console.log("41-",oldvalue,"31-",final);
+        if(oldvalue!=final){
+            const dATE = new Date();
+            let date = "";
+            date = date.concat(dATE.getFullYear(),"-",dATE.getMonth(),"-",dATE.getDate());
+            let time = "";
+            time = time.concat(dATE.getHours(),":",dATE.getMinutes());
+            console.log("raja");
+            let url = `http://localhost:5001/api/AddLatestEntry?regNo=${final}&date=${date}&time=${time}`;
+            const tp = await axios.post(url);
+            // f_s.truncate('../../../public/highest.txt', 0, function(){console.log('done')})
+            console.log(tp);
+            console.log("hsjjs");
+        }
+        // console.log("4-",final);
+        // oldvalue=final;
+        setoldvalue(final);
+        console.log("42-",oldvalue,"32-",final);
+    };
+
+    useEffect(()=>{
+        const interval = setInterval(() => {
+            window.localStorage.setItem("finaldatastoragevalue",final);
+            window.localStorage.setItem("oldvaluedatastoragevalue",oldvalue);
+            // console.log("789-",data);
+            fetchData();
+            addlatestentry();
+        },1000);
         handleLatestEntry();
+        return () => clearInterval(interval);
+    },[final,oldvalue]);
+
+    useEffect(()=>{
+        let data = window.localStorage.getItem("finaldatastoragevalue");
+        setfinal(data);
+        data = window.localStorage.getItem("oldvaluedatastoragevalue");
+        setoldvalue(data);
     },[]);
     
     const handleAdd = async(e) =>{
@@ -109,10 +163,23 @@ export const Homepage = (props) =>{
         setOpen(false);
       };
 
+    
+
+    // const showFile = async (e) =>{
+    //     e.preventDefault();
+    //     const reader = new FileReader();
+    //     reader.onload = async(e) =>{
+    //         const text = (e.target.result);
+    //         console.log(text);
+    //         alert(text);
+    //     };
+    //     reader.readAsText(e.target.files(0));
+    // }
+
         return(
             // <Container maxWidth="lg">
             <Box sx={{ flexGrow: 1 }} >
-                <Box position={"absolute"} top={"0%"} left={"0%"} width={"100%"} >
+                <Box position={"absolute"} top={"0%"} left={"0%"} width={"100%"}>
                 <AppBar position="static">
                     <Toolbar >
                     <Link href="/">

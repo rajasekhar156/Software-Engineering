@@ -26,6 +26,7 @@ export const ActiveEntries = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRefetching, setIsRefetching] = useState(false);
   const [rowCount, setRowCount] = useState(0);
+  const [counts,setcounts] = useState(0);
   
   //table state
   const [columnFilters, setColumnFilters] = useState([]);
@@ -36,44 +37,44 @@ export const ActiveEntries = () => {
     pageSize: 10,
   });
   
+  const fetchData = async () => {
+    if (!data.length) {
+      setIsLoading(true);
+    } else {
+      setIsRefetching(true);
+    }
+    console.log("22");
+    let url;
+    url = `http://localhost:5001/api/in-vehicles`;
+    // url.searchParams.set(
+    //   'start',
+    //   `${pagination.pageIndex * pagination.pageSize}`,
+    // );
+
+    // url.searchParams.set('size', `${pagination.pageSize}`);
+    // url.searchParams.set('filters', JSON.stringify(columnFilters ?? []));
+    // url.searchParams.set('globalFilter', globalFilter ?? '');
+    // url.searchParams.set('sorting', JSON.stringify(sorting ?? []));
+
+    try {
+      const response = await fetch(url);
+      const j1son = await response.json();
+      console.log(j1son);
+      setData(j1son);
+      // console.log(j1son.length);
+      setRowCount(j1son.length);
+    } catch (error) {
+      setIsError(true);
+      console.error(error);
+      return;
+
+    }
+    setIsError(false);
+    setIsLoading(false);
+    setIsRefetching(false);
+  }
   
   useEffect(() => {
-    const fetchData = async () => {
-      if (!data.length) {
-        setIsLoading(true);
-      } else {
-        setIsRefetching(true);
-      }
-      // console.log("22");
-      let url;
-      url = `http://localhost:5001/api/in-vehicles`;
-      // url.searchParams.set(
-      //   'start',
-      //   `${pagination.pageIndex * pagination.pageSize}`,
-      // );
-
-      // url.searchParams.set('size', `${pagination.pageSize}`);
-      // url.searchParams.set('filters', JSON.stringify(columnFilters ?? []));
-      // url.searchParams.set('globalFilter', globalFilter ?? '');
-      // url.searchParams.set('sorting', JSON.stringify(sorting ?? []));
-
-      try {
-        const response = await fetch(url);
-        const j1son = await response.json();
-        console.log(j1son);
-        setData(j1son);
-        // console.log(j1son.length);
-        setRowCount(j1son.length);
-      } catch (error) {
-        setIsError(true);
-        console.error(error);
-        return;
-
-      }
-      setIsError(false);
-      setIsLoading(false);
-      setIsRefetching(false);
-    };
     fetchData();
   }, [columnFilters,
     globalFilter,
@@ -127,7 +128,6 @@ export const ActiveEntries = () => {
   }
   return (
     <div>
-
           <Box position={"absolute"} top={"0%"} left={"0%"} width={"100%"} >
             <AppBar position="static">
                 <Toolbar >
@@ -139,7 +139,7 @@ export const ActiveEntries = () => {
                     src={logo}
                   />
                 </Link>
-                <Box position={"absolute"} left={"20%"} width={700}>
+                <Box position={"absolute"} left={"20%"} width={700} >
                 <Button color="inherit" onClick={handleLatestEntry} sx={{fontWeight : '800', fontSize: '15px'}}>Latest Entry</Button>
                 <Button color="inherit" onClick = {handleAdd} sx={{fontWeight : '800', fontSize: '15px'}} >Add Entry</Button>
               <Button color="inherit" sx={{ fontWeight: '1000', fontSize: '15px' }} variant="outlined">Active Entries</Button>

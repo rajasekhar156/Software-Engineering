@@ -11,10 +11,10 @@ const InfoSchema = new mongoose.Schema(
     emailId: String,
     entryDate: String,
     entryTime: String,
+    exitDate: String,
     exitTime: String,
     ExpectedDate: String,
     ExpectedentryTime: String,
-    ExpectedexitTime: String,
     SecurityUserId: String
   },
   {
@@ -84,8 +84,30 @@ class Gate {
 
   async AddLatestEntry(regNo, entryDt, entryT){
     // search using reg NO
-    // const vehicle_Details = await Infodb.findOne({vehicleNumber: latest_entry.vehicleNo}).sort({_id:-1}).limit(1);
+    // console.log("hi1");
+    const vehicle_Details = await Infodb.findOne({vehicleNumber: regNo}).sort({_id:-1}).limit(1);
+    // console.log("hi2");
+    console.log("2-",vehicle_Details);
     // we get an object, take the existing fields and add a new entry into the db with updated timings
+    if(vehicle_Details==null){
+      //change the value of variable corresponding to invalid.
+    }
+    else{
+      latest_entry.vehicleNo = regNo;
+      latest_entry.personName = vehicle_Details.personName;
+      latest_entry.phoneNo = vehicle_Details.phoneNumber;
+      latest_entry.email = vehicle_Details.emailId;
+      const query = { vehicleNumber : regNo,personName: vehicle_Details.personName,phoneNumber: vehicle_Details.phoneNumber,emailId: vehicle_Details.emailId,entryDate: entryDt,entryTime: entryT,exitDate: temp,exitTime: temp,ExpectedDate: temp,ExpectedentryTime: temp};
+      // console.log("33-33-33-",query);
+      try{
+        await Infodb.create(query);
+      }
+      catch(err){
+          console.log("failed to insert the document1");
+          console.log(err);
+      }
+    }
+    return true;
   }
 
   // exit time done similarly, we have to update the entry in the database with no exit time and the same vehicle no.
@@ -97,7 +119,7 @@ class Gate {
     latest_entry.phoneNo = phNo;
     latest_entry.email = email;
 
-    const query = { vehicleNumber : regNo,personName: pername,phoneNumber: phNo,emailId: email,entryDate: entryDt,entryTime: entryT,exitTime: temp,ExpectedDate: temp,ExpectedentryTime: temp,ExpectedexitTime: temp};
+    const query = { vehicleNumber : regNo,personName: pername,phoneNumber: phNo,emailId: email,entryDate: entryDt,entryTime: entryT,exitDate: temp,exitTime: temp,ExpectedDate: temp,ExpectedentryTime: temp};
     
     console.log(query);
     try{
@@ -110,9 +132,9 @@ class Gate {
     return true;
   };
 
-  async Addentry2(regNo,name,phNo,email,expDate,expentryT,expexitT){
+  async Addentry2(regNo,pername,phNo,email,expDate,expentryT){
     
-    const query = { vehicleNumber : regNo,personName: pername,phoneNumber: phNo,emailId: email,entryDate: temp,entryTime: temp,exitTime: temp,ExpectedDate: expDate,ExpectedentryTime: expentryT,ExpectedexitTime: expexitT};
+    const query = { vehicleNumber : regNo,personName: pername,phoneNumber: phNo,emailId: email,entryDate: temp,entryTime: temp,exitDate: temp,exitTime: temp,ExpectedDate: expDate,ExpectedentryTime: expentryT};
 
     console.log(query);
     try{
@@ -164,10 +186,10 @@ class Gate {
               emailId: temp,
               entryDate: temp,
               entryTime: temp,
+              exitDate: temp,
               exitTime: temp,
               ExpectedDate: temp,
               ExpectedentryTime: temp,
-              ExpectedexitTime: temp
             };
           return query;
         }
