@@ -43,12 +43,12 @@ export const Homepage = (props) =>{
     const [final,setfinal] = useState('NA');
     const [oldvalue,setoldvalue] = useState('NA');
     // const [inVehicles, setInVehicles] = useState([]);
-    const [vehicleno,setvehicleNumber] = useState('TS15IK1028');
-    const [personName,setpersonName] = useState('Rajasekhar I');
-    const [phoneNumber,setphoneNumber] = useState('96180884649');
-    const [personEmail,setpersonEmail] = useState('rajasekhar@gmail.com');
-    const [entryTime,setentryTime] = useState('16:30');
-    const [exitTime,setexitTime] = useState('22:00');
+    const [vehicleno,setvehicleNumber] = useState('NA');
+    const [personName,setpersonName] = useState('NA');
+    const [phoneNumber,setphoneNumber] = useState('NA');
+    const [personEmail,setpersonEmail] = useState('NA');
+    const [entryTime,setentryTime] = useState('NA');
+    const [exitTime,setexitTime] = useState('NA');
 
     const navigate = useNavigate();
     //let vehicleno  = "TS15IK1029";
@@ -70,15 +70,22 @@ export const Homepage = (props) =>{
         let url = `http://localhost:5001/api/latestentry?`;
         try{
             const tp = await axios.post(url);
-            // console.log(tp.data);
+            console.log("143143");
             // setInVehicles(tp.data);
-            // console.log(inVehicles);
-            setvehicleNumber(tp.data.vehicleNumber);
-            setpersonName(tp.data.personName);
-            setphoneNumber(tp.data.phoneNumber);
-            setpersonEmail(tp.data.emailId);
-            setentryTime(tp.data.entryTime);
-            setexitTime(tp.data.exitTime);
+            console.log("245-",tp.data);
+            // if(tp.data==1){
+            //     setvehicleNumber(tp.data.vehicleNumber);
+            // }
+            // else{
+                console.log("rhrhe");
+                setvehicleNumber(tp.data.vehicleNumber);
+                // setvehicleNumber("thota");
+                setpersonName(tp.data.personName);
+                setphoneNumber(tp.data.phoneNumber);
+                setpersonEmail(tp.data.emailId);
+                setentryTime(tp.data.entryTime);
+                setexitTime(tp.data.exitTime);
+            // }
             // setfinal(vehicleno);
             // setoldvalue(vehicleno);
             // window.localStorage.setItem("finaldatastoragevalue",vehicleno);
@@ -107,7 +114,15 @@ export const Homepage = (props) =>{
             let url = `http://localhost:5001/api/AddLatestEntry?regNo=${final}&date=${date}&time=${time}`;
             const tp = await axios.post(url);
             // f_s.truncate('../../../public/highest.txt', 0, function(){console.log('done')})
-            console.log(tp);
+            if(tp.data==1){
+                console.log("hahaha");
+            }
+            else{
+                console.log("ajjajaj-",tp.data);
+                // setvehicleNumber("araha");
+                // console.log(tp.data,"sarandeep",vehicleno);
+                // setfinal(tp.data);
+            }
             console.log("hsjjs");
         }
         // console.log("4-",final);

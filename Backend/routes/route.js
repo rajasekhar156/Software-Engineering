@@ -25,9 +25,14 @@ router.post("/AddLatestEntry",async(req,res)=>{
   const date = req.query.date;
   const time =  req.query.time;
   try{
-    console.log("156156");
+    // console.log("156156");
     isvalid = await gate.AddLatestEntry(regNo,date,time);
-    res.status(200).json("1");
+    if(isvalid===true){
+      res.status(200).json("1");
+    }
+    else{
+      res.status(200).json(isvalid);
+    }
   }
   catch(error){
     console.error(error);
@@ -64,7 +69,10 @@ router.post("/Addentry",async(req,res)=>{
 router.post("/latestentry", async (req, res) => {
     try{
         const latest_entry = await gate.displaylatestEntry();
-        console.log(latest_entry);
+        // console.log(latest_entry);
+        // if(latest_entry==false){
+        //   res.status(200).send(latest_entry);
+        // }
         res.status(200).send(latest_entry);
     }
     catch (err){
@@ -80,7 +88,7 @@ router.get('/vehicleNumber', async (req, res) => {
     try 
     {
       const vehicle_Details = await gate.vehicleDetails(vehicleNumberSc);
-      console.log(vehicle_Details);
+      // console.log(vehicle_Details);
       if(vehicle_Details.vehicleNumber=="NA"){
         // console.log("wrwt");
         res.status(200).send("1");
@@ -102,7 +110,7 @@ router.get('/in-vehicles', async (req, res) => {
     try 
     {
       const inVehicles = await gate.displayActiveEntries();
-      console.log(inVehicles);
+      // console.log(inVehicles);
       res.status(200).send(inVehicles);
     } 
     catch (err) 

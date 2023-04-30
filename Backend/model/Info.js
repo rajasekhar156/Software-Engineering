@@ -25,16 +25,16 @@ const InfoSchema = new mongoose.Schema(
 const Infodb = mongoose.model("info", InfoSchema);
 
 class Info {
-  vehicleNo;
+  vehicleNumber;
   personName;
-  phoneNo;
-  email;
+  phoneNumber;
+  emailId;
 
-  constructor(regNo,perName,phNo,email=""){
-    this.vehicleNo = regNo;
+  constructor(regNo,perName,phNo,emailId=""){
+    this.vehicleNumber = regNo;
     this.personName = perName;
-    this.phoneNo = phNo;
-    this.email = email;
+    this.phoneNumber = phNo;
+    this.emailId = emailId;
   }
 
 }
@@ -59,9 +59,9 @@ class Gate {
     this.#gateNo = gateNo;
   }
 
-  setsecurityUser(UserId,PersonName,PersonNumber,EmailId,UserPwd){
+  setsecurityUser(UserId,personName,PersonNumber,EmailId,UserPwd){
     this.#securityUser.setuserId(UserId);
-    this.#securityUser.setpersonName(PersonName);
+    this.#securityUser.setpersonName(personName);
     this.#securityUser.setpersonNumber(PersonNumber);
     this.#securityUser.setemailId(EmailId);
     this.#securityUser.setuserPwd(UserPwd);
@@ -83,22 +83,25 @@ class Gate {
   }
 
   async AddLatestEntry(regNo, entryDt, entryT){
-    // search using reg NO
-    // console.log("hi1");
+    
     const vehicle_Details = await Infodb.findOne({vehicleNumber: regNo}).sort({_id:-1}).limit(1);
-    // console.log("hi2");
-    console.log("2-",vehicle_Details);
-    // we get an object, take the existing fields and add a new entry into the db with updated timings
+    
     if(vehicle_Details==null){
       //change the value of variable corresponding to invalid.
+      latest_entry.vehicleNumber = regNo;
+      latest_entry.personName = temp;
+      latest_entry.phoneNumber = temp;
+      latest_entry.emailId = temp;
+      console.log("33-33-33-",latest_entry);
+      return regNo;
     }
     else{
-      latest_entry.vehicleNo = regNo;
+      latest_entry.vehicleNumber = regNo;
       latest_entry.personName = vehicle_Details.personName;
-      latest_entry.phoneNo = vehicle_Details.phoneNumber;
-      latest_entry.email = vehicle_Details.emailId;
+      latest_entry.phoneNumber = vehicle_Details.phoneNumber;
+      latest_entry.emailId = vehicle_Details.emailId;
       const query = { vehicleNumber : regNo,personName: vehicle_Details.personName,phoneNumber: vehicle_Details.phoneNumber,emailId: vehicle_Details.emailId,entryDate: entryDt,entryTime: entryT,exitDate: temp,exitTime: temp,ExpectedDate: temp,ExpectedentryTime: temp};
-      // console.log("33-33-33-",query);
+      console.log("33-33-33-",latest_entry);
       try{
         await Infodb.create(query);
       }
@@ -110,14 +113,33 @@ class Gate {
     return true;
   }
 
+  async addlatestexitentry(regNo,exitDt,exitT){
+    const vehicle_Details = await Infodb.findOne({vehicleNumber: regNo,exitTime: "NA",entryTime: { $ne: "NA" }}).sort({_id:-1}).limit(1);
+
+    latest_entry.vehicleNumber = regNo;
+    latest_entry.personName = vehicle_Details.personName;
+    latest_entry.phoneNumber = vehicle_Details.phoneNumber;
+    latest_entry.emailId = vehicle_Details.emailId;
+    const query = { vehicleNumber : regNo,personName: vehicle_Details.personName,phoneNumber: vehicle_Details.phoneNumber,emailId: vehicle_Details.emailId,entryDate: entryDt,entryTime: entryT,exitDate: temp,exitTime: temp,ExpectedDate: temp,ExpectedentryTime: temp};
+    console.log("33-33-33-",latest_entry);
+    try{
+      await Infodb.create(query);
+    }
+    catch(err){
+        console.log("failed to insert the document1");
+        console.log(err);
+    }
+
+  }
+
   // exit time done similarly, we have to update the entry in the database with no exit time and the same vehicle no.
 
   async Addentry1(regNo,pername,phNo,email,entryDt,entryT){
 
-    latest_entry.vehicleNo = regNo;
+    latest_entry.vehicleNumber = regNo;
     latest_entry.personName = pername;
-    latest_entry.phoneNo = phNo;
-    latest_entry.email = email;
+    latest_entry.phoneNumber = phNo;
+    latest_entry.emailId = email;
 
     const query = { vehicleNumber : regNo,personName: pername,phoneNumber: phNo,emailId: email,entryDate: entryDt,entryTime: entryT,exitDate: temp,exitTime: temp,ExpectedDate: temp,ExpectedentryTime: temp};
     
@@ -162,9 +184,11 @@ class Gate {
 
   async displaylatestEntry(){
     try{
-
-        const vehicle_Details = await Infodb.findOne({vehicleNumber: latest_entry.vehicleNo}).sort({_id:-1}).limit(1);
-
+        console.log("13-",latest_entry)
+        const vehicle_Details = await Infodb.findOne({vehicleNumber: latest_entry.vehicleNumber}).sort({_id:-1}).limit(1);
+        if(vehicle_Details==null){
+          return latest_entry;
+        }
         return vehicle_Details;
     }
     catch(err)
