@@ -21,8 +21,6 @@ import logo from '../../logo.png';
 //     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 // });
 
-const f_s = require("fs");
-
 // let final = "NA";
 // let oldvalue= "NA";
 

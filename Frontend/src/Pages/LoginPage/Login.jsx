@@ -19,26 +19,7 @@ import MuiAlert from '@mui/material/Alert';
 //import { isLoggedIn, setLoggedIn } from "../global";
 
   
-const theme = createTheme({
-    palette: {
-        primary: {
-          main: '#FFE6C7',
-          dark: '#454545'
-        },
-    },
-    components: {
-      MuiInputBase: {
-        styleOverrides: {
-          input: {
-            backgroundColor: '#7f7c7c',
-            color: '#FFE6C7',
-            fontWeight: 'bold',
-            fontSize: '18.5px',
-          },
-        },
-      },
-    },
-  });
+const theme = createTheme({});
 
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -92,7 +73,6 @@ export const Login = (props) =>{
 
     const placeholderColor = {
         '&::placeholder': {
-          color: '#FFE6C7',
     }};
 
     return(
@@ -128,8 +108,8 @@ export const Login = (props) =>{
                     backgroundPosition: 'center',
                 }}
                 />
-                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square backgroundColor={"#454545"}>
-                <Avatar sx={{ m: 1, bgcolor: '#FFE6C7', color: '#454545',
+                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square backgroundColor={"#eae9e9"}>
+                <Avatar sx={{ m: 1, color: '#eae9e9',
                     position: 'absolute',
                     left: '77.5%',
                     top: '21%'}}>
@@ -147,7 +127,7 @@ export const Login = (props) =>{
                     }}
                 >
                     <Typography component="h1" variant="h4">
-                    <span style={{fontWeight: 'bold', color: '#FFE6C7'}}>Sign in</span>
+                    <span style={{fontWeight: 'bold'}}>Sign in</span>
                     </Typography>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                     <TextField
@@ -185,13 +165,13 @@ export const Login = (props) =>{
                             <MenuItem value={1}>In</MenuItem>
                             <MenuItem value={2}>Out</MenuItem>
                         </Select>
-                        <FormHelperText sx={{color: '#FFE6C7', fontSize: '15px'}}>Select the Gate</FormHelperText>
+                        <FormHelperText sx={{ fontSize: '15px'}}>Select the Gate</FormHelperText>
                     </FormControl>
                     <Button
                         type="submit"
                         fullWidth
                         variant="contained"
-                        sx={{ mt: 1, mb: 2, color: '#454545', backgroundColor: 'primary-main'}}
+                        sx={{ mt: 1, mb: 2, color: '#eae9e9', backgroundColor: 'primary-main'}}
                         data-testid= "login-button-element"
                     >
                     <span style={{fontWeight: 'bold', fontSize: '22px'}}>Sign In</span>
@@ -203,7 +183,7 @@ export const Login = (props) =>{
                     </Snackbar> */}
                     <Grid container>
                         <Grid item xs>
-                            <span onClick={handleforgotpwd} className="link-btn" style={{fontWeight: 'bold',cursor:"pointer", color: '#FFE6C7'}}>Forgot password...Again?</span>
+                            <span onClick={handleforgotpwd} className="link-btn" style={{fontWeight: 'bold',cursor:"pointer"}}>Forgot password...Again?</span>
                         </Grid>
                     </Grid>
                     </Box>
