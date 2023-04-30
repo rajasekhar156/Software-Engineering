@@ -239,12 +239,8 @@ export const Homepage = (props) =>{
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
-                            <FormControlLabel
-                                control={<Checkbox
-                                    onChange={e => setvalid(!valid)}
-                                />}
-                                label="Valid Request" />{
-                                valid ?
+                            {
+                                (personName !== 'NA') ?
                                     <div >
                                         <Card sx={{ Width: '225', height: '225', position: 'absolute', top: '58%', left: '20%' }}>
                                             <CardMedia
