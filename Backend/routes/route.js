@@ -20,6 +20,21 @@ router.post("/",async(req,res) =>{
     }
 });
 
+router.post("/AddLatestEntry",async(req,res)=>{
+  const regNo = req.query.regNo;
+  const date = req.query.date;
+  const time =  req.query.time;
+  try{
+    console.log("156156");
+    isvalid = await gate.AddLatestEntry(regNo,date,time);
+    res.status(200).json("1");
+  }
+  catch(error){
+    console.error(error);
+    res.status(200).json("0");
+  }
+});
+
 router.post("/Addentry",async(req,res)=>{
     const regNo = req.query.regNo;
     const pername = req.query.name;
@@ -31,8 +46,7 @@ router.post("/Addentry",async(req,res)=>{
         if(req.query.online==='1'){
             const expDate = req.query.expDate;
             const expentryT = req.query.expentryT;
-            const expexitT = req.query.expexitT;
-            isvalid = await gate.Addentry2(regNo,pername,phNo,email,expDate,expentryT,expexitT);
+            isvalid = await gate.Addentry2(regNo,pername,phNo,email,expDate,expentryT);
         }
         else{
             const date = req.query.date;
@@ -98,4 +112,24 @@ router.get('/in-vehicles', async (req, res) => {
     }
   });
 
+  router.get('/forgotpass', async(req,res) => {
+    const username = req.query.userName;
+    try 
+    {
+      const pass = await gate.getUserPass(username);
+      if(pass=="")
+      {
+        res.status(200).send("");
+      }
+      else
+      {
+       res.status(200).send(pass);
+      }
+    } 
+    catch (err) 
+    {
+      console.error('Error fetching in password: ', err);
+      res.status(500).send({ error: 'Internal Server Error' });
+    }
+  }) ;
 module.exports = router;

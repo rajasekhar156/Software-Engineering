@@ -1,5 +1,6 @@
 import {useNavigate} from 'react-router-dom'
 import { useState } from 'react';
+import { useRef } from 'react';
 import axios from "axios";
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
@@ -13,17 +14,64 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import emailjs from '@emailjs/browser'
 
 const theme = createTheme();
 
 export const ForgotPassword = (props) =>{
     const [username,setUsername] = useState('');
     const [email,setEmail] = useState('');
+    const [password,setPass] = useState('');
     const navigate = useNavigate();
-
-    const handleSubmit = (e) =>{
+    const form = useRef();
+    const obj = {
+        user_name: username,
+        password: password,
+        user_email: email
+      };
+    const getpass = async (e) => {
         e.preventDefault();
-        console.log(email);
+        let url;
+        url = `http://localhost:5001/api/forgotpass?userName=${username}`;
+        try{
+            const response = await axios.get(url);
+            console.log("11",response.data);
+            if(response.data ==""){
+                alert("OOPS! No data found");
+                navigate('/Forgotpwd');
+            }
+            else{
+                console.log(response.data);
+                setPass(response.data);
+             }
+        }
+        catch (err){
+            console.error('Error fetching password detials\'s: ', err);
+        }
+
+    }
+    const handleSubmit = async(e) =>{
+        e.preventDefault();
+        let url;
+        url = `http://localhost:5001/api/forgotpass?userName=${username}`;
+        try{
+            const response = await axios.get(url);
+            console.log("11",response.data);
+            if(response.data ==""){
+                alert("OOPS! No data found");
+                navigate('/Forgotpwd');
+            }
+            else{
+                console.log(response.data);
+                setPass(response.data);
+             }
+        }
+        catch (err){
+            console.error('Error fetching password detials: ', err);
+        }
+        //console.log(password)
+        console.log(obj)
+        emailjs.send('service_3txhnno','template_d71qtbj',obj,'-Dx_U4USUlKwGnXEO').then((result)=>{console.log(result.text)},(error)=>{console.log(error.text)});
     }
 
     const handleLogin = () =>{
@@ -80,12 +128,12 @@ export const ForgotPassword = (props) =>{
                 <Typography component="h1" variant="h4">
                 <span style={{fontWeight: 'bold'}}>Forgot Password</span>
                 </Typography>
-                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                <Box component="form" ref={form} noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                 <TextField
                     margin="normal"
                     required
                     fullWidth
-                    name="username"
+                    name="user_name"
                     label="User Name"
                     id="username"
                     value={username} 
@@ -99,7 +147,7 @@ export const ForgotPassword = (props) =>{
                     fullWidth
                     id="email"
                     label="Email Address"
-                    name="email"
+                    name="user_email"
                     // autoComplete="email"
                     value={email} 
                     onChange={(e)=>setEmail(e.target.value)}

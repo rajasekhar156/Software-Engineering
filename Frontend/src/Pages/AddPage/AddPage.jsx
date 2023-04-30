@@ -29,7 +29,6 @@ export const Add = (props) =>{
     const [online,setonline] = useState('');
     const [expDate,setexpDate] = useState('');
     const [expentryT,setexpentryT] = useState('');
-    const [expexitT,setexpexitT] = useState('');
 
     const navigate = useNavigate();
     
@@ -67,7 +66,7 @@ export const Add = (props) =>{
             url = `http://localhost:5001/api/Addentry?regNo=${regNo}&name=${name}&phNo=${phNo}&email=${email}&online=${0}&date=${date}&time=${time}`;
         }
         else{
-            url = `http://localhost:5001/api/Addentry?regNo=${regNo}&name=${name}&phNo=${phNo}&email=${email}&online=${1}&expDate=${expDate}&expentryT=${expentryT}&expexitT=${expexitT}`;
+            url = `http://localhost:5001/api/Addentry?regNo=${regNo}&name=${name}&phNo=${phNo}&email=${email}&online=${1}&expDate=${expDate}&expentryT=${expentryT}`;
         }
         
         const tp = await axios.post(url);
@@ -209,17 +208,6 @@ export const Add = (props) =>{
                         label="Expected entry time"
                         value={expentryT}
                         onChange={e => setexpentryT(e.target.value)}
-                        fullWidth
-                        required
-                        sx={{mb: 4}}
-                    />
-                    <TextField
-                        type="time"
-                        variant='outlined'
-                        color='secondary'
-                        label="Expected exit time"
-                        value={expexitT}
-                        onChange={e => setexpexitT(e.target.value)}
                         fullWidth
                         required
                         sx={{mb: 4}}
