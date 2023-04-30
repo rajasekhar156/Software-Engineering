@@ -115,18 +115,25 @@ class Gate {
 
   async addlatestexitentry(regNo,exitDt,exitT){
     const vehicle_Details = await Infodb.findOne({vehicleNumber: regNo,exitTime: "NA",entryTime: { $ne: "NA" }}).sort({_id:-1}).limit(1);
-
+    if(vehicle_Details!=null){
+      latest_entry.vehicleNumber = regNo;
+      latest_entry.personName = vehicle_Details.personName;
+      latest_entry.phoneNumber = vehicle_Details.phoneNumber;
+      latest_entry.emailId = vehicle_Details.emailId;
+    }
     latest_entry.vehicleNumber = regNo;
-    latest_entry.personName = vehicle_Details.personName;
-    latest_entry.phoneNumber = vehicle_Details.phoneNumber;
-    latest_entry.emailId = vehicle_Details.emailId;
-    const query = { vehicleNumber : regNo,personName: vehicle_Details.personName,phoneNumber: vehicle_Details.phoneNumber,emailId: vehicle_Details.emailId,entryDate: entryDt,entryTime: entryT,exitDate: temp,exitTime: temp,ExpectedDate: temp,ExpectedentryTime: temp};
+    // const query = { vehicleNumber : regNo,personName: vehicle_Details.personName,phoneNumber: vehicle_Details.phoneNumber,emailId: vehicle_Details.emailId,entryDate: entryDt,entryTime: entryT,exitDate: temp,exitTime: temp,ExpectedDate: temp,ExpectedentryTime: temp};
     console.log("33-33-33-",latest_entry);
     try{
-      await Infodb.create(query);
+      // await Infodb.create(query);  
+      console.log(exitDt,exitT);
+            const vehicle_Details = await Infodb.findOneAndUpdate({vehicleNumber: regNo,exitTime: temp},{$set:{exitDate: exitDt,exitTime: exitT}});
+      // const vehicle_Details = await Infodb.findOne({vehicleNumber: regNo}).sort({_id:-1}).limit(1);
+      console.log(vehicle_Details)
+      return true;
     }
     catch(err){
-        console.log("failed to insert the document1");
+        console.log("failed to edit the document1");
         console.log(err);
     }
 

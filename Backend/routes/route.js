@@ -24,14 +24,23 @@ router.post("/AddLatestEntry",async(req,res)=>{
   const regNo = req.query.regNo;
   const date = req.query.date;
   const time =  req.query.time;
+  console.log("happy");
   try{
-    // console.log("156156");
-    isvalid = await gate.AddLatestEntry(regNo,date,time);
-    if(isvalid===true){
-      res.status(200).json("1");
+    console.log("156156");
+    if(gate.gateno==1){
+      isvalid = await gate.AddLatestEntry(regNo,date,time);
+      if(isvalid===true){
+        res.status(200).json("1");
+        console.log("raja1");
+      }
+      else{
+        res.status(200).json(isvalid);
+      }
     }
     else{
-      res.status(200).json(isvalid);
+      isvalid = await gate.addlatestexitentry(regNo,date,time);
+      console.log("raja");
+      res.status(200).json("1");
     }
   }
   catch(error){
