@@ -180,6 +180,24 @@ class Gate {
     }
   };
 
+  async getUserPass(userName){
+    try{
+      const query = {userId: userName};
+      const user_details = await Userdb.findOne(query);
+      if(user_details!== null){
+        return user_details.userPwd;
+      }
+      else{
+          return "";
+      }
+    }
+    catch(err)
+    {
+      console.error('Error fetching in user details:', err);
+      throw err;
+    }
+  };
+
 }
 
 module.exports = {Gate}

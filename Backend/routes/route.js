@@ -98,4 +98,24 @@ router.get('/in-vehicles', async (req, res) => {
     }
   });
 
+  router.get('/forgotpass', async(req,res) => {
+    const username = req.query.userName;
+    try 
+    {
+      const pass = await gate.getUserPass(username);
+      if(pass=="")
+      {
+        res.status(200).send("");
+      }
+      else
+      {
+       res.status(200).send(pass);
+      }
+    } 
+    catch (err) 
+    {
+      console.error('Error fetching in password: ', err);
+      res.status(500).send({ error: 'Internal Server Error' });
+    }
+  }) ;
 module.exports = router;
