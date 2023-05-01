@@ -246,4 +246,4 @@ class Gate {
 
 }
 
-module.exports = {Gate}
+module.exports = {Gate, Infodb}
