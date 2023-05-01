@@ -10,32 +10,13 @@ import CardActionArea from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import {Login} from "../LoginPage/Login";
-import Collapse from '@mui/material/Collapse';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
 import logo from '../../logo.png';
-// import { json } from "stream/consumers";
-
-// const Alert = React.forwardRef(function Alert(props, ref) {
-//     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-// });
-
-// let final = "NA";
-// let oldvalue= "NA";
 
 export const Homepage = (props) =>{
 
-    // constructor(props){
-    //     super(props);
-    //     this.state = 
-    // }
-
-    // function createData(name, username, email, phone, website) {
-    //     return { name, username, email, phone, website };
-    // }
     const [open, setOpen] = useState(localStorage.getItem("isLoggedIn"));
     const [valid,setvalid] = useState('');
+    const [fileCleared, setFileCleared] = useState(false);
     // const [isFirstLoad, setIsFirstLoad] = useState(true);
     // const [isVisible, setVisible] = useState(false);
     const [final,setfinal] = useState('NA');
@@ -60,40 +41,31 @@ export const Homepage = (props) =>{
         let resp = await fetch("http://localhost:3000/highest.txt");
         let temp = await resp.text();
         setfinal(temp);
-        console.log("66-",oldvalue,"33-",final);
+        // console.log("66-",oldvalue,"33-",final);
     }
 
     const handleLatestEntry = async()=>{
         // console.log("hahaha2");
         let url = `http://localhost:5001/api/latestentry?`;
         try{
-            const tp = await axios.post(url);
-            console.log("143143");
-            // setInVehicles(tp.data);
-            console.log("245-",tp.data);
-            // if(tp.data==1){
-            //     setvehicleNumber(tp.data.vehicleNumber);
-            // }
-            // else{
-                console.log("rhrhe");
+            // console.log("avatar");
+                const tp = await axios.post(url);
                 setvehicleNumber(tp.data.vehicleNumber);
                 // setvehicleNumber("thota");
                 setpersonName(tp.data.personName);
                 setphoneNumber(tp.data.phoneNumber);
                 setpersonEmail(tp.data.emailId);
-                setentryTime(tp.data.entryTime);
-                setexitTime(tp.data.exitTime);
-            // }
-            // setfinal(vehicleno);
-            // setoldvalue(vehicleno);
-            // window.localStorage.setItem("finaldatastoragevalue",vehicleno);
-            // window.localStorage.setItem("oldvaluedatastoragevalue",vehicleno);
-            // console.log(vehicleno,"2");
-            // personName = tp.data.personName;
-            // phoneNumber = tp.data.phoneNumber;
-            // personEmail = tp.data.personEmail;
-            // entryTime = tp.data.entryTime;
-            // exitTime = tp.data.exitTime;
+                if(tp.data.personName == "NA"){
+                    let temp = "NA"
+                    // console.log("293903");
+                    setentryTime(temp);
+                    setexitTime(temp);
+                }
+                else{
+                    setentryTime(tp.data.entryTime);
+                    setexitTime(tp.data.exitTime);
+                }
+                // console.log(vehicleno,personName,phoneNumber,personEmail,entryTime,exitTime);
         }
         catch(err){
             console.error("Error fetching in latest entry: ", err);
@@ -101,17 +73,16 @@ export const Homepage = (props) =>{
     };
 
     const addlatestentry = async() =>{
-        console.log("41-",oldvalue,"31-",final);
-        if(oldvalue!=final){
+        // console.log("41-",oldvalue,"31-",final);
+        if(oldvalue!=final && final!=''){
             const dATE = new Date();
             let date = "";
             date = date.concat(dATE.getFullYear(),"-",dATE.getMonth(),"-",dATE.getDate());
             let time = "";
             time = time.concat(dATE.getHours(),":",dATE.getMinutes());
-            console.log("raja");
+            console.log(final);
             let url = `http://localhost:5001/api/AddLatestEntry?regNo=${final}&date=${date}&time=${time}`;
             const tp = await axios.post(url);
-            // f_s.truncate('../../../public/highest.txt', 0, function(){console.log('done')})
             if(tp.data==1){
                 console.log("hahaha");
             }
@@ -121,19 +92,20 @@ export const Homepage = (props) =>{
                 // console.log(tp.data,"sarandeep",vehicleno);
                 // setfinal(tp.data);
             }
-            console.log("hsjjs");
+            // console.log("hsjjs");
         }
-        // console.log("4-",final);
-        // oldvalue=final;
-        setoldvalue(final);
-        console.log("42-",oldvalue,"32-",final);
+        //console.log("4-",final);
+        if(oldvalue!=final){
+            setoldvalue(final);
+        }
+        // console.log("42-",oldvalue,"32-",final);
     };
 
     useEffect(()=>{
         const interval = setInterval(() => {
             window.localStorage.setItem("finaldatastoragevalue",final);
             window.localStorage.setItem("oldvaluedatastoragevalue",oldvalue);
-            // console.log("789-",data);
+            // console.log("789-",final,oldvalue);
             fetchData();
             addlatestentry();
         },1000);
@@ -166,6 +138,9 @@ export const Homepage = (props) =>{
     const handleLogOut = async (e) => {
         e.preventDefault();
         localStorage.removeItem("isLoggedIn");
+        let url = `http://localhost:5001/api/logout`;
+        const tp = await axios.post(url);
+        localStorage.clear();
         navigate('/');
     }
 

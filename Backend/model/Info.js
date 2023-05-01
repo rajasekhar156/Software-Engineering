@@ -92,7 +92,7 @@ class Gate {
       latest_entry.personName = temp;
       latest_entry.phoneNumber = temp;
       latest_entry.emailId = temp;
-      console.log("33-33-33-",latest_entry);
+      // console.log("33-33-33-",latest_entry);
       return regNo;
     }
     else{
@@ -101,7 +101,7 @@ class Gate {
       latest_entry.phoneNumber = vehicle_Details.phoneNumber;
       latest_entry.emailId = vehicle_Details.emailId;
       const query = { vehicleNumber : regNo,personName: vehicle_Details.personName,phoneNumber: vehicle_Details.phoneNumber,emailId: vehicle_Details.emailId,entryDate: entryDt,entryTime: entryT,exitDate: temp,exitTime: temp,ExpectedDate: temp,ExpectedentryTime: temp};
-      console.log("33-33-33-",latest_entry);
+      // console.log("33-33-33-",latest_entry);
       try{
         await Infodb.create(query);
       }
@@ -115,18 +115,25 @@ class Gate {
 
   async addlatestexitentry(regNo,exitDt,exitT){
     const vehicle_Details = await Infodb.findOne({vehicleNumber: regNo,exitTime: "NA",entryTime: { $ne: "NA" }}).sort({_id:-1}).limit(1);
-
+    if(vehicle_Details!=null){
+      latest_entry.vehicleNumber = regNo;
+      latest_entry.personName = vehicle_Details.personName;
+      latest_entry.phoneNumber = vehicle_Details.phoneNumber;
+      latest_entry.emailId = vehicle_Details.emailId;
+    }
     latest_entry.vehicleNumber = regNo;
-    latest_entry.personName = vehicle_Details.personName;
-    latest_entry.phoneNumber = vehicle_Details.phoneNumber;
-    latest_entry.emailId = vehicle_Details.emailId;
-    const query = { vehicleNumber : regNo,personName: vehicle_Details.personName,phoneNumber: vehicle_Details.phoneNumber,emailId: vehicle_Details.emailId,entryDate: entryDt,entryTime: entryT,exitDate: temp,exitTime: temp,ExpectedDate: temp,ExpectedentryTime: temp};
-    console.log("33-33-33-",latest_entry);
+    // const query = { vehicleNumber : regNo,personName: vehicle_Details.personName,phoneNumber: vehicle_Details.phoneNumber,emailId: vehicle_Details.emailId,entryDate: entryDt,entryTime: entryT,exitDate: temp,exitTime: temp,ExpectedDate: temp,ExpectedentryTime: temp};
+    // console.log("33-33-33-",latest_entry);
     try{
-      await Infodb.create(query);
+      // await Infodb.create(query);  
+      // console.log(exitDt,exitT);
+            const vehicle_Details = await Infodb.findOneAndUpdate({vehicleNumber: regNo,exitTime: temp},{$set:{exitDate: exitDt,exitTime: exitT}});
+      // const vehicle_Details = await Infodb.findOne({vehicleNumber: regNo}).sort({_id:-1}).limit(1);
+      // console.log(vehicle_Details)
+      return true;
     }
     catch(err){
-        console.log("failed to insert the document1");
+        console.log("failed to edit the document1");
         console.log(err);
     }
 
@@ -143,7 +150,7 @@ class Gate {
 
     const query = { vehicleNumber : regNo,personName: pername,phoneNumber: phNo,emailId: email,entryDate: entryDt,entryTime: entryT,exitDate: temp,exitTime: temp,ExpectedDate: temp,ExpectedentryTime: temp};
     
-    console.log(query);
+    // console.log(query);
     try{
         await Infodb.create(query);
     }
@@ -158,7 +165,7 @@ class Gate {
     
     const query = { vehicleNumber : regNo,personName: pername,phoneNumber: phNo,emailId: email,entryDate: temp,entryTime: temp,exitDate: temp,exitTime: temp,ExpectedDate: expDate,ExpectedentryTime: expentryT};
 
-    console.log(query);
+    // console.log(query);
     try{
         await Infodb.create(query);
     }
@@ -229,9 +236,11 @@ class Gate {
   async getUserPass(userName){
     try{
       const query = {userId: userName};
-      const user_details = await Userdb.findOne(query);
-      if(user_details!== null){
-        return user_details.userPwd;
+      const user_details = await Userdb.find(query);
+      // console.log(user_details);
+      if(user_details.length !== 0){
+        // console.log("sasj",user_details[0].userPwd);
+        return user_details[0].userPwd;
       }
       else{
           return "";
@@ -246,4 +255,4 @@ class Gate {
 
 }
 
-module.exports = {Gate}
+module.exports = {Gate, Infodb}

@@ -41,6 +41,7 @@ export const Login = (props) =>{
 	    // setDataInput([info]);
         // run();
         let url;
+        // console.log(gateNo);
         url = `http://localhost:5001/api?userid=${userId}&userpwd=${password}&gateno=${gateNo}`;
         
         const tp = await axios.post(url);
@@ -76,18 +77,6 @@ export const Login = (props) =>{
     }};
 
     return(
-        // <div className="auth-form">
-        //     <h2>Login</h2>
-        //     <form className="login-form" onSubmit={handleSubmit}>
-        //         <label>User Id</label>
-        //         <input value={userId} onChange={(e)=>setuserId(e.target.value)} type='text' placeholder="security3096@iith.ac.in" id='userId'></input>
-        //         <label>Password</label>
-        //         <input value={password} onChange={(e)=>setPassword(e.target.value)} type='password' placeholder="********" id='password'></input>
-        //         <button type="submit">Enter</button>
-        //         <button className="link-btn" onClick={handleforgotpwd}>ForgotPassword</button>
-        //     </form>
-        // </div>
-
 
         <ThemeProvider theme={theme}>
             <Grid container component="main" sx={{ height: '100vh' }}>

@@ -29,27 +29,27 @@ export const ForgotPassword = (props) =>{
         password: password,
         user_email: email
       };
-    const getpass = async (e) => {
-        e.preventDefault();
-        let url;
-        url = `http://localhost:5001/api/forgotpass?userName=${username}`;
-        try{
-            const response = await axios.get(url);
-            console.log("11",response.data);
-            if(response.data ==""){
-                alert("OOPS! No data found");
-                navigate('/Forgotpwd');
-            }
-            else{
-                console.log(response.data);
-                setPass(response.data);
-             }
-        }
-        catch (err){
-            console.error('Error fetching password detials\'s: ', err);
-        }
+    // const getpass = async (e) => {
+    //     e.preventDefault();
+    //     let url;
+    //     url = `http://localhost:5001/api/forgotpass?userName=${username}`;
+    //     try{
+    //         const response = await axios.get(url);
+    //         console.log("11",response.data);
+    //         if(response.data ==""){
+    //             alert("OOPS! No data found");
+    //             navigate('/Forgotpwd');
+    //         }
+    //         else{
+    //             console.log(response.data);
+    //             setPass(response.data);
+    //          }
+    //     }
+    //     catch (err){
+    //         console.error('Error fetching password detials\'s: ', err);
+    //     }
 
-    }
+    // }
     const handleSubmit = async(e) =>{
         e.preventDefault();
         let url;
