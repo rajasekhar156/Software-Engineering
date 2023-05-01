@@ -1,15 +1,17 @@
 const router = require("express").Router();
 const {Gate} = require("../model/Info");
+const fs = require("fs");
 
-let gate = new Gate();
- 
+let gate;
+
 router.post("/",async(req,res) =>{
+    gate = new Gate();
     const username = req.query.userid;
     const userpwd = req.query.userpwd;
     const gateno = req.query.gateno;
-
+    // console.log("GateNumber",gateno);
     gate.setgateNo(gateno);
-
+    console.log(gate.getgateNo());
     const isvalid = await gate.isValidLogin(username,userpwd);
 
     if(isvalid){
@@ -20,21 +22,48 @@ router.post("/",async(req,res) =>{
     }
 });
 
+router.post("/logout",async(req,res) =>{
+  try{
+    gate = null;
+    res.status(200).json("1");
+  }
+  catch(error){
+    console.error(error);
+    res.status(200).json("0");
+  }
+})
+
 router.post("/AddLatestEntry",async(req,res)=>{
   const regNo = req.query.regNo;
   const date = req.query.date;
   const time =  req.query.time;
   console.log("happy");
   try{
-    console.log("156156");
-    if(gate.gateno==1){
+    console.log(gate.getgateNo());
+    const filePath = '/home/rocky/Downloads/Software-Engineering/Frontend/public/highest.txt';
+    // fs.open(filePath, 'w', (err, fd) => {
+    //   if (err) throw err;
+    
+    //   // truncate the file to 0 bytes
+    //   fs.ftruncate(fd, 0, (err) => {
+    //     if (err) throw err;
+    
+    //     // close the file
+    //     fs.close(fd, (err) => {
+    //       if (err) throw err;
+    //       console.log('File cleared successfully.');
+    //     });
+    //   });
+    // });
+    if(gate.getgateNo()==1){
       isvalid = await gate.AddLatestEntry(regNo,date,time);
+      console.log(isvalid);
       if(isvalid===true){
-        res.status(200).json("1");
         console.log("raja1");
+        res.status(200).json("1");
       }
       else{
-        res.status(200).json(isvalid);
+        res.status(200).json("0");
       }
     }
     else{
@@ -77,11 +106,12 @@ router.post("/Addentry",async(req,res)=>{
 
 router.post("/latestentry", async (req, res) => {
     try{
+        console.log("ra",gate.getgateNo());
         const latest_entry = await gate.displaylatestEntry();
-        // console.log(latest_entry);
         // if(latest_entry==false){
         //   res.status(200).send(latest_entry);
         // }
+        console.log("inlatestentry-",latest_entry);
         res.status(200).send(latest_entry);
     }
     catch (err){

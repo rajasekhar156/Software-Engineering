@@ -84,6 +84,9 @@ export const Search = (props) => {
     const handleLogOut = async (e) => {
         e.preventDefault();
         localStorage.removeItem("isLoggedIn");
+        let url = `http://localhost:5001/api/logout`;
+        const tp = await axios.post(url);
+        localStorage.clear();
         navigate('/');
     }
     const handleClose = (event, reason) => {
@@ -194,7 +197,10 @@ export const Search = (props) => {
                             <TableCell>Person Name</TableCell>
                             <TableCell>Phone Number</TableCell>
                             <TableCell>Email ID</TableCell>
+                            <TableCell>Entry Date</TableCell>
                             <TableCell>Entry Time</TableCell>
+                            <TableCell>Exit Date</TableCell>
+                            <TableCell>Exit Time</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -204,7 +210,10 @@ export const Search = (props) => {
                                 <TableCell>{vehicle.personName}</TableCell>
                                 <TableCell>{vehicle.phoneNumber}</TableCell>
                                 <TableCell>{vehicle.emailId}</TableCell>
+                                <TableCell>{vehicle.entryDate}</TableCell>
                                 <TableCell>{vehicle.entryTime}</TableCell>
+                                <TableCell>{vehicle.exitDate}</TableCell>
+                                <TableCell>{vehicle.exitTime}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

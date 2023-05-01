@@ -134,8 +134,11 @@ export const ActiveEntries = () => {
   };
   const handleLogOut = async (e) => {
     e.preventDefault();
-    localStorage.removeItem("isLoggedIn");
-    navigate('/');
+        localStorage.removeItem("isLoggedIn");
+        let url = `http://localhost:5001/api/logout`;
+        const tp = await axios.post(url);
+        localStorage.clear();
+        navigate('/');
   };
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {

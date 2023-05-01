@@ -48,6 +48,9 @@ export const Add = (props) =>{
     const handleLogOut = async (e) => {
         e.preventDefault();
         localStorage.removeItem("isLoggedIn");
+        let url = `http://localhost:5001/api/logout`;
+        const tp = await axios.post(url);
+        localStorage.clear();
         navigate('/');
     }
     const handleClose = (event, reason) => {
@@ -94,7 +97,7 @@ export const Add = (props) =>{
             <div width = "100%" height = "100%">
                 <Card sx={{ Width: '100%', height: '100%'}}>
                     <CardMedia
-                        style={{ height: 960, width: 1840, opacity: 0.5 }}
+                        style={{ height: 940, width: 1845, opacity: 0.5 }}
                         image={require('./gate.jpg')} // require image
                         title="invalid entry"
                     />
@@ -102,7 +105,7 @@ export const Add = (props) =>{
             </div>
         <Grid container component="main" >
         <Grid width={"100%"} height={"100%"} component={Paper} elevation={6} square>
-            <Box position={"absolute"} bgcolor={"#000000"} top={"0%"} left={"0%"} width={1847} >
+            <Box position={"absolute"} bgcolor={"#000000"} top={"0%"} left={"0%"} width={1845} >
             <AppBar position="static">
                 <Toolbar >
                 <Link>
@@ -124,7 +127,7 @@ export const Add = (props) =>{
             </Toolbar>
             </AppBar>
             </Box>
-            <Box width = {"58%"} bgcolor = "#fff" position={"absolute"} left={"17%"} paddingLeft={10} paddingRight={10} paddingTop={5} paddingBottom={5} top={"15%"} right = {"18.5%"} sx={{ flexGrow: 1}}>
+            <Box width = {"58%"} bgcolor = "#fff" position={"absolute"} left={"18%"} paddingLeft={10} paddingRight={10} paddingTop={5} paddingBottom={5} top={"15%"} right = {"18.5%"} sx={{ flexGrow: 1}}>
             <form className="add-entry-form" onSubmit={handleSubmit}>
             <TextField
                 type="text"
