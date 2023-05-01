@@ -97,8 +97,8 @@ export const Add = (props) =>{
             <div width = "100%" height = "100%">
                 <Card sx={{ Width: '100%', height: '100%'}}>
                     <CardMedia
-                        style={{ height: 940, width: 1845, opacity: 0.5 }}
-                        image={require('./gate.jpg')} // require image
+                        style={{ height: 960, width: 1840, opacity: 0.5 }}
+                        image={require('../gate.jpg')} // require image
                         title="invalid entry"
                     />
                 </Card>

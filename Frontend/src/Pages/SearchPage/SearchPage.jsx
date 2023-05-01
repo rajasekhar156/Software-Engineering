@@ -10,7 +10,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import IconButton from '@mui/material/IconButton';
 import { styled, alpha } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Card, CardMedia } from '@mui/material';
 import Link from '@mui/material/Link';
 import logo from '../../logo.png';
 import Snackbar from '@mui/material/Snackbar';
@@ -133,6 +133,15 @@ export const Search = (props) => {
     if (localStorage.getItem("isLoggedIn") == "true") {
     return (
         <div>
+            <div width = "100%" height = "100%">
+                <Card sx={{ Width: '100%', height: '100%'}}>
+                    <CardMedia
+                        style={{ height: 960, width: 1840, opacity: 0.5 }}
+                        image={require('../gate.jpg')} // require image
+                        title="invalid entry"
+                    />
+                </Card>
+            </div>
             <Box position={"absolute"} top={"0%"} left={"0%"} width={"100%"} >
                 <AppBar position="static">
                     <Toolbar >
@@ -188,7 +197,7 @@ export const Search = (props) => {
             </form>
             </Box> 
             
-            <Box position={"absolute"} top={"20%"} left={"0%"} width={"100%"} >
+            <Box position={"absolute"} top={"20%"} left={"5%"} right={"5%"} width={"90%"} >
             <TableContainer component={Paper} sx={{ overflow: "scroll", height: "500px" }}>
                 <Table>
                     <TableHead>

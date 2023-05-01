@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import AppBar from "@mui/material/AppBar";
+import {AppBar, Card, CardMedia } from "@mui/material";
 import Box from "@mui/material/Box";
 import Link from '@mui/material/Link';
 import Toolbar from "@mui/material/Toolbar";
@@ -152,6 +152,15 @@ export const ActiveEntries = () => {
   if (localStorage.getItem("isLoggedIn") == "true") {
   return (
     <div>
+      <div width = "100%" height = "100%">
+          <Card sx={{ Width: '100%', height: '100%'}}>
+              <CardMedia
+                  style={{ height: 960, width: 1840, opacity: 0.5 }}
+                  image={require('../gate.jpg')} // require image
+                  title="invalid entry"
+              />
+          </Card>
+      </div>
           <Box position={"absolute"} top={"0%"} left={"0%"} width={"100%"} >
             <AppBar position="static">
                 <Toolbar >
@@ -173,7 +182,7 @@ export const ActiveEntries = () => {
             </Toolbar>
             </AppBar>
             </Box>
-      <Box position={"absolute"} top={"10%"} left={"0%"} width={"100%"} >
+      <Box position={"absolute"} top={"10%"} left={"5%"} right = {"5%"} width={"90%"} >
         {/* <Button variant="text" onClick={fetchData}>Fetch In Vehicles</Button> */}
         {/* <TableContainer
           component={Paper}
