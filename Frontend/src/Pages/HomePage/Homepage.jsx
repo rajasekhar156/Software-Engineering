@@ -41,14 +41,14 @@ export const Homepage = (props) =>{
         let resp = await fetch("http://localhost:3000/highest.txt");
         let temp = await resp.text();
         setfinal(temp);
-        console.log("66-",oldvalue,"33-",final);
+        // console.log("66-",oldvalue,"33-",final);
     }
 
     const handleLatestEntry = async()=>{
         // console.log("hahaha2");
         let url = `http://localhost:5001/api/latestentry?`;
         try{
-            console.log("avatar");
+            // console.log("avatar");
                 const tp = await axios.post(url);
                 setvehicleNumber(tp.data.vehicleNumber);
                 // setvehicleNumber("thota");
@@ -57,7 +57,7 @@ export const Homepage = (props) =>{
                 setpersonEmail(tp.data.emailId);
                 if(tp.data.personName == "NA"){
                     let temp = "NA"
-                    console.log("293903");
+                    // console.log("293903");
                     setentryTime(temp);
                     setexitTime(temp);
                 }
@@ -65,7 +65,7 @@ export const Homepage = (props) =>{
                     setentryTime(tp.data.entryTime);
                     setexitTime(tp.data.exitTime);
                 }
-                console.log(vehicleno,personName,phoneNumber,personEmail,entryTime,exitTime);
+                // console.log(vehicleno,personName,phoneNumber,personEmail,entryTime,exitTime);
         }
         catch(err){
             console.error("Error fetching in latest entry: ", err);
@@ -73,7 +73,7 @@ export const Homepage = (props) =>{
     };
 
     const addlatestentry = async() =>{
-        console.log("41-",oldvalue,"31-",final);
+        // console.log("41-",oldvalue,"31-",final);
         if(oldvalue!=final && final!=''){
             const dATE = new Date();
             let date = "";
@@ -92,20 +92,20 @@ export const Homepage = (props) =>{
                 // console.log(tp.data,"sarandeep",vehicleno);
                 // setfinal(tp.data);
             }
-            console.log("hsjjs");
+            // console.log("hsjjs");
         }
         //console.log("4-",final);
         if(oldvalue!=final){
             setoldvalue(final);
         }
-        console.log("42-",oldvalue,"32-",final);
+        // console.log("42-",oldvalue,"32-",final);
     };
 
     useEffect(()=>{
         const interval = setInterval(() => {
             window.localStorage.setItem("finaldatastoragevalue",final);
             window.localStorage.setItem("oldvaluedatastoragevalue",oldvalue);
-            console.log("789-",final,oldvalue);
+            // console.log("789-",final,oldvalue);
             fetchData();
             addlatestentry();
         },1000);

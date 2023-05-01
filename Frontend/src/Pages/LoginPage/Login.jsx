@@ -41,7 +41,7 @@ export const Login = (props) =>{
 	    // setDataInput([info]);
         // run();
         let url;
-        console.log(gateNo);
+        // console.log(gateNo);
         url = `http://localhost:5001/api?userid=${userId}&userpwd=${password}&gateno=${gateNo}`;
         
         const tp = await axios.post(url);

@@ -183,34 +183,6 @@ export const ActiveEntries = () => {
             </AppBar>
             </Box>
       <Box position={"absolute"} top={"10%"} left={"5%"} right = {"5%"} width={"90%"} >
-        {/* <Button variant="text" onClick={fetchData}>Fetch In Vehicles</Button> */}
-        {/* <TableContainer
-          component={Paper}
-          sx={{ overflow: "scroll", height: "500px" }}
-        >
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Vehicle Number</TableCell>
-                <TableCell>Person Name</TableCell>
-                <TableCell>Phone Number</TableCell>
-                <TableCell>Email ID</TableCell>
-                <TableCell>Entry Time</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {inVehicles.map((vehicle) => (
-                <TableRow key={vehicle._id}>
-                  <TableCell>{vehicle.vehicleNumber}</TableCell>
-                  <TableCell>{vehicle.personName}</TableCell>
-                  <TableCell>{vehicle.phoneNumber}</TableCell>
-                  <TableCell>{vehicle.emailId}</TableCell>
-                  <TableCell>{vehicle.entryTime}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer> */}
         <MaterialReactTable
           columns={columns}
           data={data}
