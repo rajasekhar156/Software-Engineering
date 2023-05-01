@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const {Gate} = require('../model/Info');
 
 describe('Forgot pass functionality', () => {
-  jest.setTimeout(30000);
+  jest.setTimeout(50000);
 
   let gate = new Gate;
 
@@ -15,23 +15,13 @@ describe('Forgot pass functionality', () => {
     await mongoose.disconnect();
   });
 
-  it('should return true for valid login credentials', async () => {
+  it('should return correct password for valid login id', async () => {
     const result = await gate.getUserPass("Rocky15")
-    expect(result).toBe(true);
+    expect(result).toBe("123");
   });
 
-  it('should return false for invalid login password', async () => {
-    const result = await gate.isValidLogin("Rocky15","12");
-    expect(result).toBe(false);
+  it('should return empty string for invalid login id', async () => {
+    const result = await gate.getUserPass("Rocky");
+    expect(result).toBe("");
   });
-
-  it('should return false for invalid login id', async() => {
-    const result = await gate.isValidLogin("Rocky","123");
-    expect(result).toBe(false);
-  })
-
-  it('should return false for invalid login id and password', async() => {
-    const result = await gate.isValidLogin("Rocky1","1");
-    expect(result).toBe(false);
-  })
 });

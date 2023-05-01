@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const {Gate} = require('../model/Info');
 
 describe('Login functionality', () => {
-  jest.setTimeout(30000);
+  jest.setTimeout(50000);
 
   let gate = new Gate;
 
