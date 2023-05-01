@@ -236,9 +236,11 @@ class Gate {
   async getUserPass(userName){
     try{
       const query = {userId: userName};
-      const user_details = await Userdb.findOne(query);
-      if(user_details!== null){
-        return user_details.userPwd;
+      const user_details = await Userdb.find(query);
+      // console.log(user_details);
+      if(user_details.length !== 0){
+        // console.log("sasj",user_details[0].userPwd);
+        return user_details[0].userPwd;
       }
       else{
           return "";

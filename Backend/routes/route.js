@@ -160,10 +160,14 @@ router.get('/in-vehicles', async (req, res) => {
   });
 
   router.get('/forgotpass', async(req,res) => {
+    gate = new Gate();
+    // gate.setgateNo(1);
     const username = req.query.userName;
     try 
     {
+      console.log("i339");
       const pass = await gate.getUserPass(username);
+      console.log(pass);
       if(pass=="")
       {
         res.status(200).send("");
