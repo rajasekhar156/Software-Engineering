@@ -24,6 +24,7 @@ router.post("/",async(req,res) =>{
 
 router.post("/logout",async(req,res) =>{
   try{
+    gate.rmlatestentry();
     gate = null;
     res.status(200).json("1");
   }
@@ -165,9 +166,9 @@ router.get('/in-vehicles', async (req, res) => {
     const username = req.query.userName;
     try 
     {
-      console.log("i339");
+      // console.log("i339");
       const pass = await gate.getUserPass(username);
-      console.log(pass);
+      // console.log(pass);
       if(pass=="")
       {
         res.status(200).send("");

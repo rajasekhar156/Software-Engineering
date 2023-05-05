@@ -253,6 +253,14 @@ class Gate {
     }
   };
 
+  async rmlatestentry(){
+    // latest_entry = new Info(temp,temp,temp,temp);
+    latest_entry.vehicleNumber = temp;
+    latest_entry.personName = temp;
+    latest_entry.phoneNumber = temp;
+    latest_entry.emailId = temp;
+  }
+
 }
 
 module.exports = {Gate, Infodb}
