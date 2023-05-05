@@ -49,7 +49,7 @@ All modules listed as dependencies in package.json inside the Backend library wi
 ```
 Input the image file name (present in the src folder in the openalpr directory).
 
-## Test Cases
+## Testing
 To run the tests, head to the corresponding folder and run the following command.
 ```bash
   npm run test
